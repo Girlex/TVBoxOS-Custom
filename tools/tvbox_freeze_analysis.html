@@ -1,0 +1,68 @@
+<meta charset="utf-8">
+<style>
+body{font-family:system-ui,-apple-system,sans-serif;margin:30px;background:#fafafa;color:#222;line-height:1.65}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin-top:30px;border-bottom:1px solid #ddd;padding-bottom:6px}
+h3{font-size:14px;margin:18px 0 6px}.muted{color:#777;font-size:13px}
+table{border-collapse:collapse;background:#fff;width:100%;font-size:13px}
+th,td{border:1px solid #ddd;padding:8px 11px;text-align:left;vertical-align:top}
+th{background:#f0f0f0;font-weight:500}
+code,pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px}
+code{background:#eee;padding:1px 5px;border-radius:3px}
+pre{background:#fff;border:1px solid #ddd;padding:12px;white-space:pre-wrap;line-height:1.55}
+.bad{color:#a32d2d;font-weight:500}.warn{color:#854f0b;font-weight:500}.ok{color:#0f6e56;font-weight:500}
+.tag{display:inline-block;background:#e6f1fb;color:#0c447c;border:1px solid #185fa5;border-radius:4px;padding:1px 7px;font-size:12px;margin-right:5px}
+</style>
+<h1>TVBox 卡死根因分析</h1>
+<p class="muted">设备 <code>d8cb2a1f</code> · ZTE S2002 · Android 7.1.2 (API 25) · 机上版本 <code>versionCode=1 / 1.0.0</code> · 日志抓取于 2026-11-15 12:44 · 数据源 <code>tools/device_logs/tvbox_app_log.txt</code></p>
+
+<h2>结论速览</h2>
+<p>「容易卡死」不是配置源失效，而是<strong>三件事叠加</strong>：融合成 1400 站点的单一巨源把聚合搜索规模放大了几十倍；第三方 spider jar 在老设备上做同步联网初始化、还引用了不存在的系统 API；Android 7.1 的 ART 在并发加载多个 dex 时会命中类校验竞态，直接 native abort 杀进程。前两者造成「转圈、慢、点开没反应」，第三者造成「黑屏 / 退回桌面」的硬卡死。</p>
+<table>
+<tr><th>现象</th><th>直接原因</th><th>日志证据</th></tr>
+<tr><td class="warn">转圈不出结果</td><td>一次搜索遍历全部 1400 个站点，6~12 并发、每站点 15 秒超时</td><td>12:42 单分钟 308 行日志；<code>getSearch</code> 出现 30 次</td></tr>
+<tr><td class="warn">点开站点卡数秒</td><td>jar 的 <code>Init.init()</code> 同步联网，逐个 ABI 下载 so，12 次请求全 404</td><td>12:42:32.786 → 12:42:40.312，约 7.5 秒纯阻塞</td></tr>
+<tr><td class="bad">ANR / 界面冻结</td><td>主线程被搜索结果聚合占住近 7 秒</td><td>12:35:04 <code>Wait queue head age: 6969.2ms</code>；12:35:08 ANR</td></tr>
+<tr><td class="bad">闪退 / 退回桌面</td><td>并发 <code>DexClassLoader</code> 触发 ART 类校验状态机断言，native abort</td><td>12:35:08、12:35:43 两次 <code>BaseSpiderGuard … StatusVerifying</code></td></tr>
+</table>
+
+<h2>一、硬卡死：ART 类校验竞态（致命）</h2>
+<pre>12:35:08.304  E ActivityManager: ANR in com.github.tvbox.osc.jun (.../SearchActivity)
+12:35:08.563  F DEBUG: Abort message: 'art/runtime/class_linker.cc:3851]
+  Check failed: klass->IsErroneous() || (klass->GetStatus() > old_status)
+  Class 'java.lang.Class&lt;com.github.catvod.spider.BaseSpiderGuard&gt;' performed an illegal
+  verification state transition from StatusVerifying to StatusVerifying'
+12:35:11.560  I ActivityManager: Process com.github.tvbox.osc.jun (pid 6769) has died
+12:35:43.823  F DEBUG: 同样的 abort（重启后 pid 7831，仅 20 秒）
+12:35:46.174  W ActivityManager: Process ... has crashed too many times: killing!</pre>
+<p>崩溃线程名 <code>pool-13-thread-</code>，即搜索线程池。多个 <code>DexClassLoader</code> 同时校验同一个类时，Android 7.x ART 的 <code>class_linker.cc</code> 断言失败并 <code>abort()</code>——这是 native 层崩溃，Java 的 <code>try/catch</code> 拦不住，进程直接被杀。系统因短时间内连崩两次而强制结束应用，用户看到的就是「卡住然后回到桌面」。</p>
+<p><span class="tag">放大器</span>融合源把 25 份配置合成一份，<code>fused.json</code> 有 <strong>1400 个站点</strong>，其中 1238 个 <code>type=3</code>（需要 spider），全部带站点级 <code>jar</code>，指向 <strong>32 个不同 jar</strong>。原来 5 条独立线路每次只加载一个 jar，几乎撞不上；融合后搜索时并发批量 <code>getCSP() → JarLoader.getSpider() → parseJar()</code>，命中竞态的概率大幅上升。</p>
+
+<h2>二、软卡：聚合搜索规模爆炸</h2>
+<p><code>FastSearchActivity</code> 每次搜索把 <code>ApiConfig.get().getSourceBeanList()</code> 全部站点建成 <code>SearchTask</code>（源码 616–630 行）。并发参数为 <code>SEARCH_THREAD_COUNT=6</code>、<code>SEARCH_MAX_THREAD_COUNT=12</code>（API 25 取值）、<code>SEARCH_SITE_TIMEOUT_SECONDS=15</code>、批次泵 2~3 秒；<code>SourceViewModel.spThreadPool</code> 还是 <code>newSingleThreadExecutor()</code>。1400 个站点 / 6 并发约 233 批，慢站点持续占满线程池，UI 上就是长时间转圈。日志中大量 <code>chatty: expire N lines</code> 也说明短时线程与日志洪泛。</p>
+
+<h2>三、每次加载都卡：jar 内部同步网络初始化</h2>
+<p><code>JarLoader.load()</code> → <code>invokeInit()</code> → <code>Init.init()</code> 是同步调用（<code>JarLoader.java:83–124</code>），里面串行执行 <code>checkIPv6()</code>、<code>initXLLib()</code>、<code>initAliProxy</code>、<code>initWgcf</code>、<code>TGSearch</code> 等。本次抓到：</p>
+<pre>12:42:30.791  Init.initXLLib check so file:.../libxl_thunder_sdk.so.armeabi-v7a exists:false
+12:42:32.786  ... try assets/xllib so url: raw.githubusercontent.com/qist/tvbox/master/lib/... responsecode:404
+... 12 次 404，覆盖 3 种 ABI × 多个 so × .gz 变体 ...
+12:42:40.316  最后一次 404</pre>
+<p>这 7.5 秒里搜索任务线程被完全阻塞。关键是这些 URL <strong>写死在 spider jar 内部</strong>，我们此前做的「配置本地化」只覆盖配置入口和 jar 文件本身，覆盖不到 jar 内部的在线依赖。另外还有：</p>
+<pre>12:42:23.938  DownloadProxyServer start retry 7 BindException Address already in use
+12:42:26.016  DownloadProxyServer start fail BindException  （端口 10079 被残留占用，/stop 返回 500）
+12:42:36.706  echo-danmu retry error: timeout
+12:42:39.986  ClassNotFoundException: android.net.ConnectivitySettingsManager
+12:36:05.565  Screen frozen for +1s563ms due to ...HomeActivity
+12:38:04.999  F DEBUG: pid 8401, tid 8460, name: RenderThread  → 进程再次死亡</pre>
+<p>端口冲突让代理服务白等约 10 秒且最终起不来；<code>ConnectivitySettingsManager</code> 是 jar 引用了高于 API 25 的系统类；渲染线程崩溃则与资源压力有关。</p>
+
+<h2>四、修复优先级</h2>
+<table>
+<tr><th>#</th><th>措施</th><th>预期效果</th><th>改动范围</th></tr>
+<tr><td>1</td><td class="ok">裁剪融合源：只保留测速靠前的若干来源 / 每来源限量，把 1400 站点降到 100~200</td><td>最立竿见影，同时降低并发类加载撞竞态的概率和搜索耗时</td><td><code>tools/build_offline_sources.py</code> 加站点上限参数后重跑流水线</td></tr>
+<tr><td>2</td><td class="ok">给所有 jar 的 <code>load()/parseJar()</code> 加一把全局串行锁</td><td>直接消除 <code>StatusVerifying</code> native abort</td><td><code>JarLoader.java</code>，只锁加载/初始化，不锁 <code>getSpider</code> 业务调用</td></tr>
+<tr><td>3</td><td>降低搜索并发与超时：6 → 2~3 线程、15 → 6 秒，并限制参与搜索的站点总数</td><td>减少 ANR 与线程池饱和</td><td><code>FastSearchActivity.java</code> 常量与任务构建</td></tr>
+<tr><td>4</td><td>阻断 jar 在线初始化：对 <code>qist/tvbox/master/lib/</code> 快速失败，或把 so 预置进 assets 并给 <code>invokeInit</code> 加超时</td><td>去掉每次 7.5 秒以上的同步阻塞</td><td>网络层拦截 + <code>JarLoader.invokeInit</code></td></tr>
+<tr><td>5</td><td>代理端口复用 / 随机端口 + 正确释放，<code>/stop</code> 返回 200</td><td>去掉约 10 秒重试等待，恢复播放代理</td><td><code>DownloadProxyServer</code>（jar 内部，需替换或包装）</td></tr>
+<tr><td>6</td><td>对 API 25 设备过滤引用高版本系统类的站点</td><td>减少兼容性异常</td><td>融合阶段给站点打标记</td></tr>
+</table>
+<p class="muted">注：第 1 项可只重跑本地融合流水线，不必改 Java；第 2、3 项需改源码并重新云编译。设备上当前仍是旧版 <code>versionCode=1</code>，新版 <code>1005</code> 尚未安装，以上日志反映的是旧版运行表现，但融合源规模与 jar 行为在新版一致。</p>

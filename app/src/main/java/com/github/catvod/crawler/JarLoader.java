@@ -22,7 +22,12 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import dalvik.system.DexClassLoader;
 import okhttp3.Response;
@@ -31,6 +36,15 @@ public class JarLoader {
 
     private static final String TAG = "JarLoader";
     private static final String MAIN_KEY = "main";
+
+    // Android 7.x 的 ART 在多个线程同时校验同一个类时会命中
+    // class_linker.cc 的 StatusVerifying -> StatusVerifying 断言并 native abort，
+    // 应用层无法捕获。所有 DexClassLoader 的类首次加载/实例化必须串行通过这把锁。
+    // 只锁微秒级的类加载动作，绝不把可能联网的 Init.init()/spider.init() 放进来。
+    private static final Object DEX_CLASS_LOCK = new Object();
+    // Init.init() 内部会同步联网拉取 xllib/ffmpeg 等 so，线上多为 404，
+    // 单次可阻塞搜索线程 7 秒以上。最多等 3 秒，超时后让后台线程继续跑完。
+    private static final long INIT_WAIT_SECONDS = 3L;
 
     private final ConcurrentHashMap<String, DexClassLoader> loaders = new ConcurrentHashMap<>();
     private final ConcurrentHashMap<String, Method> proxyMethods = new ConcurrentHashMap<>();
@@ -87,14 +101,27 @@ public class JarLoader {
         try {
             file.setReadOnly();
             String cachePath = jarDir().getAbsolutePath();
-            DexClassLoader loader = new DexClassLoader(file.getAbsolutePath(), cachePath, cachePath, App.getInstance().getClassLoader());
+            DexClassLoader loader;
+            synchronized (DEX_CLASS_LOCK) {
+                if (loaders.containsKey(key)) return true;
+                loader = new DexClassLoader(file.getAbsolutePath(), cachePath, cachePath,
+                        App.getInstance().getClassLoader());
+                // 在全局锁内完成核心类的首次加载与校验，后续并发 loadClass
+                // 只会命中已校验完成的类，不会撞 ART 的类校验竞态。
+                preloadClass(loader, "com.github.catvod.spider.Init");
+                preloadClass(loader, "com.github.catvod.spider.Proxy");
+                preloadClass(loader, "com.github.catvod.spider.Danmaku");
+            }
+            // 可能同步联网，放在锁外并限制等待时间
             if (!invokeInit(loader, file.getAbsolutePath())) {
                 Log.i(TAG, "load error key=" + key + ", protected jar loader not bound");
                 return false;
             }
-            invokeProxy(key, loader);
-            invokeDanmaku(key, loader);
-            injectProxyPort(loader);
+            synchronized (DEX_CLASS_LOCK) {
+                invokeProxy(key, loader);
+                invokeDanmaku(key, loader);
+                injectProxyPort(loader);
+            }
             loaders.put(key, loader);
             Log.i(TAG, "load success key=" + key + ", file=" + file.getAbsolutePath());
             return true;
@@ -105,22 +132,71 @@ public class JarLoader {
         }
     }
 
+    private static void preloadClass(DexClassLoader loader, String name) {
+        try {
+            loader.loadClass(name);
+        } catch (Throwable ignored) {
+        }
+    }
+
     private boolean invokeInit(DexClassLoader loader, String jar) {
         boolean protectedJar = false;
         try {
-            Class<?> clz = loader.loadClass("com.github.catvod.spider.Init");
+            final Class<?> initClass = loader.loadClass("com.github.catvod.spider.Init");
             protectedJar = protectedInitJar.check(jar);
             if (protectedJar) {
+                // 加密 jar 的绑定是纯反射操作，不联网，保持原有同步语义以免绑定不完整
                 Log.i(TAG, "echo-load initProtectedJar file=" + jar);
-                return protectedInitJar.init(clz);
-            } else {
-                Method method = clz.getMethod("init", Context.class);
-                method.invoke(null, App.getInstance());
+                return protectedInitJar.init(initClass);
+            }
+            final Method method = initClass.getMethod("init", Context.class);
+            Boolean done = runInitWithTimeout(new Callable<Boolean>() {
+                @Override
+                public Boolean call() {
+                    try {
+                        method.invoke(null, App.getInstance());
+                        return true;
+                    } catch (Throwable e) {
+                        Log.i(TAG, "jar Init.init error=" + e.getMessage());
+                        return false;
+                    }
+                }
+            });
+            if (Boolean.FALSE.equals(done)) {
+                // 少数 jar 的初始化依赖调用线程的 Looper，回到原线程重试一次保证兼容
+                try {
+                    method.invoke(null, App.getInstance());
+                } catch (Throwable ignored) {
+                }
             }
         } catch (Throwable e) {
             e.printStackTrace();
         }
         return !protectedJar;
+    }
+
+    /** 返回 null 表示超时（后台线程仍会执行完），false 表示初始化抛异常。 */
+    private static Boolean runInitWithTimeout(Callable<Boolean> body) {
+        FutureTask<Boolean> task = new FutureTask<Boolean>(body);
+        Thread worker = new Thread(task, "jar-init");
+        worker.setDaemon(true);
+        worker.setPriority(Thread.MIN_PRIORITY);
+        worker.start();
+        try {
+            return task.get(INIT_WAIT_SECONDS, TimeUnit.SECONDS);
+        } catch (TimeoutException e) {
+            Log.i(TAG, "jar Init.init still running in background after "
+                    + INIT_WAIT_SECONDS + "s, stop blocking caller");
+            return null;
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            task.cancel(true);
+            return false;
+        } catch (ExecutionException e) {
+            return false;
+        } catch (Throwable e) {
+            return false;
+        }
     }
 
     private void invokeProxy(String key, DexClassLoader loader) {
@@ -220,7 +296,10 @@ public class JarLoader {
                 if (!MAIN_KEY.equals(jaKey)) parseJar(jaKey, jar);
                 DexClassLoader loader = loaders.get(jaKey);
                 if (loader == null) return new SpiderNull();
-                Spider spider = (Spider) loader.loadClass("com.github.catvod.spider." + className(api)).newInstance();
+                Spider spider;
+                synchronized (DEX_CLASS_LOCK) {
+                    spider = (Spider) loader.loadClass("com.github.catvod.spider." + className(api)).newInstance();
+                }
                 spider.siteKey = key;
                 spider.initApi(new SpiderApi());
                 spider.init(App.getInstance(), ext);
@@ -306,16 +385,18 @@ public class JarLoader {
     }
 
     private Class<?> loadParserClass(String name) throws ClassNotFoundException {
-        DexClassLoader loader = loaders.get(recent);
-        if (loader != null) {
-            try {
-                return loader.loadClass(name);
-            } catch (ClassNotFoundException ignored) {
+        synchronized (DEX_CLASS_LOCK) {
+            DexClassLoader loader = loaders.get(recent);
+            if (loader != null) {
+                try {
+                    return loader.loadClass(name);
+                } catch (ClassNotFoundException ignored) {
+                }
             }
+            loader = loaders.get(MAIN_KEY);
+            if (loader != null) return loader.loadClass(name);
+            throw new ClassNotFoundException(name);
         }
-        loader = loaders.get(MAIN_KEY);
-        if (loader != null) return loader.loadClass(name);
-        throw new ClassNotFoundException(name);
     }
 
     private File download(String url, File file) {
@@ -432,11 +513,13 @@ public class JarLoader {
     private void injectProxyPort(DexClassLoader loader) {
         com.github.catvod.Proxy.set(getServerPort());
         if (loader == null) return;
-        try {
-            Class<?> proxy = loader.loadClass("com.github.catvod.Proxy");
-            Method set = proxy.getMethod("set", int.class);
-            set.invoke(null, getServerPort());
-        } catch (Throwable ignored) {
+        synchronized (DEX_CLASS_LOCK) {
+            try {
+                Class<?> proxy = loader.loadClass("com.github.catvod.Proxy");
+                Method set = proxy.getMethod("set", int.class);
+                set.invoke(null, getServerPort());
+            } catch (Throwable ignored) {
+            }
         }
     }
 

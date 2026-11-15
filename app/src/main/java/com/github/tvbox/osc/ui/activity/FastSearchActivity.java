@@ -66,11 +66,14 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @description:
  */
 public class FastSearchActivity extends BaseActivity {
-    private static final int SEARCH_THREAD_COUNT = 6;
-    private static final int SEARCH_MAX_THREAD_COUNT = Build.VERSION.SDK_INT >= 35 ? 24 : Build.VERSION.SDK_INT >= 30 ? 18 : 12;
+    // 融合源按端到端测速升序排列，聚合搜索只取前 N 个站点。
+    // 1400 个站点全量并发会把线程池打满并诱发老设备 ANR / ART 类校验竞态。
+    private static final int SEARCH_MAX_SITES = 120;
+    private static final int SEARCH_THREAD_COUNT = 3;
+    private static final int SEARCH_MAX_THREAD_COUNT = Build.VERSION.SDK_INT >= 35 ? 8 : Build.VERSION.SDK_INT >= 30 ? 6 : 4;
     private static final int SEARCH_PUMP_SECONDS = 2;
     private static final int SEARCH_NEXT_BATCH_SECONDS = 3;
-    private static final int SEARCH_SITE_TIMEOUT_SECONDS = 15;
+    private static final int SEARCH_SITE_TIMEOUT_SECONDS = 8;
     private static final long POSTER_FOCUS_ANIM_DURATION = 300L;
     private static final float POSTER_FOCUS_SCALE = 1.05f;
     private static final String SEARCH_ALL_NAME = "\u5168\u90e8";
@@ -624,7 +627,11 @@ public class FastSearchActivity extends BaseActivity {
         hots.add(SEARCH_ALL_NAME);
 
         setWordListData(hots);
+        int added = 0;
         for (SourceBean bean : searchRequestList) {
+            if (added >= SEARCH_MAX_SITES) {
+                break;
+            }
             if (!bean.isSearchable()) {
                 continue;
             }
@@ -633,6 +640,7 @@ public class FastSearchActivity extends BaseActivity {
             }
             searchTasks.add(new SearchTask(bean.getKey(), searchTitle, currentSearchToken));
             this.spNames.put(bean.getName(), bean.getKey());
+            added++;
         }
 
         if (searchTasks.size() <= 0) {

@@ -105,3 +105,10 @@ output-metadata.json
 # Python cache
 __pycache__/
 *.pyc
+
+# 本机抓取的运行日志 / 构建日志（不入仓库）
+tools/device_logs/
+tools/ci_logs/
+tools/tvbox_logs_report.html
+tools/ci_logs_report.html
+tools/apk_installability_report.html

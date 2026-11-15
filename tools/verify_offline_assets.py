@@ -117,6 +117,30 @@ def main():
     dialog = (ROOT / "app/src/main/java/com/github/tvbox/osc/ui/dialog/ApiDialog.java").read_text(encoding="utf-8")
     check("配置对话框直播回退本地", "DEFAULT_LIVE_API" in dialog)
 
+    # 运行时稳定性修复：老设备 ART 类校验竞态 / 聚合搜索规模爆炸 / jar 同步联网初始化
+    jar_loader = (ROOT / "app/src/main/java/com/github/catvod/crawler/JarLoader.java").read_text(encoding="utf-8")
+    locks = jar_loader.count("synchronized (DEX_CLASS_LOCK)")
+    check("类加载有全局串行锁", "DEX_CLASS_LOCK" in jar_loader and locks >= 4,
+          "%d 处串行化类加载" % locks)
+    check("jar Init 初始化有超时保护",
+          "runInitWithTimeout" in jar_loader and "INIT_WAIT_SECONDS" in jar_loader
+          and "FutureTask" in jar_loader, "超时后台续跑，调用方不再等待")
+    check("业务初始化保留原调用语义",
+          "method.invoke(null, App.getInstance())" in jar_loader
+          and "spider.init(App.getInstance(), ext)" in jar_loader
+          and "Boolean.FALSE.equals(done)" in jar_loader,
+          "只锁类加载，Init.init / spider.init 不占锁且不兼容时回退重试")
+    search_java = (ROOT / "app/src/main/java/com/github/tvbox/osc/ui/activity/FastSearchActivity.java").read_text(encoding="utf-8")
+    check("聚合搜索限制参与站点",
+          "SEARCH_MAX_SITES" in search_java and "added >= SEARCH_MAX_SITES" in search_java,
+          "按测速顺序取前 N 个站点")
+    thread_m = re.search(r"(?<!MAX_)SEARCH_THREAD_COUNT\s*=\s*(\d+)", search_java)
+    timeout_m = re.search(r"SEARCH_SITE_TIMEOUT_SECONDS\s*=\s*(\d+)", search_java)
+    check("搜索并发不超过 3", thread_m and int(thread_m.group(1)) <= 3,
+          "%s 线程" % (thread_m.group(1) if thread_m else "?"))
+    check("单站点超时不超过 8 秒", timeout_m and int(timeout_m.group(1)) <= 8,
+          "%s 秒" % (timeout_m.group(1) if timeout_m else "?"))
+
     files = [p for p in ASSETS.rglob("*") if p.is_file()]
     total = sum(p.stat().st_size for p in files)
     passed = sum(1 for _, ok, _ in checks if ok)
@@ -134,13 +158,14 @@ table{width:100%%;border-collapse:collapse;font-size:13px}th,td{padding:9px 10px
 th{background:#f3f5f8}.ok{color:#0a8f4a;font-weight:600}.bad{color:#c0392b;font-weight:600}
 .mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;color:#4a5160;word-break:break-all}
 </style></head><body><div class="wrap">
-<h1>自建融合源 · 全本地静态校验</h1>
+<h1>自建融合源 · 全本地与运行时稳定性校验</h1>
 <p>%s ｜ %d/%d 项通过 ｜ %d 条本地线路、%d 个直播文件 ｜ assets %.2f MB</p>
 <table><thead><tr><th style="width:300px">检查项</th><th style="width:90px">结果</th><th>明细</th></tr></thead>
 <tbody>%s</tbody></table>
 <p>判定标准：25 份来源配置融合成唯一一份自建源，站点按 key / (name,api) 双重去重、按测速升序排列；
 聚合入口、配置、爬虫 jar、直播列表全部为 <code>clan://localhost/builtin/…</code> 本地文件；
-Java 侧不再注入任何在线备用线路。</p>
+Java 侧不再注入任何在线备用线路。同时校验运行时稳定性修复：类加载全局串行锁（消除 Android 7.x ART 类校验竞态 abort）、
+jar Init 初始化 3 秒超时保护、聚合搜索按测速顺序限流（120 站点 / 3 并发 / 8 秒超时）。</p>
 </div></body></html>""" % (
         datetime.now().strftime("%Y-%m-%d %H:%M:%S"), passed, len(checks),
         len(urls), len(live_files), total / 1048576, rows)
