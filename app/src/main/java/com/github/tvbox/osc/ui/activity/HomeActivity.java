@@ -59,6 +59,9 @@ import com.github.tvbox.osc.util.HawkConfig;
 import com.github.tvbox.osc.util.LOG;
 import com.github.tvbox.osc.util.MD5;
 import com.github.tvbox.osc.viewmodel.SourceViewModel;
+import com.hjq.permissions.OnPermissionCallback;
+import com.hjq.permissions.Permission;
+import com.hjq.permissions.XXPermissions;
 import com.orhanobut.hawk.Hawk;
 import com.owen.tvrecyclerview.widget.TvRecyclerView;
 import com.owen.tvrecyclerview.widget.V7GridLayoutManager;
@@ -151,6 +154,7 @@ public class HomeActivity extends BaseActivity {
     }
 
     boolean useCacheConfig = false;
+    private boolean configLoadStarted = false;
 
     @Override
     protected void init() {
@@ -165,6 +169,67 @@ public class HomeActivity extends BaseActivity {
             Bundle bundle = intent.getExtras();
             useCacheConfig = bundle.getBoolean("useCache", false);
         }
+        // 初次启动先申请存储权限，权限结果返回后再加载配置：
+        // /sdcard/builtin/ 外置覆盖、jar 落地与缓存读写都依赖该权限。
+        requestStorageThenLoad();
+    }
+
+    /**
+     * 首次启动主动申请存储权限。已授予则直接加载配置，未授予时等权限回调；
+     * 另加 3 秒兜底，避免部分 TV 设备没有可交互的系统权限弹窗时首页一直空白。
+     */
+    private void requestStorageThenLoad() {
+        try {
+            if (XXPermissions.isGranted(mContext, Permission.Group.STORAGE)) {
+                loadConfigOnce();
+                return;
+            }
+        } catch (Throwable th) {
+            LOG.e("检查存储权限异常: " + th.getMessage());
+            loadConfigOnce();
+            return;
+        }
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                loadConfigOnce();
+            }
+        }, 3000);
+        try {
+            XXPermissions.with(this)
+                    .permission(Permission.Group.STORAGE)
+                    .request(new OnPermissionCallback() {
+                        @Override
+                        public void onGranted(List<String> permissions, boolean all) {
+                            showStorageTip("已获得存储权限");
+                            loadConfigOnce();
+                        }
+
+                        @Override
+                        public void onDenied(List<String> permissions, boolean never) {
+                            showStorageTip(never
+                                    ? "未获得存储权限，请在系统设置中开启；当前使用内置本地源"
+                                    : "未获得存储权限，当前使用内置本地源");
+                            loadConfigOnce();
+                        }
+                    });
+        } catch (Throwable th) {
+            LOG.e("申请存储权限异常: " + th.getMessage());
+            loadConfigOnce();
+        }
+    }
+
+    private void showStorageTip(String msg) {
+        if (!isActivityUnavailable()) {
+            Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void loadConfigOnce() {
+        if (configLoadStarted || isActivityUnavailable()) {
+            return;
+        }
+        configLoadStarted = true;
         initData();
     }
 

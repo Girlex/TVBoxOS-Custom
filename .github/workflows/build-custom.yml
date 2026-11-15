@@ -83,12 +83,25 @@ jobs:
           echo "--- settings.gradle ---"
           cat settings.gradle
 
-      - name: Inject release signing config
-        if: ${{ (inputs.build_type || 'debug') == 'release' }}
+      # versionCode 必须严格递增，否则与已安装版本冲突时无法覆盖安装。
+      # 基线写在 version.properties；run_number 由 GitHub 保证每次运行单调递增。
+      - name: Compute monotone version code
+        run: |
+          BASE="$(sed -n 's/^VERSION_CODE=//p' version.properties | tr -d '\r' | head -1)"
+          case "$BASE" in ''|*[!0-9]*) BASE=1000 ;; esac
+          CODE=$((BASE + GITHUB_RUN_NUMBER))
+          echo "TVBOX_VERSION_CODE=$CODE" >> "$GITHUB_ENV"
+          echo "TVBOX_VERSION_NAME=1.0.$CODE" >> "$GITHUB_ENV"
+          echo "本次构建: versionCode=$CODE, versionName=1.0.$CODE (基线 $BASE + run #$GITHUB_RUN_NUMBER)"
+
+      # runner 每次都是全新机器，AGP 会自动生成一把随机的 debug.keystore，
+      # 导致不同批次 APK 签名不同，覆盖安装报 INSTALL_FAILED_UPDATE_INCOMPATIBLE。
+      # 因此 debug 与 release 统一使用仓库自带的固定测试签名。
+      - name: Pin signing key for every build
         run: |
           python3 tools/ci_inject_signing.py
           echo "--- 注入后的签名片段 ---"
-          sed -n '1,22p' app/build.gradle
+          grep -n -A12 'signingConfigs' app/build.gradle | head -20
 
       - name: Build APK
         run: |
@@ -102,12 +115,18 @@ jobs:
         run: |
           mkdir -p out
           find app/build/outputs -type f -name '*.apk' ! -name '*-unsigned.apk' -exec cp -v {} out/ \;
+          printf 'versionCode=%s\nversionName=%s\ncommit=%s\nrun=%s\nsigning=TVBoxOSC.jks\n' \
+            "$TVBOX_VERSION_CODE" "$TVBOX_VERSION_NAME" "$GITHUB_SHA" "$GITHUB_RUN_NUMBER" > out/version.txt
+          echo "--- 本次版本 ---"
+          cat out/version.txt
           ls -lh out/
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: TVBox-${{ env.VARIANT }}-${{ env.BUILD_TYPE }}-${{ github.sha }}
-          path: out/*.apk
+          name: TVBox-${{ env.VARIANT }}-${{ env.BUILD_TYPE }}-v${{ env.TVBOX_VERSION_CODE }}-${{ github.sha }}
+          path: |
+            out/*.apk
+            out/version.txt
           if-no-files-found: error
           retention-days: 30

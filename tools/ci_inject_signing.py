@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-"""GitHub Actions release 构建前注入签名配置。
+"""GitHub Actions 构建前注入固定签名配置（debug / release 都注入）。
 
 只修改 CI 工作副本，不改动仓库内容。使用仓库自带的
 .github/workflows/TVBoxOSC.jks（公开测试签名，密码 TVBoxOSC）。
+runner 每次都是全新机器，AGP 会自动生成随机的 debug.keystore，
+导致不同批次 APK 签名不同、覆盖安装失败；统一用固定签名可避免此问题。
 """
 import pathlib
 import shutil

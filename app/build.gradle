@@ -1,13 +1,48 @@
 apply plugin: 'com.android.application'
 
+// ===== 版本号自动递增：避免每次构建产物版本相同，与已安装版本冲突 =====
+// 云编译：由环境变量 TVBOX_VERSION_CODE 指定（version.properties 基线 + GITHUB_RUN_NUMBER），全局严格递增
+// 本地构建：读取 version.properties 并 +1 写回；也可用 -PTVBOX_VERSION_CODE=1234 显式指定
+// versionName 恒为 1.0.<versionCode>
+def versionPropsFile = rootProject.file('version.properties')
+def versionProps = new Properties()
+if (versionPropsFile.exists()) {
+    versionPropsFile.withInputStream { versionProps.load(it) }
+}
+def parseVersionCode = { Object raw, int fallback ->
+    try {
+        return raw == null ? fallback : raw.toString().trim().toInteger()
+    } catch (Exception ignored) {
+        return fallback
+    }
+}
+int baseVersionCode = parseVersionCode(versionProps.getProperty('VERSION_CODE'), 1000)
+def ciVersionCode = System.getenv('TVBOX_VERSION_CODE')
+def cliVersionCode = project.hasProperty('TVBOX_VERSION_CODE') ? project.property('TVBOX_VERSION_CODE') : null
+int appVersionCode
+if (ciVersionCode != null && ciVersionCode.trim()) {
+    appVersionCode = parseVersionCode(ciVersionCode, baseVersionCode)
+} else if (cliVersionCode != null && cliVersionCode.toString().trim()) {
+    appVersionCode = parseVersionCode(cliVersionCode, baseVersionCode)
+} else {
+    appVersionCode = baseVersionCode + 1
+    versionPropsFile.text = "# 由 app/build.gradle 自动递增，请勿手工修改\n" +
+            "# 本地构建: VERSION_CODE + 1；云编译: VERSION_CODE + GITHUB_RUN_NUMBER\n" +
+            "# versionName 恒为 1.0.<versionCode>\n" +
+            "VERSION_CODE=${appVersionCode}\n" +
+            "VERSION_NAME=1.0.${appVersionCode}\n"
+}
+def appVersionName = "1.0.${appVersionCode}".toString()
+println("[TVBox] versionCode=${appVersionCode}, versionName=${appVersionName}")
+
 android {
     compileSdkVersion 33
 
     defaultConfig {
         applicationId 'com.github.tvbox.osc.jun'
         targetSdkVersion 28
-        versionCode 1
-        versionName '1.0.0'
+        versionCode appVersionCode
+        versionName appVersionName
         multiDexEnabled true
         //设置room的Schema的位置
         javaCompileOptions {

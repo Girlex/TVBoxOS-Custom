@@ -1,0 +1,16 @@
+<meta charset='utf-8'><style>body{font-family:system-ui;margin:32px;background:#fafafa;color:#222}table{border-collapse:collapse;background:#fff;width:100%}td,th{border:1px solid #ddd;padding:8px;text-align:left}.ok{color:#0a7a32;font-weight:700}.fail{color:#c62828;font-weight:700}code{background:#f2f2f2;padding:2px 5px}</style>
+<h1>APK 可覆盖安装校验</h1><p>生成时间：2026-11-15 12:40:41</p>
+<table><tr><th>检查项</th><th>结果</th><th>说明</th></tr>
+<tr><td>版本基线文件存在且合法</td><td class='ok'>通过</td><td>VERSION_CODE=1000</td></tr>
+<tr><td>build.gradle 使用动态 versionCode</td><td class='ok'>通过</td><td></td></tr>
+<tr><td>build.gradle 支持 CI 版本注入</td><td class='ok'>通过</td><td></td></tr>
+<tr><td>build.gradle 不再写死 1.0.0</td><td class='ok'>通过</td><td></td></tr>
+<tr><td>CI 每次构建计算递增版本</td><td class='ok'>通过</td><td></td></tr>
+<tr><td>CI 所有构建类型使用固定签名</td><td class='ok'>通过</td><td></td></tr>
+<tr><td>CI 产物附带版本信息</td><td class='ok'>通过</td><td></td></tr>
+<tr><td>首次启动主动申请存储权限</td><td class='ok'>通过</td><td></td></tr>
+<tr><td>权限未返回时有加载兜底</td><td class='ok'>通过</td><td></td></tr>
+<tr><td>配置加载不会重复触发</td><td class='ok'>通过</td><td></td></tr>
+<tr><td>签名注入覆盖 debug 与 release</td><td class='ok'>通过</td><td></td></tr>
+</table>
+<p>校验口径：versionCode 必须严格递增、签名证书指纹必须完全一致、包名不变，三者同时满足才能在不卸载旧版的情况下直接覆盖安装。</p>
