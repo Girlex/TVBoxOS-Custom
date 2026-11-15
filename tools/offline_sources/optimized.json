@@ -1,0 +1,143 @@
+{
+  "generated": "2026-11-15 11:29:34",
+  "rounds": 3,
+  "kept": [
+    {
+      "name": "小马",
+      "origin": "https://szyyds.cn/tv/x.json",
+      "resolved_url": "https://szyyds.cn/tv/x.json",
+      "chain": [],
+      "kind": "单仓",
+      "sites": 62,
+      "spider_url": "https://szyyds.cn/tv/x.jpg",
+      "spider_md5": "4ce29ce27eeff6a73a230dd92d98ba0c",
+      "spider_md5_actual": "4ce29ce27eeff6a73a230dd92d98ba0c",
+      "spider_file": "raw/jar1.bin",
+      "spider_ok": true,
+      "spider_size": 972016,
+      "entry_ms": 0.377,
+      "sub_ms": 0.0,
+      "total_ms": 0.377,
+      "raw_file": "raw/1.txt",
+      "resolved_file": "raw/resolved1.json",
+      "content_hash": "29fe3a947c9d979836fb793332a3fe0c",
+      "reasons": []
+    },
+    {
+      "name": "挺好分享多仓",
+      "origin": "http://ztha.top/TVBox/GYCK.json",
+      "resolved_url": "https://ztha.top/TVBox/thdjk.json",
+      "chain": [
+        "https://ztha.top/TVBox/thdjk.json"
+      ],
+      "kind": "单仓",
+      "sites": 46,
+      "spider_url": "https://ztha.top/TVBox/ztha.jar",
+      "spider_md5": "097bfd1388b83204958633f23eb6e4cb",
+      "spider_md5_actual": "097bfd1388b83204958633f23eb6e4cb",
+      "spider_file": "raw/jar2.bin",
+      "spider_ok": true,
+      "spider_size": 1077806,
+      "entry_ms": 0.239,
+      "sub_ms": 0.185,
+      "total_ms": 0.424,
+      "raw_file": "raw/2.txt",
+      "resolved_file": "raw/resolved2.json",
+      "content_hash": "a68d95a33e854e04f11a362576d56753",
+      "reasons": []
+    },
+    {
+      "name": "小盒子单仓",
+      "origin": "http://xhztv.top/xhz",
+      "resolved_url": "http://xhztv.top/xhz",
+      "chain": [],
+      "kind": "单仓",
+      "sites": 54,
+      "spider_url": "http://xhztv.top/xhz/Yoursmile.jar",
+      "spider_md5": "69DADB9A99A618EA9E2F4E2B92968E41",
+      "spider_md5_actual": "69dadb9a99a618ea9e2f4e2b92968e41",
+      "spider_file": "raw/jar4.bin",
+      "spider_ok": true,
+      "spider_size": 909588,
+      "entry_ms": 0.899,
+      "sub_ms": 0.0,
+      "total_ms": 0.899,
+      "raw_file": "raw/4.txt",
+      "resolved_file": "raw/resolved4.json",
+      "content_hash": "83a2eff09b2c91507f3c231812c50c44",
+      "reasons": []
+    },
+    {
+      "name": "拾光多仓",
+      "origin": "http://xmbjm.fh4u.org/dc.txt",
+      "resolved_url": "https://gh-proxy.com/https://raw.githubusercontent.com/xmbjm/svip/refs/heads/main/svip.json",
+      "chain": [
+        "https://gh-proxy.com/https://raw.githubusercontent.com/xmbjm/svip/refs/heads/main/svip.json"
+      ],
+      "kind": "单仓",
+      "sites": 246,
+      "spider_url": "https://gh-proxy.com/https:/raw.githubusercontent.com/xmbjm/svip/refs/heads/main/svip.jar",
+      "spider_md5": "",
+      "spider_md5_actual": "91eb942e44d1154447df4f91ed714488",
+      "spider_file": "raw/jar5.bin",
+      "spider_ok": true,
+      "spider_size": 1937792,
+      "entry_ms": 0.599,
+      "sub_ms": 0.335,
+      "total_ms": 0.934,
+      "raw_file": "raw/5.txt",
+      "resolved_file": "raw/resolved5.json",
+      "content_hash": "2c304c10218edef3e83135bc6cb3a022",
+      "reasons": []
+    },
+    {
+      "name": "老刘备",
+      "origin": "https://raw.liucn.cc/box/m.json",
+      "resolved_url": "https://raw.liucn.cc/box/m.json",
+      "chain": [],
+      "kind": "单仓",
+      "sites": 234,
+      "spider_url": "https://raw.liucn.cc/box/fty.jar",
+      "spider_md5": "3d161697458ecbcd2651a749db761ba1",
+      "spider_md5_actual": "3d161697458ecbcd2651a749db761ba1",
+      "spider_file": "raw/jar3.bin",
+      "spider_ok": true,
+      "spider_size": 685819,
+      "entry_ms": 3.497,
+      "sub_ms": 0.0,
+      "total_ms": 3.497,
+      "raw_file": "raw/3.txt",
+      "resolved_file": "raw/resolved3.json",
+      "content_hash": "58482211bba39717989288a6f6cde2c7",
+      "reasons": []
+    }
+  ],
+  "dropped": [],
+  "online": [
+    {
+      "name": "在线·小马",
+      "url": "https://szyyds.cn/tv/x.json",
+      "total_ms": 0.377
+    },
+    {
+      "name": "在线·挺好分享多仓",
+      "url": "http://ztha.top/TVBox/GYCK.json",
+      "total_ms": 0.424
+    },
+    {
+      "name": "在线·小盒子单仓",
+      "url": "http://xhztv.top/xhz",
+      "total_ms": 0.899
+    },
+    {
+      "name": "在线·拾光多仓",
+      "url": "http://xmbjm.fh4u.org/dc.txt",
+      "total_ms": 0.934
+    },
+    {
+      "name": "在线·老刘备",
+      "url": "https://raw.liucn.cc/box/m.json",
+      "total_ms": 3.497
+    }
+  ]
+}

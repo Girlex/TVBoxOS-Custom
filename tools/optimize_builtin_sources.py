@@ -1,15 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-内置配置源优化：多轮测速 -> 去重 -> 剔除失效 -> 按连接速度排序。
+[已废弃] 内置配置源优化（旧版：只维护一串在线 URL）。
 
-会同步更新:
-  tools/builtin_sources.json
-  app/src/main/java/com/github/tvbox/osc/util/BuiltinSources.java (SOURCES)
-  tools/builtin_sources_report.html
+内置源已改为「本地文件」形式：配置内容与爬虫 jar 随 APK 打包在 assets/builtin/，
+Java 源码里不再有 SOURCES 常量，因此本脚本不再适用。请改用：
 
-用法:
-    python3 optimize_builtin_sources.py [--proxy socks5h://127.0.0.1:10808] [--rounds 3]
+    python3 tools/optimize_offline_sources.py   # 测速 / 去重 / 剔除失效 / 解析真实配置
+    python3 tools/build_offline_sources.py     # 生成 assets 离线快照与报告
 """
 
 import argparse
@@ -383,4 +381,9 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(
+        "该脚本已废弃：内置源改为本地文件形式，Java 源码不再有 SOURCES 常量。\n"
+        "请依次运行：\n"
+        "  python3 tools/optimize_offline_sources.py\n"
+        "  python3 tools/build_offline_sources.py"
+    )

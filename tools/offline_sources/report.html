@@ -1,0 +1,24 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8">
+<title>内置源离线化 · 整理结果</title><style>
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#f6f7f9;color:#1f2329;margin:0;padding:32px}
+.wrap{max-width:1100px;margin:0 auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:28px 32px}
+h1{font-size:22px;margin:0 0 6px}h2{font-size:16px;margin:26px 0 10px}
+p{color:#5f6672;font-size:13px;line-height:1.8}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:9px 10px;border-bottom:1px solid #eef0f3;text-align:left}
+th{background:#f3f5f8;font-weight:600;color:#42474f}
+.mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;color:#4a5160;word-break:break-all}
+.ok{color:#0a8f4a}.bad{color:#c0392b}.drop{background:#fffbfb}
+code{background:#f2f4f7;padding:2px 5px;border-radius:4px;font-size:12px}
+</style></head><body><div class="wrap">
+<h1>内置源离线化 · 第一步整理结果</h1>
+<p>生成时间 2026-11-15 11:29:34 ｜ 每个入口测速 3 次取中位 ｜ 耗时 = 入口请求 + 多仓默认子线路请求（端到端）</p>
+<h2>保留的高效地址（按端到端耗时升序）</h2>
+<table><thead><tr><th>#</th><th>名称</th><th>原始入口</th><th>落地类型</th><th>站点数</th><th>端到端</th><th>spider</th><th>结论</th></tr></thead>
+<tbody><tr><td>1</td><td><b>小马</b></td><td class='mono'>https://szyyds.cn/tv/x.json</td><td>单仓</td><td>62</td><td class='mono'>0.377s</td><td class='mono'>949 KB</td><td class='ok'>保留</td></tr><tr><td>2</td><td><b>挺好分享多仓</b></td><td class='mono'>http://ztha.top/TVBox/GYCK.json</td><td>单仓</td><td>46</td><td class='mono'>0.424s</td><td class='mono'>1052 KB</td><td class='ok'>保留</td></tr><tr><td>3</td><td><b>小盒子单仓</b></td><td class='mono'>http://xhztv.top/xhz</td><td>单仓</td><td>54</td><td class='mono'>0.899s</td><td class='mono'>888 KB</td><td class='ok'>保留</td></tr><tr><td>4</td><td><b>拾光多仓</b></td><td class='mono'>http://xmbjm.fh4u.org/dc.txt</td><td>单仓</td><td>246</td><td class='mono'>0.934s</td><td class='mono'>1892 KB</td><td class='ok'>保留</td></tr><tr><td>5</td><td><b>老刘备</b></td><td class='mono'>https://raw.liucn.cc/box/m.json</td><td>单仓</td><td>234</td><td class='mono'>3.497s</td><td class='mono'>669 KB</td><td class='ok'>保留</td></tr></tbody></table>
+<h2>说明</h2>
+<p>整理后每条线路都被解析成一份<strong>可直接加载的单仓配置</strong>（多仓已展开到默认子线路），
+并把 spider 的相对路径解析成绝对地址、实际下载校验（必须是 ZIP/JAR 头 <code>PK</code>）。
+规范化配置保存在 <code>tools/offline_sources/raw/resolved*.json</code>，jar 保存在 <code>raw/jar*.bin</code>。</p>
+<p>下一步由 <code>tools/build_offline_sources.py</code> 把这些文件写入 APK 的 assets，
+并把 spider 改成本地地址，客户端只访问 <code>clan://localhost/builtin/…</code>，外网 URL 失效也能用。</p>
+</div></body></html>

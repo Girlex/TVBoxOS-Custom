@@ -1,24 +1,44 @@
 {
   "urls": [
     {
-      "name": "小马",
+      "name": "本地·小马",
+      "url": "clan://localhost/builtin/configs/c1.json"
+    },
+    {
+      "name": "本地·挺好分享多仓",
+      "url": "clan://localhost/builtin/configs/c2.json"
+    },
+    {
+      "name": "本地·小盒子单仓",
+      "url": "clan://localhost/builtin/configs/c3.json"
+    },
+    {
+      "name": "本地·拾光多仓",
+      "url": "clan://localhost/builtin/configs/c4.json"
+    },
+    {
+      "name": "本地·老刘备",
+      "url": "clan://localhost/builtin/configs/c5.json"
+    },
+    {
+      "name": "在线·小马",
       "url": "https://szyyds.cn/tv/x.json"
     },
     {
-      "name": "挺好分享多仓",
+      "name": "在线·挺好分享多仓",
       "url": "http://ztha.top/TVBox/GYCK.json"
     },
     {
-      "name": "老刘备",
-      "url": "https://raw.liucn.cc/box/m.json"
-    },
-    {
-      "name": "小盒子单仓",
+      "name": "在线·小盒子单仓",
       "url": "http://xhztv.top/xhz"
     },
     {
-      "name": "拾光多仓",
+      "name": "在线·拾光多仓",
       "url": "http://xmbjm.fh4u.org/dc.txt"
+    },
+    {
+      "name": "在线·老刘备",
+      "url": "https://raw.liucn.cc/box/m.json"
     }
   ]
 }

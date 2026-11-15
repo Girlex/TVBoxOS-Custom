@@ -1,58 +1,31 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1"><title>内置源测速去重报告</title>
-<style>
-    :root{--bg:#f6f7f9;--card:#fff;--line:#e6e8ec;--text:#1f2329;--muted:#6b7280;
-          --green:#067647;--green-bg:#ecfdf3;--red:#d92d20;--red-bg:#fef3f2;--blue:#175cd3;--blue-bg:#eff8ff}
-    *{box-sizing:border-box}
-    body{margin:0;padding:32px 20px 60px;background:var(--bg);color:var(--text);
-         font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.65}
-    .wrap{max-width:1000px;margin:0 auto}
-    h1{font-size:24px;margin:0 0 6px}h2{font-size:17px;margin:26px 0 12px}
-    .sub{color:var(--muted);font-size:13px;margin-bottom:22px}
-    .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-bottom:16px}
-    .sum{border-left:4px solid var(--blue);background:var(--blue-bg);border-radius:10px;padding:16px 20px;margin-bottom:18px;font-size:14px}
-    .sum b{color:var(--blue)}
-    table{width:100%;border-collapse:collapse;font-size:13px}
-    th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}
-    th{color:var(--muted);font-weight:600;background:#fafbfc}
-    .mono,code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px}
-    code{background:#f3f4f6;padding:1px 5px;border-radius:4px;word-break:break-all}
-    .tag{display:inline-block;padding:2px 9px;border-radius:20px;font-size:12px;font-weight:600;white-space:nowrap}
-    .t-good{background:var(--green-bg);color:var(--green)}.t-bad{background:var(--red-bg);color:var(--red)}
-    .t-info{background:var(--blue-bg);color:var(--blue)}
-    ul{margin:8px 0 0;padding-left:20px;font-size:14px}li{margin:7px 0}
-    .foot{color:var(--muted);font-size:12px;text-align:center;margin-top:26px}
-    .small{color:var(--muted);font-size:12.5px}
-    </style></head><body><div class="wrap">
-<h1>内置源测速 / 去重 / 失效剔除报告</h1>
-<div class="sub">2026-11-15 02:59:02 · 每地址 3 次请求取中位数 · 直连优先，失败回退代理 socks5h://127.0.0.1:10808</div>
-<div class="sum"><b>最终保留 5 条，剔除 3 条。</b>
-按端到端加载耗时升序排列（多仓含自动跳转到默认子线路的那一跳），默认源已更新为最快且直接可用的「小马」；列表、Java 常量与聚合 JSON 已同步。</div>
-
-<div class="card"><h2 style="margin-top:0">最终内置源顺序（快的优先）</h2>
-<table><thead><tr><th style="width:40px">#</th><th style="width:140px">名称</th><th>配置地址</th>
-<th style="width:90px">类型</th><th style="width:100px">端到端耗时</th></tr></thead>
-<tbody><tr><td>1</td><td><b>小马</b> <span class='tag t-info'>默认</span></td><td class='mono'>https://szyyds.cn/tv/x.json</td><td>单仓</td><td class='mono'>0.389s</td></tr><tr><td>2</td><td><b>挺好分享多仓</b></td><td class='mono'>http://ztha.top/TVBox/GYCK.json</td><td>多仓</td><td class='mono'>0.472s</td></tr><tr><td>3</td><td><b>老刘备</b></td><td class='mono'>https://raw.liucn.cc/box/m.json</td><td>单仓</td><td class='mono'>0.494s</td></tr><tr><td>4</td><td><b>小盒子单仓</b></td><td class='mono'>http://xhztv.top/xhz</td><td>单仓</td><td class='mono'>0.814s</td></tr><tr><td>5</td><td><b>拾光多仓</b></td><td class='mono'>http://xmbjm.fh4u.org/dc.txt</td><td>多仓</td><td class='mono'>1.329s</td></tr></tbody></table>
-<p class="small" style="margin-top:12px">第一条即客户端首次启动自动加载的源；其余可在「线路选择」「历史配置」里切换。</p></div>
-
-<div class="card"><h2 style="margin-top:0">测速与判定明细</h2>
-<table><thead><tr><th style="width:28%">名称 / 地址</th><th style="width:130px">各次耗时</th>
-<th style="width:100px">端到端</th><th style="width:100px">类型 / 规模</th>
-<th style="width:130px">关键资源</th><th>结论</th></tr></thead>
-<tbody><tr><td><b>小马</b><div class='small mono'>https://szyyds.cn/tv/x.json</div></td><td class='mono'>0.39s/0.38s/0.40s</td><td class='mono'><b>0.389s</b><div class='small'>入口 0.389s</div></td><td>单仓<div class='small'>62 站点</div></td><td class='small'>HTTP 200, 972016 字节</td><td><span class='tag t-good'>保留</span><div class='small'>可用</div></td></tr><tr><td><b>挺好分享多仓</b><div class='small mono'>http://ztha.top/TVBox/GYCK.json</div></td><td class='mono'>0.26s/0.26s/0.28s</td><td class='mono'><b>0.472s</b><div class='small'>入口 0.262s</div></td><td>多仓<div class='small'>32 线路</div></td><td class='small'>1/3 条抽查正常</td><td><span class='tag t-good'>保留</span><div class='small'>可用</div></td></tr><tr><td><b>老刘备</b><div class='small mono'>https://raw.liucn.cc/box/m.json</div></td><td class='mono'>0.46s/0.96s/0.49s</td><td class='mono'><b>0.494s</b><div class='small'>入口 0.494s</div></td><td>单仓<div class='small'>234 站点</div></td><td class='small'>HTTP 200, 685819 字节</td><td><span class='tag t-good'>保留</span><div class='small'>可用</div></td></tr><tr><td><b>小盒子单仓</b><div class='small mono'>http://xhztv.top/xhz</div></td><td class='mono'>1.03s/0.81s/0.81s</td><td class='mono'><b>0.814s</b><div class='small'>入口 0.814s</div></td><td>单仓<div class='small'>54 站点</div></td><td class='small'>HTTP 200, 640503 字节</td><td><span class='tag t-good'>保留</span><div class='small'>可用</div></td></tr><tr><td><b>拾光多仓</b><div class='small mono'>http://xmbjm.fh4u.org/dc.txt</div></td><td class='mono'>0.92s/0.81s/0.83s</td><td class='mono'><b>1.329s</b><div class='small'>入口 0.832s</div></td><td>多仓<div class='small'>54 线路</div></td><td class='small'>2/3 条抽查正常</td><td><span class='tag t-good'>保留</span><div class='small'>可用</div></td></tr><tr><td><b>老虎TV(新)</b><div class='small mono'>http://tv.laohu.cool/tvbox.json</div></td><td class='mono'>0.01s/0.03s/0.01s</td><td class='mono'><b>0.010s</b><div class='small'>入口 0.010s</div></td><td>无效<div class='small'>-</div></td><td class='small'>-</td><td><span class='tag t-bad'>剔除</span><div class='small'>HTTP 连接失败（DNS 解析失败 / NXDOMAIN）；内容不是有效 TVBox 配置</div></td></tr><tr><td><b>4K小盒子</b><div class='small mono'>http://xhztv.top/4k.json</div></td><td class='mono'>0.68s/0.67s/0.68s</td><td class='mono'><b>0.678s</b><div class='small'>入口 0.678s</div></td><td>单仓<div class='small'>53 站点</div></td><td class='small'>HTTP 403, 146 字节</td><td><span class='tag t-bad'>剔除</span><div class='small'>spider 不可下载（HTTP 403, 146 字节）</div></td></tr><tr><td><b>原 wex 接口</b><div class='small mono'>https://d.kstore.dev/wex.json?i=114.249.158.163&amp;token=wex&amp;secret=wex</div></td><td class='mono'>4.31s/5.12s/4.08s</td><td class='mono'><b>4.311s</b><div class='small'>入口 4.311s</div></td><td>无效<div class='small'>-</div></td><td class='small'>-</td><td><span class='tag t-bad'>剔除</span><div class='small'>内容不是有效 TVBox 配置；仅复核，不纳入内置源</div></td></tr></tbody></table></div>
-
-<div class="card"><h2 style="margin-top:0">去重检查</h2><ul><li>候选池内未发现 URL 重复或返回内容完全相同的地址</li></ul>
-<h2>多仓线路重复 / 交叉重复统计</h2><ul><li><b>挺好分享多仓</b>：32 条线路，内部重复 1 条；与内置源候选重叠：小马</li><li><b>拾光多仓</b>：54 条线路，内部重复 0 条；与内置源候选重叠：老虎TV(新)</li></ul>
-<p class="small">多仓入口保留为一条线路，不展开成扁平列表，避免把大量第三方子线路混进内置源；线路内部重复仅作统计提示。</p></div>
-
-<div class="card"><h2 style="margin-top:0">剔除明细</h2><ul><li><b>老虎TV(新)</b> <span class='mono'>http://tv.laohu.cool/tvbox.json</span> —— HTTP 连接失败（DNS 解析失败 / NXDOMAIN）；内容不是有效 TVBox 配置</li><li><b>4K小盒子</b> <span class='mono'>http://xhztv.top/4k.json</span> —— spider 不可下载（HTTP 403, 146 字节）</li><li><b>原 wex 接口</b> <span class='mono'>https://d.kstore.dev/wex.json?i=114.249.158.163&amp;token=wex&amp;secret=wex</span> —— 内容不是有效 TVBox 配置；仅复核，不纳入内置源</li></ul></div>
-
-<div class="card"><h2 style="margin-top:0">判定规则与同步范围</h2><ul>
-<li>每个地址连续请求 3 次，取成功请求的中位耗时；直连失败才回退代理。多仓额外计入「自动跳转到第一条子线路」的耗时，按端到端耗时排序，避免把多一跳的入口误判成最快。</li>
-<li>有效条件：HTTP 200 + 可解析为 TVBox 单仓（sites/spider）或多仓（urls）配置 + 单仓 spider 可下载 / 多仓默认子线路必须有效且至少 1 条抽查线路可达。</li>
-<li>去重：URL 归一化（协议与主机小写、去尾斜杠）去重，外加响应体 MD5 内容去重；两者任一命中即剔除较慢者。</li>
-<li>已同步：<code>tools/builtin_sources.json</code>、<code>BuiltinSources.java</code> 的 <code>SOURCES</code>、本报告。</li>
-<li>本机无 Android SDK，未编译 APK；第三方配置的长期可用性与内容合规性请自行判断。</li>
-</ul></div>
-<div class="foot">由 tools/optimize_builtin_sources.py 生成 · 可重复运行复测并重新排序</div>
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8">
+<title>TVBox 离线内置源</title><style>
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#f6f7f9;color:#1f2329;margin:0;padding:32px}
+.wrap{max-width:1150px;margin:0 auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:28px 32px}
+h1{font-size:22px;margin:0 0 6px}h2{font-size:16px;margin:26px 0 10px}
+p,li{color:#5f6672;font-size:13px;line-height:1.85}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:9px 10px;border-bottom:1px solid #eef0f3;text-align:left}
+th{background:#f3f5f8;font-weight:600;color:#42474f}
+.mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;color:#4a5160;word-break:break-all}
+.ok{color:#0a8f4a}.online{background:#fbfcfe}
+code{background:#f2f4f7;padding:2px 5px;border-radius:4px;font-size:12px}
+.box{background:#f7f9fc;border-left:4px solid #3b7cff;padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0}
+</style></head><body><div class="wrap">
+<h1>TVBox 离线内置源</h1>
+<p>生成时间 2026-11-15 11:36:26 ｜ 5 条本地线路 + 5 条在线备用 ｜ assets 合计 5.56 MB</p>
+<div class="box"><b>和之前的区别：</b>不是内置一串外网 URL，而是把每个配置的<strong>完整内容</strong>与
+<strong>爬虫 jar</strong>一起打进 APK。客户端访问 <code>clan://localhost/builtin/…</code>，
+由 App 自带本地服务从 assets 返回，<strong>原配置地址失效也能正常加载</strong>。</div>
+<h2>线路列表（默认第一条）</h2>
+<table><thead><tr><th>#</th><th>名称</th><th>线路地址</th><th>本地文件</th><th>站点</th><th>端到端</th><th>spider</th><th>说明</th></tr></thead>
+<tbody><tr><td>1</td><td><b>本地·小马</b></td><td class='mono'>clan://localhost/builtin/configs/c1.json</td><td class='mono'>configs/c1.json</td><td>62</td><td class='mono'>0.377s</td><td class='mono'>949 KB</td><td class='ok'>离线可用</td></tr><tr><td>2</td><td><b>本地·挺好分享多仓</b></td><td class='mono'>clan://localhost/builtin/configs/c2.json</td><td class='mono'>configs/c2.json</td><td>46</td><td class='mono'>0.424s</td><td class='mono'>1052 KB</td><td class='ok'>离线可用</td></tr><tr><td>3</td><td><b>本地·小盒子单仓</b></td><td class='mono'>clan://localhost/builtin/configs/c3.json</td><td class='mono'>configs/c3.json</td><td>54</td><td class='mono'>0.899s</td><td class='mono'>888 KB</td><td class='ok'>离线可用</td></tr><tr><td>4</td><td><b>本地·拾光多仓</b></td><td class='mono'>clan://localhost/builtin/configs/c4.json</td><td class='mono'>configs/c4.json</td><td>246</td><td class='mono'>0.934s</td><td class='mono'>1892 KB</td><td class='ok'>离线可用</td></tr><tr><td>5</td><td><b>本地·老刘备</b></td><td class='mono'>clan://localhost/builtin/configs/c5.json</td><td class='mono'>configs/c5.json</td><td>234</td><td class='mono'>3.497s</td><td class='mono'>669 KB</td><td class='ok'>离线可用</td></tr><tr class='online'><td>—</td><td>在线·小马</td><td class='mono'>https://szyyds.cn/tv/x.json</td><td class='mono'>—</td><td>—</td><td class='mono'>0.377s</td><td class='mono'>—</td><td>在线备用</td></tr><tr class='online'><td>—</td><td>在线·挺好分享多仓</td><td class='mono'>http://ztha.top/TVBox/GYCK.json</td><td class='mono'>—</td><td>—</td><td class='mono'>0.424s</td><td class='mono'>—</td><td>在线备用</td></tr><tr class='online'><td>—</td><td>在线·小盒子单仓</td><td class='mono'>http://xhztv.top/xhz</td><td class='mono'>—</td><td>—</td><td class='mono'>0.899s</td><td class='mono'>—</td><td>在线备用</td></tr><tr class='online'><td>—</td><td>在线·拾光多仓</td><td class='mono'>http://xmbjm.fh4u.org/dc.txt</td><td class='mono'>—</td><td>—</td><td class='mono'>0.934s</td><td class='mono'>—</td><td>在线备用</td></tr><tr class='online'><td>—</td><td>在线·老刘备</td><td class='mono'>https://raw.liucn.cc/box/m.json</td><td class='mono'>—</td><td>—</td><td class='mono'>3.497s</td><td class='mono'>—</td><td>在线备用</td></tr></tbody></table>
+<h2>实现细节</h2>
+<ul>
+<li>多仓入口已展开到默认子线路，全部落地成可直接加载的单仓配置（含 <code>sites</code>）。</li>
+<li>每条配置的 <code>spider</code> 指向 assets 内的 jar；本地服务返回配置时把 <code>clan://localhost/</code> 替换成真实的 <code>http://127.0.0.1:&lt;port&gt;/file/</code>，端口变化也不会失效。</li>
+<li>配置里原有的 <code>./libs/…</code> 等相对资源已改写成原站绝对地址，在线时站点功能完整；点播源本身需要联网，所以这里解决的是「配置接口失效」而非完全断网可用。</li>
+<li>配置里保留的 <code>file://</code> 引用（如小马的可选 <code>TV/alist.json</code>）是 TVBox 自带的本地文件协议，属原配置合法写法，不影响其它站点。</li>
+<li>想更新快照：重跑 <code>optimize_offline_sources.py</code> + <code>build_offline_sources.py</code> 再编译；也可把同名文件放到手机存储 <code>/sdcard/builtin/</code> 下覆盖，无需重新编译。</li>
+</ul>
+<h2>校验结果</h2><p>全部通过</p>
 </div></body></html>

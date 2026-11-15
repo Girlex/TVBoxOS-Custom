@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "generated": "2026-11-15 11:36:26",
+  "default": "clan://localhost/builtin.json",
+  "sources": [
+    {
+      "name": "小马",
+      "origin": "https://szyyds.cn/tv/x.json",
+      "resolved_url": "https://szyyds.cn/tv/x.json",
+      "base_url": "https://szyyds.cn/tv/x.json",
+      "local": "clan://localhost/builtin/configs/c1.json",
+      "config": "configs/c1.json",
+      "jar": "jars/j1.jar",
+      "jar_md5": "4ce29ce27eeff6a73a230dd92d98ba0c",
+      "jar_size": 972016,
+      "sites": 62,
+      "total_ms": 0.377
+    },
+    {
+      "name": "挺好分享多仓",
+      "origin": "http://ztha.top/TVBox/GYCK.json",
+      "resolved_url": "https://ztha.top/TVBox/thdjk.json",
+      "base_url": "https://ztha.top/TVBox/thdjk.json",
+      "local": "clan://localhost/builtin/configs/c2.json",
+      "config": "configs/c2.json",
+      "jar": "jars/j2.jar",
+      "jar_md5": "097bfd1388b83204958633f23eb6e4cb",
+      "jar_size": 1077806,
+      "sites": 46,
+      "total_ms": 0.424
+    },
+    {
+      "name": "小盒子单仓",
+      "origin": "http://xhztv.top/xhz",
+      "resolved_url": "http://xhztv.top/xhz",
+      "base_url": "http://xhztv.top/xhz",
+      "local": "clan://localhost/builtin/configs/c3.json",
+      "config": "configs/c3.json",
+      "jar": "jars/j3.jar",
+      "jar_md5": "69dadb9a99a618ea9e2f4e2b92968e41",
+      "jar_size": 909588,
+      "sites": 54,
+      "total_ms": 0.899
+    },
+    {
+      "name": "拾光多仓",
+      "origin": "http://xmbjm.fh4u.org/dc.txt",
+      "resolved_url": "https://gh-proxy.com/https://raw.githubusercontent.com/xmbjm/svip/refs/heads/main/svip.json",
+      "base_url": "https://gh-proxy.com/https://raw.githubusercontent.com/xmbjm/svip/refs/heads/main/svip.json",
+      "local": "clan://localhost/builtin/configs/c4.json",
+      "config": "configs/c4.json",
+      "jar": "jars/j4.jar",
+      "jar_md5": "91eb942e44d1154447df4f91ed714488",
+      "jar_size": 1937792,
+      "sites": 246,
+      "total_ms": 0.934
+    },
+    {
+      "name": "老刘备",
+      "origin": "https://raw.liucn.cc/box/m.json",
+      "resolved_url": "https://raw.liucn.cc/box/m.json",
+      "base_url": "https://raw.liucn.cc/box/m.json",
+      "local": "clan://localhost/builtin/configs/c5.json",
+      "config": "configs/c5.json",
+      "jar": "jars/j5.jar",
+      "jar_md5": "3d161697458ecbcd2651a749db761ba1",
+      "jar_size": 685819,
+      "sites": 234,
+      "total_ms": 3.497
+    }
+  ],
+  "online": [
+    {
+      "name": "在线·小马",
+      "url": "https://szyyds.cn/tv/x.json",
+      "total_ms": 0.377
+    },
+    {
+      "name": "在线·挺好分享多仓",
+      "url": "http://ztha.top/TVBox/GYCK.json",
+      "total_ms": 0.424
+    },
+    {
+      "name": "在线·小盒子单仓",
+      "url": "http://xhztv.top/xhz",
+      "total_ms": 0.899
+    },
+    {
+      "name": "在线·拾光多仓",
+      "url": "http://xmbjm.fh4u.org/dc.txt",
+      "total_ms": 0.934
+    },
+    {
+      "name": "在线·老刘备",
+      "url": "https://raw.liucn.cc/box/m.json",
+      "total_ms": 3.497
+    }
+  ]
+}

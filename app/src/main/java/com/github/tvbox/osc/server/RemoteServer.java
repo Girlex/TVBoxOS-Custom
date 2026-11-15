@@ -29,6 +29,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -142,6 +143,82 @@ public class RemoteServer extends NanoHTTPD {
         }
     }
 
+    /**
+     * 离线内置源文件服务（配置内容与爬虫 jar 全部随 APK 打包）。
+     *
+     * <p>builtin.json            -> assets/builtin/collection.json（线路聚合入口）
+     * <p>builtin/configs/*.json  -> 各条线路的完整配置
+     * <p>builtin/jars/*.jar      -> 爬虫 jar
+     *
+     * <p>优先读取外置存储下的同名文件（/sdcard/builtin/...），便于不重新编译就更新快照；
+     * 否则回落到 APK 内置的 assets。文本资源返回前把 {@code clan://localhost/}
+     * 占位符换成真实本机地址，这样即便聚合入口被展开成 http 线路地址，
+     * 配置里的 spider 依然指向可用的本地文件。
+     */
+    private Response builtinFile(String f) {
+        try {
+            String path = URLDecoder.decode(f, "UTF-8");
+            if (path.contains("..") || path.contains("\\")) {
+                return NanoHTTPD.newFixedLengthResponse(Response.Status.INTERNAL_ERROR, NanoHTTPD.MIME_PLAINTEXT, "bad path");
+            }
+            String assetPath;
+            if (path.equals("builtin.json")) {
+                assetPath = "builtin/collection.json";
+            } else if (path.startsWith("builtin/")) {
+                assetPath = path;
+            } else {
+                return NanoHTTPD.newFixedLengthResponse(Response.Status.INTERNAL_ERROR, NanoHTTPD.MIME_PLAINTEXT, "not found");
+            }
+
+            File override = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + path);
+            byte[] bytes = override.isFile() ? readAll(override) : null;
+            if (bytes == null) {
+                bytes = BuiltinSources.assetBytes(mContext, assetPath);
+            }
+            if (bytes == null) {
+                return NanoHTTPD.newFixedLengthResponse(Response.Status.INTERNAL_ERROR, NanoHTTPD.MIME_PLAINTEXT, assetPath + " not found");
+            }
+
+            boolean binary = assetPath.endsWith(".jar") || assetPath.endsWith(".zip")
+                    || assetPath.endsWith(".png") || assetPath.endsWith(".jpg")
+                    || assetPath.endsWith(".gif") || assetPath.endsWith(".so");
+            if (binary) {
+                return NanoHTTPD.newFixedLengthResponse(Response.Status.OK,
+                        "application/octet-stream", new ByteArrayInputStream(bytes), bytes.length);
+            }
+            String text = new String(bytes, "UTF-8");
+            text = text.replace("clan://localhost/", getLoadAddress() + "file/");
+            return NanoHTTPD.newFixedLengthResponse(Response.Status.OK,
+                    "application/json; charset=utf-8", text);
+        } catch (Throwable th) {
+            return NanoHTTPD.newFixedLengthResponse(Response.Status.INTERNAL_ERROR,
+                    NanoHTTPD.MIME_PLAINTEXT, String.valueOf(th.getMessage()));
+        }
+    }
+
+    private byte[] readAll(File file) {
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream(file);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            byte[] buf = new byte[16384];
+            int n;
+            while ((n = fis.read(buf)) != -1) {
+                bos.write(buf, 0, n);
+            }
+            return bos.toByteArray();
+        } catch (Throwable th) {
+            return null;
+        } finally {
+            if (fis != null) {
+                try {
+                    fis.close();
+                } catch (Throwable ignored) {
+                }
+            }
+        }
+    }
+
     @Override
     public Response serve(IHTTPSession session) {
         EventBus.getDefault().post(new ServerEvent(ServerEvent.SERVER_CONNECTION));
@@ -171,11 +248,9 @@ public class RemoteServer extends NanoHTTPD {
                 if (fileName.startsWith("/file/")) {
                     try {
                         String f = fileName.substring(6);
-                        if (f.equals("builtin.json")) {
-                            return NanoHTTPD.newFixedLengthResponse(
-                                    NanoHTTPD.Response.Status.OK,
-                                    "application/json; charset=utf-8",
-                                    BuiltinSources.configJson());
+                        // 离线内置源：配置内容与爬虫 jar 都取自 assets，外部地址失效也能用
+                        if (f.startsWith("builtin")) {
+                            return builtinFile(f);
                         }
                         String root = Environment.getExternalStorageDirectory().getAbsolutePath();
                         String file = root + "/" + f;

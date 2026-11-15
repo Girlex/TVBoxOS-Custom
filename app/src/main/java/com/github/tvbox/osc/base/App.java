@@ -73,7 +73,7 @@ public class App extends MultiDexApplication {
             Hawk.put(HawkConfig.PLAY_TYPE, 2);
         }
         // 合并内置配置源（首次启动设置默认源，之后只补齐历史/线路，不覆盖用户选择）
-        BuiltinSources.init();
+        BuiltinSources.init(this);
     }
 
     public static App getInstance() {
