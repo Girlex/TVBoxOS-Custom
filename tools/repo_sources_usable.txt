@@ -1,0 +1,132 @@
+TVBox 三仓库可用配置链接清单
+来源: qist/tvbox | cluntop/tvbox | 22yune/tvbox-kids
+检测时间: 2026-11-15 11:43:19   候选 52 条 → 可用 31 / 内容重复 10 / 失效 11
+判定口径: HTTP 200 + 可被 TVBox(Gson 宽松)解析 + 单仓 spider jar 为 PK 头 / 多仓抽查子线路 / M3U 判为直播源
+说明: 耗时为本次本机单次请求值(含代理链路)，仅作排序参考；中文域名另附 punycode 兼容写法。
+
+==============================================================================
+A. 点播配置 · 完整可用 (20 条，按耗时升序，可直接填入「配置地址」)
+==============================================================================
+ 1. clun fun       https://clun.top/fun.json  87站点  0.69s
+ 2. 饭太硬镜像          https://qist.wyfc.qzz.io/fty.json  49站点  0.75s
+ 3. 潇洒镜像           https://qist.wyfc.qzz.io/xiaosa/api.json  116站点  0.82s
+ 4. clun jsm       https://clun.top/jsm.json  79站点  0.97s
+ 5. CF Pages jsm   https://qist.wyfc.qzz.io/jsm.json  162站点  1.12s
+ 6. clun aa        https://clun.top/aa.json  30站点  1.23s
+ 7. tvbox/0826.json https://raw.githubusercontent.com/qist/tvbox/master/0826.json  54站点  1.42s
+ 8. tvbox/wv.json  https://raw.githubusercontent.com/cluntop/tvbox/main/wv.json  15站点  1.55s
+ 9. tvbox/dianshi.json https://raw.githubusercontent.com/qist/tvbox/master/dianshi.json  163站点  1.56s
+10. tvbox/test.json https://raw.githubusercontent.com/cluntop/tvbox/main/test.json  10站点  1.63s
+11. tvbox/9918.json https://raw.githubusercontent.com/qist/tvbox/master/9918.json  61站点  1.72s
+12. kids jsDelivr  https://cdn.jsdelivr.net/gh/22yune/tvbox-kids@main/kids.json  6站点  1.88s
+13. tvbox/0825.json https://raw.githubusercontent.com/qist/tvbox/master/0825.json  135站点  1.96s
+14. clun box       https://clun.top/box.json  101站点  2.13s
+15. tvbox/99188.json https://raw.githubusercontent.com/qist/tvbox/master/99188.json  64站点  2.21s
+16. tvbox/js.json  https://raw.githubusercontent.com/qist/tvbox/master/js.json  298站点  2.37s
+17. tvbox/0821.json https://raw.githubusercontent.com/qist/tvbox/master/0821.json  86站点  2.44s
+18. 摸鱼儿            http://我不是.摸鱼儿.top  111站点  2.59s
+      兼容写法: http://xn--ihqu10cn4c.xn--v4q818bf34b.top
+19. tvbox/0827.json https://raw.githubusercontent.com/qist/tvbox/master/0827.json  33站点  2.63s
+20. tvbox/XYQ.json https://raw.githubusercontent.com/qist/tvbox/master/XYQ.json  49站点  4.77s
+
+==============================================================================
+B. 点播配置 · 部分可用 (2 条，配置能解析，但 spider jar 已 404，采集站大概率不可用)
+==============================================================================
+ 1. 俊于             http://home.jundie.top:81/top98.json  24站点  0.14s  [spider 失效]
+      原因: HTTP 404 / 146 字节
+ 2. tvbox/367.json https://raw.githubusercontent.com/qist/tvbox/master/367.json  106站点  1.51s  [spider 失效]
+      原因: HTTP 404 / 4264 字节
+
+==============================================================================
+C. 多仓线路 (1 条)
+==============================================================================
+ 1. tvbox/0707.json https://raw.githubusercontent.com/qist/tvbox/master/0707.json  1条线路  1.41s
+      1 条线路；抽查 200:高天流云 18+；注意内容名称为 18+ 线路，儿童场景请勿使用。
+
+==============================================================================
+D. 直播源 M3U/TXT (8 条，填「直播地址」，不是点播配置)
+==============================================================================
+ 1. tvbox/yo21.txt https://raw.githubusercontent.com/qist/tvbox/master/yo21.txt  1.54s
+ 2. tvbox/ITV.txt  https://raw.githubusercontent.com/qist/tvbox/master/ITV.txt  1.71s
+ 3. tvbox/list.txt https://raw.githubusercontent.com/qist/tvbox/master/list.txt  1.78s
+ 4. tvbox/radio.txt https://raw.githubusercontent.com/qist/tvbox/master/radio.txt  1.84s
+ 5. tvbox/tvlive.txt https://raw.githubusercontent.com/qist/tvbox/master/tvlive.txt  1.98s
+ 6. tvbox/zb.txt   https://raw.githubusercontent.com/qist/tvbox/master/zb.txt  2.19s
+ 7. tvbox/listx.txt https://raw.githubusercontent.com/qist/tvbox/master/listx.txt  3.09s
+ 8. tvbox/tvboxtv.txt https://raw.githubusercontent.com/qist/tvbox/master/tvboxtv.txt  3.16s
+
+==============================================================================
+E. 内容相同的备用入口 (10 条，与上面保留项逐字节一致，可做失败切换)
+==============================================================================
+ 1. 饭太硬接口          https://raw.githubusercontent.com/qist/tvbox/master/fty.json  49站点  1.38s
+      重复（与「饭太硬镜像」内容相同）
+ 2. tvbox/aa.json  https://raw.githubusercontent.com/cluntop/tvbox/main/aa.json  30站点  1.46s
+      重复（与「clun aa」内容相同）
+ 3. 潇洒接口           https://raw.githubusercontent.com/qist/tvbox/master/xiaosa/api.json  116站点  1.47s
+      重复（与「潇洒镜像」内容相同）
+ 4. 电视自用 jsm       https://raw.githubusercontent.com/qist/tvbox/master/jsm.json  162站点  1.85s
+      重复（与「CF Pages jsm」内容相同）
+ 5. tvbox/jsm.json https://raw.githubusercontent.com/cluntop/tvbox/main/jsm.json  79站点  2.32s
+      重复（与「clun jsm」内容相同）
+ 6. tvbox/box.json https://raw.githubusercontent.com/cluntop/tvbox/main/box.json  101站点  2.47s
+      重复（与「clun box」内容相同）
+ 7. ghproxy 代理 jsm https://gh-proxy.com/https://raw.githubusercontent.com/qist/tvbox/master/jsm.json  162站点  2.50s
+      重复（与「CF Pages jsm」内容相同）
+ 8. kids raw       https://raw.githubusercontent.com/22yune/tvbox-kids/main/kids.json  6站点  2.79s
+      重复（与「kids jsDelivr」内容相同）
+ 9. kids gh-proxy  https://gh-proxy.com/https://raw.githubusercontent.com/22yune/tvbox-kids/main/kids.json  6站点  3.04s
+      重复（与「kids jsDelivr」内容相同）
+10. tvbox/fun.json https://raw.githubusercontent.com/cluntop/tvbox/main/fun.json  87站点  3.17s
+      重复（与「clun fun」内容相同）
+
+==============================================================================
+F. 失效地址 (11 条)
+==============================================================================
+ 1. okjack         https://jihulab.com/okcaptain/kko/raw/main/ok.txt
+      HTTP 401 / 无响应
+ 2. 南风             https://agit.ai/Yoursmile7/TVBox/raw/branch/master/XC.json
+      内容不是 TVBox 配置：无法解析为 JSON
+ 3. 小米小爆脾气         http://xhww.fun/小米/DEMO.json
+      HTTP 404 / 无响应
+ 4. 王二小放牛娃         http://tvbox.王二小放牛娃.xyz
+      HTTP 连接失败 / 无响应
+ 5. 神器每日推送         https://神器每日推送.tk/pz.json
+      HTTP 连接失败 / 无响应
+ 6. 饭太硬            http://www.饭太硬.top/tv/
+      HTTP 连接失败 / 无响应
+ 7. 橘子柚            https://raw.githubusercontent.com/hackyjso/box/main/jzy.txt
+      内容不是 TVBox 配置：无法解析为 JSON
+ 8. Ray            https://100km.top/0
+      HTTP 连接失败 / 无响应
+ 9. 霜辉月明py         https://raw.githubusercontent.com/lm317379829/PyramidStore/pyramid/py.json
+      HTTP 404 / 无响应
+10. 巧技             http://pandown.pro/tvbox/tvbox.json
+      HTTP 连接失败 / 无响应
+11. moeyy 代理 jsm   https://github.moeyy.xyz/https://raw.githubusercontent.com/qist/tvbox/master/jsm.json
+      HTTP 连接失败 / 无响应
+
+==============================================================================
+纯 URL 速贴版 · 点播/多仓配置 (21 条)
+==============================================================================
+https://clun.top/fun.json
+https://qist.wyfc.qzz.io/fty.json
+https://qist.wyfc.qzz.io/xiaosa/api.json
+https://clun.top/jsm.json
+https://qist.wyfc.qzz.io/jsm.json
+https://clun.top/aa.json
+https://raw.githubusercontent.com/qist/tvbox/master/0826.json
+https://raw.githubusercontent.com/cluntop/tvbox/main/wv.json
+https://raw.githubusercontent.com/qist/tvbox/master/dianshi.json
+https://raw.githubusercontent.com/cluntop/tvbox/main/test.json
+https://raw.githubusercontent.com/qist/tvbox/master/9918.json
+https://cdn.jsdelivr.net/gh/22yune/tvbox-kids@main/kids.json
+https://raw.githubusercontent.com/qist/tvbox/master/0825.json
+https://clun.top/box.json
+https://raw.githubusercontent.com/qist/tvbox/master/99188.json
+https://raw.githubusercontent.com/qist/tvbox/master/js.json
+https://raw.githubusercontent.com/qist/tvbox/master/0821.json
+http://xn--ihqu10cn4c.xn--v4q818bf34b.top
+https://raw.githubusercontent.com/qist/tvbox/master/0827.json
+https://raw.githubusercontent.com/qist/tvbox/master/XYQ.json
+https://raw.githubusercontent.com/qist/tvbox/master/0707.json
+

@@ -1,0 +1,46 @@
+{
+  "qist/tvbox": {
+    "branch": "master",
+    "root_configs": [
+      "0707.json",
+      "0821.json",
+      "0825.json",
+      "0826.json",
+      "0827.json",
+      "367.json",
+      "9918.json",
+      "99188.json",
+      "ITV.txt",
+      "XYQ.json",
+      "dianshi.json",
+      "fty.json",
+      "js.json",
+      "jsm.json",
+      "list.txt",
+      "listx.txt",
+      "radio.txt",
+      "tvboxtv.txt",
+      "tvlive.txt",
+      "yo21.txt",
+      "zb.txt"
+    ]
+  },
+  "cluntop/tvbox": {
+    "branch": "main",
+    "root_configs": [
+      "aa.json",
+      "box.json",
+      "fun.json",
+      "jsm.json",
+      "test.json",
+      "wv.json"
+    ]
+  },
+  "22yune/tvbox-kids": {
+    "branch": "main",
+    "root_configs": [
+      "kids.json",
+      "package.json"
+    ]
+  }
+}

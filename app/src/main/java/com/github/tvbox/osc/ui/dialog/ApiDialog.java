@@ -67,10 +67,9 @@ public class ApiDialog extends BaseDialog {
         inputApi = findViewById(R.id.input);
         inputApiLive = findViewById(R.id.inputLive);
         inputConfirm = findViewById(R.id.inputConfirm);
-        //内置网络接口在此处添加：无配置时回退到内置聚合源
+        //内置接口：点播与直播都回退到随 APK 打包的本地文件
         inputApi.setText(Hawk.get(HawkConfig.API_URL, BuiltinSources.DEFAULT_API));
-        inputApiLive.setText(Hawk.get(HawkConfig.LIVE_API_URL,
-                Hawk.get(HawkConfig.API_URL, BuiltinSources.DEFAULT_API)));
+        inputApiLive.setText(Hawk.get(HawkConfig.LIVE_API_URL, BuiltinSources.DEFAULT_LIVE_API));
         findViewById(R.id.inputSubmit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

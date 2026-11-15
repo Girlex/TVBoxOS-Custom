@@ -1,0 +1,497 @@
+{
+  "generated": "2026-11-15 11:54:24",
+  "point": [
+    {
+      "key": "o1",
+      "name": "小马",
+      "url": "https://szyyds.cn/tv/x.json",
+      "fetch_url": "https://szyyds.cn/tv/x.json",
+      "raw": "raw/1.txt",
+      "group": "旧·内置源"
+    },
+    {
+      "key": "o2",
+      "name": "挺好分享多仓",
+      "url": "http://ztha.top/TVBox/GYCK.json",
+      "fetch_url": "http://ztha.top/TVBox/GYCK.json",
+      "raw": "raw/2.txt",
+      "group": "旧·内置源"
+    },
+    {
+      "key": "o3",
+      "name": "小盒子单仓",
+      "url": "http://xhztv.top/xhz",
+      "fetch_url": "http://xhztv.top/xhz",
+      "raw": "raw/4.txt",
+      "group": "旧·内置源"
+    },
+    {
+      "key": "o4",
+      "name": "拾光多仓",
+      "url": "http://xmbjm.fh4u.org/dc.txt",
+      "fetch_url": "http://xmbjm.fh4u.org/dc.txt",
+      "raw": "raw/5.txt",
+      "group": "旧·内置源"
+    },
+    {
+      "key": "o5",
+      "name": "老刘备",
+      "url": "https://raw.liucn.cc/box/m.json",
+      "fetch_url": "https://raw.liucn.cc/box/m.json",
+      "raw": "raw/3.txt",
+      "group": "旧·内置源"
+    },
+    {
+      "key": "r1",
+      "name": "clun fun",
+      "url": "https://clun.top/fun.json",
+      "fetch_url": "https://clun.top/fun.json",
+      "raw": "raw/repo_1.txt",
+      "group": "新·三仓库",
+      "sites": 87,
+      "ms": 0.691,
+      "md5": "3e704821bec1a331ce5c3bc4cccfceb4",
+      "size": 39756
+    },
+    {
+      "key": "r2",
+      "name": "饭太硬镜像",
+      "url": "https://qist.wyfc.qzz.io/fty.json",
+      "fetch_url": "https://qist.wyfc.qzz.io/fty.json",
+      "raw": "raw/repo_2.txt",
+      "group": "新·三仓库",
+      "sites": 49,
+      "ms": 0.748,
+      "md5": "3c5925020d99c0e11a1385493134d524",
+      "size": 12286
+    },
+    {
+      "key": "r3",
+      "name": "潇洒镜像",
+      "url": "https://qist.wyfc.qzz.io/xiaosa/api.json",
+      "fetch_url": "https://qist.wyfc.qzz.io/xiaosa/api.json",
+      "raw": "raw/repo_3.txt",
+      "group": "新·三仓库",
+      "sites": 116,
+      "ms": 0.821,
+      "md5": "3eee2c0e39986b926e8af6353b726cda",
+      "size": 27955
+    },
+    {
+      "key": "r4",
+      "name": "clun jsm",
+      "url": "https://clun.top/jsm.json",
+      "fetch_url": "https://clun.top/jsm.json",
+      "raw": "raw/repo_4.txt",
+      "group": "新·三仓库",
+      "sites": 79,
+      "ms": 0.971,
+      "md5": "ac01c619dc9c036b7a2d197db80905ea",
+      "size": 40215
+    },
+    {
+      "key": "r5",
+      "name": "CF Pages jsm",
+      "url": "https://qist.wyfc.qzz.io/jsm.json",
+      "fetch_url": "https://qist.wyfc.qzz.io/jsm.json",
+      "raw": "raw/repo_5.txt",
+      "group": "新·三仓库",
+      "sites": 162,
+      "ms": 1.118,
+      "md5": "dec92ba8f4c133306c5ae2c0cc11efa6",
+      "size": 47735
+    },
+    {
+      "key": "r6",
+      "name": "clun aa",
+      "url": "https://clun.top/aa.json",
+      "fetch_url": "https://clun.top/aa.json",
+      "raw": "raw/repo_6.txt",
+      "group": "新·三仓库",
+      "sites": 30,
+      "ms": 1.225,
+      "md5": "fc5b2ef553193512a795301c476a8d1d",
+      "size": 16215
+    },
+    {
+      "key": "r7",
+      "name": "tvbox/0826.json",
+      "url": "https://raw.githubusercontent.com/qist/tvbox/master/0826.json",
+      "fetch_url": "https://raw.githubusercontent.com/qist/tvbox/master/0826.json",
+      "raw": "raw/repo_7.txt",
+      "group": "新·三仓库",
+      "sites": 54,
+      "ms": 1.417,
+      "md5": "7a4591966c4ab63b77052e350ce06a58",
+      "size": 12110
+    },
+    {
+      "key": "r8",
+      "name": "tvbox/wv.json",
+      "url": "https://raw.githubusercontent.com/cluntop/tvbox/main/wv.json",
+      "fetch_url": "https://raw.githubusercontent.com/cluntop/tvbox/main/wv.json",
+      "raw": "raw/repo_8.txt",
+      "group": "新·三仓库",
+      "sites": 15,
+      "ms": 1.549,
+      "md5": "d1371f68aa0229f3f4c250e7ca376f09",
+      "size": 3596
+    },
+    {
+      "key": "r9",
+      "name": "tvbox/dianshi.json",
+      "url": "https://raw.githubusercontent.com/qist/tvbox/master/dianshi.json",
+      "fetch_url": "https://raw.githubusercontent.com/qist/tvbox/master/dianshi.json",
+      "raw": "raw/repo_9.txt",
+      "group": "新·三仓库",
+      "sites": 163,
+      "ms": 1.563,
+      "md5": "8404f1888863932d6297402724ae50fc",
+      "size": 47133
+    },
+    {
+      "key": "r10",
+      "name": "tvbox/test.json",
+      "url": "https://raw.githubusercontent.com/cluntop/tvbox/main/test.json",
+      "fetch_url": "https://raw.githubusercontent.com/cluntop/tvbox/main/test.json",
+      "raw": "raw/repo_10.txt",
+      "group": "新·三仓库",
+      "sites": 10,
+      "ms": 1.632,
+      "md5": "1519d4fd7ad75534125d0128d3195802",
+      "size": 1833
+    },
+    {
+      "key": "r11",
+      "name": "tvbox/9918.json",
+      "url": "https://raw.githubusercontent.com/qist/tvbox/master/9918.json",
+      "fetch_url": "https://raw.githubusercontent.com/qist/tvbox/master/9918.json",
+      "raw": "raw/repo_11.txt",
+      "group": "新·三仓库",
+      "sites": 61,
+      "ms": 1.718,
+      "md5": "d7205d6f8c89e24df313d378e33a9f70",
+      "size": 14844
+    },
+    {
+      "key": "r12",
+      "name": "kids jsDelivr",
+      "url": "https://cdn.jsdelivr.net/gh/22yune/tvbox-kids@main/kids.json",
+      "fetch_url": "https://cdn.jsdelivr.net/gh/22yune/tvbox-kids@main/kids.json",
+      "raw": "raw/repo_12.txt",
+      "group": "新·三仓库",
+      "sites": 6,
+      "ms": 1.878,
+      "md5": "ee24bba0203eb9c29c45f21ca96fa2a6",
+      "size": 3724
+    },
+    {
+      "key": "r13",
+      "name": "tvbox/0825.json",
+      "url": "https://raw.githubusercontent.com/qist/tvbox/master/0825.json",
+      "fetch_url": "https://raw.githubusercontent.com/qist/tvbox/master/0825.json",
+      "raw": "raw/repo_13.txt",
+      "group": "新·三仓库",
+      "sites": 135,
+      "ms": 1.962,
+      "md5": "bc59cbf446a14362d64b7166a1fea610",
+      "size": 27643
+    },
+    {
+      "key": "r14",
+      "name": "clun box",
+      "url": "https://clun.top/box.json",
+      "fetch_url": "https://clun.top/box.json",
+      "raw": "raw/repo_14.txt",
+      "group": "新·三仓库",
+      "sites": 101,
+      "ms": 2.134,
+      "md5": "debf19a76cd39dbb92799f84e40a4459",
+      "size": 31412
+    },
+    {
+      "key": "r15",
+      "name": "tvbox/99188.json",
+      "url": "https://raw.githubusercontent.com/qist/tvbox/master/99188.json",
+      "fetch_url": "https://raw.githubusercontent.com/qist/tvbox/master/99188.json",
+      "raw": "raw/repo_15.txt",
+      "group": "新·三仓库",
+      "sites": 64,
+      "ms": 2.211,
+      "md5": "a918c7f67be4f0e08d5be79a351fa1e3",
+      "size": 17359
+    },
+    {
+      "key": "r16",
+      "name": "tvbox/js.json",
+      "url": "https://raw.githubusercontent.com/qist/tvbox/master/js.json",
+      "fetch_url": "https://raw.githubusercontent.com/qist/tvbox/master/js.json",
+      "raw": "raw/repo_16.txt",
+      "group": "新·三仓库",
+      "sites": 298,
+      "ms": 2.372,
+      "md5": "f036a5e903f843ab6b8d03a008668361",
+      "size": 52718
+    },
+    {
+      "key": "r17",
+      "name": "tvbox/0821.json",
+      "url": "https://raw.githubusercontent.com/qist/tvbox/master/0821.json",
+      "fetch_url": "https://raw.githubusercontent.com/qist/tvbox/master/0821.json",
+      "raw": "raw/repo_17.txt",
+      "group": "新·三仓库",
+      "sites": 86,
+      "ms": 2.435,
+      "md5": "0688742701c281b22301dd1c3d0cc1ab",
+      "size": 23882
+    },
+    {
+      "key": "r18",
+      "name": "摸鱼儿",
+      "url": "http://我不是.摸鱼儿.top",
+      "fetch_url": "http://xn--ihqu10cn4c.xn--v4q818bf34b.top",
+      "raw": "raw/repo_18.txt",
+      "group": "新·三仓库",
+      "sites": 111,
+      "ms": 2.588,
+      "md5": "368e738e6461a1ecec75177aa057ae28",
+      "size": 37183
+    },
+    {
+      "key": "r19",
+      "name": "tvbox/0827.json",
+      "url": "https://raw.githubusercontent.com/qist/tvbox/master/0827.json",
+      "fetch_url": "https://raw.githubusercontent.com/qist/tvbox/master/0827.json",
+      "raw": "raw/repo_19.txt",
+      "group": "新·三仓库",
+      "sites": 33,
+      "ms": 2.632,
+      "md5": "475c3eb4f1df192b604bb7484e813de0",
+      "size": 9964
+    },
+    {
+      "key": "r20",
+      "name": "tvbox/XYQ.json",
+      "url": "https://raw.githubusercontent.com/qist/tvbox/master/XYQ.json",
+      "fetch_url": "https://raw.githubusercontent.com/qist/tvbox/master/XYQ.json",
+      "raw": "raw/repo_20.txt",
+      "group": "新·三仓库",
+      "sites": 49,
+      "ms": 4.773,
+      "md5": "2188e21c124b2a6808b1e36e62c13caa",
+      "size": 19198
+    }
+  ],
+  "live": [
+    {
+      "key": "l1",
+      "name": "tvbox/yo21.txt",
+      "url": "https://raw.githubusercontent.com/qist/tvbox/master/yo21.txt",
+      "fetch_url": "https://raw.githubusercontent.com/qist/tvbox/master/yo21.txt",
+      "raw": "raw/live_1.txt",
+      "local": "clan://localhost/builtin/live/l1.txt",
+      "ms": 1.54,
+      "size": 4742,
+      "md5": "07fbc10b8c33610e5bb4353b2314d55a"
+    },
+    {
+      "key": "l2",
+      "name": "tvbox/ITV.txt",
+      "url": "https://raw.githubusercontent.com/qist/tvbox/master/ITV.txt",
+      "fetch_url": "https://raw.githubusercontent.com/qist/tvbox/master/ITV.txt",
+      "raw": "raw/live_2.txt",
+      "local": "clan://localhost/builtin/live/l2.txt",
+      "ms": 1.709,
+      "size": 88216,
+      "md5": "34eaba8579f9eed5b0ee4b12dd85ee0e"
+    },
+    {
+      "key": "l3",
+      "name": "tvbox/list.txt",
+      "url": "https://raw.githubusercontent.com/qist/tvbox/master/list.txt",
+      "fetch_url": "https://raw.githubusercontent.com/qist/tvbox/master/list.txt",
+      "raw": "raw/live_3.txt",
+      "local": "clan://localhost/builtin/live/l3.txt",
+      "ms": 1.784,
+      "size": 16038,
+      "md5": "d7910dca60a2325e874bc8009663aca0"
+    },
+    {
+      "key": "l4",
+      "name": "tvbox/radio.txt",
+      "url": "https://raw.githubusercontent.com/qist/tvbox/master/radio.txt",
+      "fetch_url": "https://raw.githubusercontent.com/qist/tvbox/master/radio.txt",
+      "raw": "raw/live_4.txt",
+      "local": "clan://localhost/builtin/live/l4.txt",
+      "ms": 1.841,
+      "size": 105812,
+      "md5": "1f47a315aa2d91c49c00df944dc1fc58"
+    },
+    {
+      "key": "l5",
+      "name": "tvbox/tvlive.txt",
+      "url": "https://raw.githubusercontent.com/qist/tvbox/master/tvlive.txt",
+      "fetch_url": "https://raw.githubusercontent.com/qist/tvbox/master/tvlive.txt",
+      "raw": "raw/live_5.txt",
+      "local": "clan://localhost/builtin/live/l5.txt",
+      "ms": 1.982,
+      "size": 157441,
+      "md5": "b8d66e98c252438aed645b90a21d4a5b"
+    },
+    {
+      "key": "l6",
+      "name": "tvbox/zb.txt",
+      "url": "https://raw.githubusercontent.com/qist/tvbox/master/zb.txt",
+      "fetch_url": "https://raw.githubusercontent.com/qist/tvbox/master/zb.txt",
+      "raw": "raw/live_6.txt",
+      "local": "clan://localhost/builtin/live/l6.txt",
+      "ms": 2.194,
+      "size": 233819,
+      "md5": "6db1950d529185a267e1cf3fc2eaf55d"
+    },
+    {
+      "key": "l7",
+      "name": "tvbox/listx.txt",
+      "url": "https://raw.githubusercontent.com/qist/tvbox/master/listx.txt",
+      "fetch_url": "https://raw.githubusercontent.com/qist/tvbox/master/listx.txt",
+      "raw": "raw/live_7.txt",
+      "local": "clan://localhost/builtin/live/l7.txt",
+      "ms": 3.088,
+      "size": 117939,
+      "md5": "4455c8bf4d21ff80306799c4310ead56"
+    },
+    {
+      "key": "l8",
+      "name": "tvbox/tvboxtv.txt",
+      "url": "https://raw.githubusercontent.com/qist/tvbox/master/tvboxtv.txt",
+      "fetch_url": "https://raw.githubusercontent.com/qist/tvbox/master/tvboxtv.txt",
+      "raw": "raw/live_8.txt",
+      "local": "clan://localhost/builtin/live/l8.txt",
+      "ms": 3.162,
+      "size": 154596,
+      "md5": "58e20c83d3ed441b1d4f6826fdb1a0a6"
+    }
+  ],
+  "excluded": [
+    {
+      "name": "俊于",
+      "url": "http://home.jundie.top:81/top98.json",
+      "why": "spider jar 已失效（HTTP 404 / 146 字节）"
+    },
+    {
+      "name": "tvbox/0707.json",
+      "url": "https://raw.githubusercontent.com/qist/tvbox/master/0707.json",
+      "why": "多仓线路内容标注为 18+，按内容合规剔除"
+    },
+    {
+      "name": "tvbox/367.json",
+      "url": "https://raw.githubusercontent.com/qist/tvbox/master/367.json",
+      "why": "spider jar 已失效（HTTP 404 / 4264 字节）"
+    },
+    {
+      "name": "饭太硬接口",
+      "url": "https://raw.githubusercontent.com/qist/tvbox/master/fty.json",
+      "why": "内容重复，已保留更快的入口"
+    },
+    {
+      "name": "tvbox/aa.json",
+      "url": "https://raw.githubusercontent.com/cluntop/tvbox/main/aa.json",
+      "why": "内容重复，已保留更快的入口"
+    },
+    {
+      "name": "潇洒接口",
+      "url": "https://raw.githubusercontent.com/qist/tvbox/master/xiaosa/api.json",
+      "why": "内容重复，已保留更快的入口"
+    },
+    {
+      "name": "电视自用 jsm",
+      "url": "https://raw.githubusercontent.com/qist/tvbox/master/jsm.json",
+      "why": "内容重复，已保留更快的入口"
+    },
+    {
+      "name": "tvbox/jsm.json",
+      "url": "https://raw.githubusercontent.com/cluntop/tvbox/main/jsm.json",
+      "why": "内容重复，已保留更快的入口"
+    },
+    {
+      "name": "tvbox/box.json",
+      "url": "https://raw.githubusercontent.com/cluntop/tvbox/main/box.json",
+      "why": "内容重复，已保留更快的入口"
+    },
+    {
+      "name": "ghproxy 代理 jsm",
+      "url": "https://gh-proxy.com/https://raw.githubusercontent.com/qist/tvbox/master/jsm.json",
+      "why": "内容重复，已保留更快的入口"
+    },
+    {
+      "name": "kids raw",
+      "url": "https://raw.githubusercontent.com/22yune/tvbox-kids/main/kids.json",
+      "why": "内容重复，已保留更快的入口"
+    },
+    {
+      "name": "kids gh-proxy",
+      "url": "https://gh-proxy.com/https://raw.githubusercontent.com/22yune/tvbox-kids/main/kids.json",
+      "why": "内容重复，已保留更快的入口"
+    },
+    {
+      "name": "tvbox/fun.json",
+      "url": "https://raw.githubusercontent.com/cluntop/tvbox/main/fun.json",
+      "why": "内容重复，已保留更快的入口"
+    },
+    {
+      "name": "okjack",
+      "url": "https://jihulab.com/okcaptain/kko/raw/main/ok.txt",
+      "why": "HTTP 401 / 无响应"
+    },
+    {
+      "name": "南风",
+      "url": "https://agit.ai/Yoursmile7/TVBox/raw/branch/master/XC.json",
+      "why": "内容不是 TVBox 配置：无法解析为 JSON"
+    },
+    {
+      "name": "小米小爆脾气",
+      "url": "http://xhww.fun/小米/DEMO.json",
+      "why": "HTTP 404 / 无响应"
+    },
+    {
+      "name": "王二小放牛娃",
+      "url": "http://tvbox.王二小放牛娃.xyz",
+      "why": "HTTP 连接失败 / 无响应"
+    },
+    {
+      "name": "神器每日推送",
+      "url": "https://神器每日推送.tk/pz.json",
+      "why": "HTTP 连接失败 / 无响应"
+    },
+    {
+      "name": "饭太硬",
+      "url": "http://www.饭太硬.top/tv/",
+      "why": "HTTP 连接失败 / 无响应"
+    },
+    {
+      "name": "橘子柚",
+      "url": "https://raw.githubusercontent.com/hackyjso/box/main/jzy.txt",
+      "why": "内容不是 TVBox 配置：无法解析为 JSON"
+    },
+    {
+      "name": "Ray",
+      "url": "https://100km.top/0",
+      "why": "HTTP 连接失败 / 无响应"
+    },
+    {
+      "name": "霜辉月明py",
+      "url": "https://raw.githubusercontent.com/lm317379829/PyramidStore/pyramid/py.json",
+      "why": "HTTP 404 / 无响应"
+    },
+    {
+      "name": "巧技",
+      "url": "http://pandown.pro/tvbox/tvbox.json",
+      "why": "HTTP 连接失败 / 无响应"
+    },
+    {
+      "name": "moeyy 代理 jsm",
+      "url": "https://github.moeyy.xyz/https://raw.githubusercontent.com/qist/tvbox/master/jsm.json",
+      "why": "HTTP 连接失败 / 无响应"
+    }
+  ]
+}

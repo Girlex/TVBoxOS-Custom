@@ -14,21 +14,25 @@ import java.io.Reader;
 import java.util.ArrayList;
 
 /**
- * 离线内置源。
+ * 全本地内置源。
  *
- * <p>配置内容与爬虫 jar 已随 APK 打包在 {@code assets/builtin/}，客户端只访问
- * {@link #DEFAULT_API} 及 {@code clan://localhost/builtin/...}，
+ * <p>配置 JSON、爬虫 jar、直播 M3U 全部随 APK 打包在 {@code assets/builtin/}，
+ * 客户端只访问 {@link #DEFAULT_API} 及 {@code clan://localhost/builtin/...}，
  * 由 RemoteServer 从本地文件返回，<b>外部配置地址失效也能正常加载</b>。
  *
- * <p>数据由 tools/optimize_offline_sources.py（测速、去重、剔除失效）
- * 与 tools/build_offline_sources.py（生成 assets）产出，源码里不再硬编码外部配置 URL。
- * 想更新快照：重跑这两个脚本再编译；也可把同名文件放到手机存储
+ * <p>聚合入口里没有任何 http(s) 在线线路；线路顺序由
+ * tools/optimize_offline_sources.py 多轮测速后按端到端耗时升序决定，第一条即默认线路。
+ * 想更新快照：依次运行 snapshot_repo_sources.py、optimize_offline_sources.py、
+ * build_offline_sources.py 再编译；也可把同名文件放到手机存储
  * {@code /sdcard/builtin/} 下覆盖，无需重新编译。
  */
 public final class BuiltinSources {
 
     /** 内置聚合源入口，由 RemoteServer 映射到 assets/builtin/collection.json */
     public static final String DEFAULT_API = "clan://localhost/builtin.json";
+
+    /** 默认直播地址，指向 assets/builtin/live/l1.txt（测速最快的一份 M3U） */
+    public static final String DEFAULT_LIVE_API = "clan://localhost/builtin/live/l1.txt";
 
     /** 内置源总入口在线路列表里的显示名称 */
     public static final String SOURCE_TAG = "内置源";
@@ -53,17 +57,11 @@ public final class BuiltinSources {
         public double total_ms;
     }
 
-    public static class Online {
-        public String name;
-        public String url;
-        public double total_ms;
-    }
-
     public static class Manifest {
         public int version;
         public String generated;
+        public String default_live;
         public ArrayList<Source> sources;
-        public ArrayList<Online> online;
     }
 
     /** 读取 assets/builtin/manifest.json（进程内缓存） */
@@ -89,7 +87,6 @@ public final class BuiltinSources {
                     }
                     if (m == null) m = new Manifest();
                     if (m.sources == null) m.sources = new ArrayList<>();
-                    if (m.online == null) m.online = new ArrayList<>();
                     sManifest = m;
                 }
             }
@@ -141,9 +138,16 @@ public final class BuiltinSources {
             current = DEFAULT_API;
             Hawk.put(HawkConfig.API_URL, current);
         }
+
+        // 直播默认走本地 M3U；从旧版升级时把残留的在线直播地址换成本地文件
         String live = Hawk.get(HawkConfig.LIVE_API_URL, "");
-        if (TextUtils.isEmpty(live)) {
-            Hawk.put(HawkConfig.LIVE_API_URL, current);
+        if (TextUtils.isEmpty(live) || live.startsWith("http")) {
+            String localLive = TextUtils.isEmpty(m.default_live) ? DEFAULT_LIVE_API : m.default_live;
+            String asset = localLive.replace("clan://localhost/builtin/", ASSET_ROOT);
+            if (assetBytes(context, asset) == null) {
+                localLive = DEFAULT_LIVE_API;
+            }
+            Hawk.put(HawkConfig.LIVE_API_URL, localLive);
         }
 
         ArrayList<String> history = Hawk.get(HawkConfig.API_HISTORY, new ArrayList<String>());
@@ -153,20 +157,14 @@ public final class BuiltinSources {
         for (Source s : m.sources) {
             addHistory(mergedHistory, s.local);
         }
-        for (Online o : m.online) {
-            addHistory(mergedHistory, o.url);
-        }
         Hawk.put(HawkConfig.API_HISTORY, mergedHistory);
 
         ArrayList<String> lines = Hawk.get(HawkConfig.API_LINE_LIST, new ArrayList<String>());
         ArrayList<String> mergedLines = lines == null
-                ? new ArrayList<String>() : new ArrayList<String>(lines);
+                ? new ArrayList<String>() : purgeLegacyOnlineLines(lines);
         addLine(mergedLines, SOURCE_TAG + "（全部线路）", DEFAULT_API);
         for (Source s : m.sources) {
             addLine(mergedLines, "本地·" + s.name, s.local);
-        }
-        for (Online o : m.online) {
-            addLine(mergedLines, o.name, o.url);
         }
         Hawk.put(HawkConfig.API_LINE_LIST, mergedLines);
 
@@ -174,6 +172,16 @@ public final class BuiltinSources {
         if (TextUtils.isEmpty(source)) {
             Hawk.put(HawkConfig.API_LINE_SOURCE, DEFAULT_API);
         }
+    }
+
+    /** 清掉旧版注入的「在线·xxx」线路，用户自己添加的在线地址保持不动 */
+    private static ArrayList<String> purgeLegacyOnlineLines(ArrayList<String> lines) {
+        ArrayList<String> out = new ArrayList<>();
+        for (String line : lines) {
+            if (HistoryHelper.getApiLineName(line).startsWith("在线·")) continue;
+            out.add(line);
+        }
+        return out;
     }
 
     private static void addHistory(ArrayList<String> history, String url) {

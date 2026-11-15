@@ -188,8 +188,12 @@ public class RemoteServer extends NanoHTTPD {
             }
             String text = new String(bytes, "UTF-8");
             text = text.replace("clan://localhost/", getLoadAddress() + "file/");
-            return NanoHTTPD.newFixedLengthResponse(Response.Status.OK,
-                    "application/json; charset=utf-8", text);
+            // M3U/直播文本按纯文本返回，避免中文频道名被当成 JSON 处理
+            boolean plain = assetPath.endsWith(".txt") || assetPath.endsWith(".m3u")
+                    || assetPath.endsWith(".m3u8");
+            String mime = plain ? "text/plain; charset=utf-8"
+                    : "application/json; charset=utf-8";
+            return NanoHTTPD.newFixedLengthResponse(Response.Status.OK, mime, text);
         } catch (Throwable th) {
             return NanoHTTPD.newFixedLengthResponse(Response.Status.INTERNAL_ERROR,
                     NanoHTTPD.MIME_PLAINTEXT, String.valueOf(th.getMessage()));
