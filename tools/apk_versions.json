@@ -4,8 +4,21 @@
     "versionCode": 1005,
     "versionName": "1.0.1005",
     "cert_sha256": "2cd8635dc3dc0dceefdadfab52063d738d5cf7a57f2fce7de2b9d4d1b5019710",
+    "cert_algo": "signature-block-sha256",
+    "note": "旧算法：哈希了含 signingTime 的整个 v1 签名块，同一密钥不同构建也会变化，已废弃",
     "size_mb": 99.6,
     "zip_ok": true,
     "checked_at": "2026-11-15T12:44:44"
+  },
+  {
+    "package": "com.github.tvbox.osc.jun",
+    "versionCode": 1006,
+    "versionName": "1.0.1006",
+    "cert_sha256": "4b9421de6d46778f6280b180179413fa6973845f0a0132c00f6800c06464e051",
+    "cert_algo": "cert-der-sha256",
+    "note": "修正为 X.509 证书 DER 的 SHA256，已与仓库 TVBoxOSC.jks 导出的证书逐字节比对一致",
+    "size_mb": 99.6,
+    "zip_ok": true,
+    "checked_at": "2026-11-15T13:06:45"
   }
 ]

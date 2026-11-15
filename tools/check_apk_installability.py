@@ -7,6 +7,10 @@
                                                                    # 校验 APK 并写入版本基线
 --record 会把本次 versionCode / versionName / 签名证书 SHA256 追加到 tools/apk_versions.json，
 下次校验时要求 versionCode 严格递增、证书指纹完全一致、包名不变。
+
+注意：证书指纹必须是「X.509 证书 DER 的 SHA256」。v1 签名块 META-INF/*.RSA
+内含 signingTime，整块哈希即使同一密钥每次构建也会变化，会造成「签名不一致」的假警报。
+本脚本用 openssl 从 PKCS#7 中取出证书本身，并以仓库 TVBoxOSC.jks 为权威基准。
 """
 import argparse
 import datetime
@@ -37,6 +41,46 @@ def pick(env_name, candidates):
 
 AAPT = pick("AAPT", ["/home/feng/android/system141/out/host/linux-x86/bin/aapt", shutil.which("aapt")])
 KEYTOOL = pick("KEYTOOL", ["/home/feng/opt/jdk8/bin/keytool", shutil.which("keytool")])
+OPENSSL = pick("OPENSSL", [shutil.which("openssl"), "/usr/bin/openssl"])
+JKS = ROOT / ".github/workflows/TVBoxOSC.jks"
+CERT_ALGO = "cert-der-sha256"
+
+
+def cert_sha256_from_apk(apk):
+    """提取 APK v1 签名块中 X.509 证书 DER 的 SHA256。"""
+    if not OPENSSL:
+        return "", "openssl-missing"
+    with zipfile.ZipFile(apk) as z:
+        blocks = [n for n in z.namelist()
+                  if n.startswith("META-INF/") and n.upper().endswith((".RSA", ".DSA", ".EC"))]
+        if not blocks:
+            return "", "no-signature-block"
+        p7 = z.read(sorted(blocks)[0])
+    r = subprocess.run([OPENSSL, "pkcs7", "-inform", "DER", "-print_certs"],
+                       input=p7, capture_output=True)
+    if r.returncode:
+        return "", "pkcs7-failed"
+    q = subprocess.run([OPENSSL, "x509", "-outform", "DER"],
+                       input=r.stdout, capture_output=True)
+    if q.returncode or not q.stdout:
+        return "", "x509-failed"
+    return hashlib.sha256(q.stdout).hexdigest(), CERT_ALGO
+
+
+def cert_sha256_from_jks():
+    """从仓库固定签名 jks 导出证书，作为「签名是否一致」的权威基准。"""
+    if not (OPENSSL and KEYTOOL and JKS.is_file()):
+        return ""
+    r = subprocess.run([KEYTOOL, "-exportcert", "-rfc", "-keystore", JKS,
+                        "-storepass", "TVBoxOSC", "-alias", "TVBoxOSC"],
+                       capture_output=True)
+    if r.returncode:
+        return ""
+    q = subprocess.run([OPENSSL, "x509", "-outform", "DER"],
+                       input=r.stdout, capture_output=True)
+    if q.returncode or not q.stdout:
+        return ""
+    return hashlib.sha256(q.stdout).hexdigest()
 
 
 def run(cmd):
@@ -93,20 +137,11 @@ def apk_info(apk):
         sys.exit("aapt 未解析出 package 信息:\n" + out[:600])
     info = {"package": m.group(1), "versionCode": int(m.group(2)), "versionName": m.group(3)}
 
-    sha = ""
-    if KEYTOOL:
-        cert = run([KEYTOOL, "-printcert", "-jarfile", apk])
-        c = re.search(r"SHA256:\s*([0-9A-Fa-f:]+)", cert)
-        if c:
-            sha = c.group(1).replace(":", "").lower()
+    sha, algo = cert_sha256_from_apk(apk)
     if not sha:
-        with zipfile.ZipFile(apk) as z:
-            blocks = [n for n in z.namelist()
-                      if n.startswith("META-INF/") and n.upper().endswith((".RSA", ".DSA", ".EC"))]
-            if not blocks:
-                sys.exit("APK 中没有签名块")
-            sha = hashlib.sha256(z.read(sorted(blocks)[0])).hexdigest()
+        sys.exit("无法从 APK 提取签名证书（%s）。请安装 openssl 后用新算法重新校验。" % algo)
     info["cert_sha256"] = sha
+    info["cert_algo"] = algo
     info["size_mb"] = round(apk.stat().st_size / 1048576, 2)
     with zipfile.ZipFile(apk) as z:
         info["zip_ok"] = z.testzip() is None
@@ -134,13 +169,25 @@ def main():
         info = apk_info(apk)
         checks.append(("APK ZIP 完整", info["zip_ok"], "%.2f MB" % info["size_mb"]))
         if prev:
-            checks.append(("versionCode 严格递增", info["versionCode"] > prev["versionCode"],
-                           "%s → %s" % (prev["versionCode"], info["versionCode"])))
-            checks.append(("签名证书指纹一致", info["cert_sha256"] == prev["cert_sha256"],
-                           info["cert_sha256"][:16] + "…"))
+            if prev.get("versionCode") == info["versionCode"]:
+                checks.append(("复核基线中的同一版本", True,
+                               "versionCode=%s 已记录，跳过递增检查" % info["versionCode"]))
+            else:
+                checks.append(("versionCode 严格递增", info["versionCode"] > prev["versionCode"],
+                               "%s → %s" % (prev["versionCode"], info["versionCode"])))
+            if prev.get("cert_algo") == info["cert_algo"]:
+                checks.append(("与上一版证书一致", info["cert_sha256"] == prev["cert_sha256"],
+                               info["cert_sha256"][:16] + "…"))
+            else:
+                checks.append(("旧基线指纹算法已废弃", True,
+                               "旧记录是含时间戳的签名块哈希，改用 jks 证书基准"))
             checks.append(("包名一致", info["package"] == prev["package"], info["package"]))
         else:
             checks.append(("建立首个版本基线", True, "versionCode=%s" % info["versionCode"]))
+        jks_sha = cert_sha256_from_jks()
+        if jks_sha:
+            checks.append(("APK 证书与仓库 jks 一致", info["cert_sha256"] == jks_sha,
+                           jks_sha[:16] + "…"))
 
     lines = []
     for name, ok, detail in checks:
@@ -169,16 +216,23 @@ def main():
                     "<li>签名证书 SHA256：<code>%s</code></li>"
                     "<li>大小：%.2f MB</li></ul>" %
                     (info["package"], info["versionCode"], info["versionName"], info["cert_sha256"], info["size_mb"]))
-    html.append("<p>校验口径：versionCode 必须严格递增、签名证书指纹必须完全一致、包名不变，"
-                "三者同时满足才能在不卸载旧版的情况下直接覆盖安装。</p>")
+    html.append("<p>校验口径：versionCode 必须严格递增、签名证书（X.509 DER 的 SHA256）必须与仓库 "
+                "<code>TVBoxOSC.jks</code> 及上一版一致、包名不变，三者同时满足才能覆盖安装。"
+                "早期版本曾把含 <code>signingTime</code> 的整个 v1 签名块当成证书哈希，"
+                "会导致同密钥不同构建的假警报，已废弃该算法。</p>")
     REPORT.write_text("\n".join(html) + "\n", encoding="utf-8")
 
-    if args.record and info:
-        history.append(dict(info, checked_at=datetime.datetime.now().isoformat(timespec="seconds")))
+    failed = [n for n, ok, _ in checks if not ok]
+    if args.record and info and not failed:
+        if history and history[-1].get("versionCode") == info["versionCode"]:
+            history[-1] = dict(info, checked_at=datetime.datetime.now().isoformat(timespec="seconds"))
+        else:
+            history.append(dict(info, checked_at=datetime.datetime.now().isoformat(timespec="seconds")))
         RECORD.write_text(json.dumps(history, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         print("\n已记录基线 -> %s（共 %d 条）" % (RECORD, len(history)))
+    elif failed and args.record:
+        print("\n校验未通过，未写入基线。")
 
-    failed = [n for n, ok, _ in checks if not ok]
     if failed:
         print("\n未通过: " + ", ".join(failed))
         sys.exit(1)
