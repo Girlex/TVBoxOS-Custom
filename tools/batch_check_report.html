@@ -1,0 +1,46 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>TVBox 配置地址批量检测报告</title>
+<style>
+    :root{--bg:#f6f7f9;--card:#fff;--line:#e6e8ec;--text:#1f2329;--muted:#6b7280;
+          --red:#d92d20;--red-bg:#fef3f2;--green:#067647;--green-bg:#ecfdf3;
+          --amber:#b54708;--amber-bg:#fffaeb;--blue:#175cd3}
+    *{box-sizing:border-box}
+    body{margin:0;padding:32px 20px 60px;background:var(--bg);color:var(--text);
+         font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.6}
+    .wrap{max-width:1080px;margin:0 auto}
+    h1{font-size:24px;margin:0 0 6px} h2{font-size:17px;margin:26px 0 12px}
+    .sub{color:var(--muted);font-size:13px;margin-bottom:22px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-bottom:16px}
+    table{width:100%;border-collapse:collapse;font-size:13px}
+    th,td{text-align:left;padding:11px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+    th{color:var(--muted);font-weight:600;background:#fafbfc}
+    .mono,code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px}
+    code{background:#f3f4f6;padding:1px 5px;border-radius:4px;word-break:break-all}
+    .tag{display:inline-block;padding:2px 9px;border-radius:20px;font-size:12px;font-weight:600;white-space:nowrap}
+    .t-good{background:var(--green-bg);color:var(--green)} .t-warn{background:var(--amber-bg);color:var(--amber)}
+    .t-bad{background:var(--red-bg);color:var(--red)}
+    .sum{border-left:4px solid var(--blue);background:#eff8ff;border-radius:10px;padding:16px 20px;margin-bottom:18px;font-size:14px}
+    .sum b{color:var(--blue)}
+    ul{margin:8px 0 0;padding-left:20px;font-size:14px} li{margin:6px 0}
+    .foot{color:var(--muted);font-size:12px;text-align:center;margin-top:26px}
+    .small{color:var(--muted);font-size:12px}
+    </style></head><body><div class="wrap">
+<h1>TVBox 配置地址批量检测报告</h1>
+<div class="sub">基于 TVBoxOS 源码 ApiConfig 加载链路的等效验证 · 2026-11-15 02:44:39 · 代理 socks5h://127.0.0.1:10808</div>
+<div class="sum"><b>共 6 个地址：</b>可用 5 个，部分可用/存疑 0 个，不可用 1 个。
+推荐优先使用：<b>老刘备、小马、小盒子单仓、拾光多仓、挺好分享多仓</b>。</div>
+<div class="card"><h2 style="margin-top:0">总览</h2><table>
+<thead><tr><th style="width:22%">名称 / 地址</th><th style="width:70px">类型</th>
+<th style="width:90px">直连/代理</th><th style="width:120px">内容规模</th>
+<th style="width:170px">spider / 线路抽查</th><th style="width:130px">解析情况</th><th>结论</th></tr></thead>
+<tbody><tr><td><b>老刘备</b><div class='small mono'>https://raw.liucn.cc/box/m.json</div></td><td><span class="tag t-good">单仓</span></td><td class='mono'>200 / 200</td><td>234 站点 / 3 直播</td><td class='mono'>可下载 (685819 字节，jar/dex 魔数 正确)</td><td>含 sites/spider</td><td><span class='tag t-good'>可用</span></td></tr><tr><td><b>小马</b><div class='small mono'>https://szyyds.cn/tv/x.json</div></td><td><span class="tag t-good">单仓</span></td><td class='mono'>200 / 200</td><td>62 站点 / 10 直播</td><td class='mono'>可下载 (972016 字节，jar/dex 魔数 正确)</td><td>含 sites/spider</td><td><span class='tag t-good'>可用</span></td></tr><tr><td><b>4K小盒子</b><div class='small mono'>http://xhztv.top/4k.json</div></td><td><span class="tag t-good">单仓</span></td><td class='mono'>200 / 200</td><td>53 站点 / 2 直播</td><td class='mono'>下载失败 (HTTP 403)</td><td>含 sites/spider；含格式瑕疵</td><td><span class='tag t-bad'>不可用（spider 无法下载）</span></td></tr><tr><td><b>小盒子单仓</b><div class='small mono'>http://xhztv.top/xhz</div></td><td><span class="tag t-good">单仓</span></td><td class='mono'>200 / 200</td><td>54 站点 / 1 直播</td><td class='mono'>可下载 (287703 字节，jar/dex 魔数 正确)</td><td>含 sites/spider</td><td><span class='tag t-good'>可用</span></td></tr><tr><td><b>拾光多仓</b><div class='small mono'>http://xmbjm.fh4u.org/dc.txt</div></td><td><span class="tag t-good">多仓</span></td><td class='mono'>200 / 200</td><td>54 条线路</td><td class='mono'>抽查 200, X, 200</td><td>含 urls 线路列表</td><td><span class='tag t-good'>可用（多仓，2/3 条线路抽查正常）</span></td></tr><tr><td><b>挺好分享多仓</b><div class='small mono'>http://ztha.top/TVBox/GYCK.json</div></td><td><span class="tag t-good">多仓</span></td><td class='mono'>200 / 200</td><td>32 条线路</td><td class='mono'>抽查 200, 403, 200</td><td>含 urls 线路列表</td><td><span class='tag t-good'>可用（多仓，1/3 条线路抽查正常）</span></td></tr></tbody></table>
+<p class="small" style="margin-top:12px">「直连/代理」列均为 HTTP 状态码；单仓配置的 spider 是爬虫 jar，下载失败会导致站点无法加载；
+多仓配置需在客户端里选择具体线路，抽查结果为线路地址的 HTTP 状态。</p></div><h2>逐项详情</h2><div class='card'><h2 style='margin-top:0'>老刘备 <span class='tag t-good'>可用</span></h2><div class='small mono' style='margin-bottom:8px'>https://raw.liucn.cc/box/m.json</div><ul><li>清洗: 标准 JSON</li><li>直连 HTTP 200 / 代理 HTTP 200 / 大小 57874 字节</li><li>spider: <code>https://raw.liucn.cc/box/fty.jar</code></li><li>解析容器数: 234，直播源组: 3，解析器: 27</li><li>spider 下载: 可下载 (685819 字节，jar/dex 魔数 正确)</li></ul></div><div class='card'><h2 style='margin-top:0'>小马 <span class='tag t-good'>可用</span></h2><div class='small mono' style='margin-bottom:8px'>https://szyyds.cn/tv/x.json</div><ul><li>清洗: 标准 JSON</li><li>直连 HTTP 200 / 代理 HTTP 200 / 大小 30571 字节</li><li>spider: <code>https://szyyds.cn/tv/x.jpg</code></li><li>解析容器数: 62，直播源组: 10，解析器: 40</li><li>spider 下载: 可下载 (972016 字节，jar/dex 魔数 正确)</li></ul></div><div class='card'><h2 style='margin-top:0'>4K小盒子 <span class='tag t-bad'>不可用（spider 无法下载）</span></h2><div class='small mono' style='margin-bottom:8px'>http://xhztv.top/4k.json</div><ul><li>清洗: 含字符串内裸换行等格式瑕疵，标准 JSON 解析会失败</li><li>直连 HTTP 200 / 代理 HTTP 200 / 大小 30612 字节</li><li><b>格式瑕疵：含字符串内裸换行等格式瑕疵，标准 JSON 解析会失败</b>，标准 JSON 解析器会报错，依赖客户端宽松模式容错</li><li>spider: <code>https://fs-im-kefu.7moor-fs1.com/29397395/4d2c3f00-7d4c-11e5-af15-41bf63ae4ea0/1707044072121/fan.txt</code></li><li>解析容器数: 53，直播源组: 2，解析器: 17</li><li>spider 下载: 下载失败 (HTTP 403)</li></ul></div><div class='card'><h2 style='margin-top:0'>小盒子单仓 <span class='tag t-good'>可用</span></h2><div class='small mono' style='margin-bottom:8px'>http://xhztv.top/xhz</div><ul><li>清洗: 标准 JSON</li><li>直连 HTTP 200 / 代理 HTTP 200 / 大小 19728 字节</li><li>spider: <code>http://xhztv.top/xhz/Yoursmile.jar</code></li><li>解析容器数: 54，直播源组: 1，解析器: 6</li><li>spider 下载: 可下载 (287703 字节，jar/dex 魔数 正确)</li></ul></div><div class='card'><h2 style='margin-top:0'>拾光多仓 <span class='tag t-good'>可用（多仓，2/3 条线路抽查正常）</span></h2><div class='small mono' style='margin-bottom:8px'>http://xmbjm.fh4u.org/dc.txt</div><ul><li>清洗: 标准 JSON</li><li>直连 HTTP 200 / 代理 HTTP 200 / 大小 6075 字节</li><li>线路 <span class='mono'>https://gh-proxy.com/https://raw.githubusercontent.com/xmbjm/svip/refs/heads/main/svip.json</span> → HTTP 200 / 内容像配置</li><li>线路 <span class='mono'>https://gh.jasonzeng.dev/https://raw.githubusercontent.com/xmbjm/svip/refs/heads/main/svip.json</span> → HTTP 失败 / 内容异常</li><li>线路 <span class='mono'>https://jiekou.netlify.app/svip.json</span> → HTTP 200 / 内容像配置</li></ul></div><div class='card'><h2 style='margin-top:0'>挺好分享多仓 <span class='tag t-good'>可用（多仓，1/3 条线路抽查正常）</span></h2><div class='small mono' style='margin-bottom:8px'>http://ztha.top/TVBox/GYCK.json</div><ul><li>清洗: 标准 JSON</li><li>直连 HTTP 200 / 代理 HTTP 200 / 大小 3532 字节</li><li>线路 <span class='mono'>https://ztha.top/TVBox/thdjk.json</span> → HTTP 200 / 内容像配置</li><li>线路 <span class='mono'>http://tv.nxog.top/m</span> → HTTP 403 / 内容异常</li><li>线路 <span class='mono'>http://hb.小虎斑.site:25252/仅供测试</span> → HTTP 200 / 内容异常</li></ul></div><div class="card"><h2 style="margin-top:0">检测方法与注意点</h2><ul>
+<li>这些配置普遍带 <code>//</code> 注释、UTF-8 BOM、尾逗号或尾部 HTML 附加内容；TVBox 使用 Gson 宽松解析 +
+<code>trimJsonObject()</code> 截取，能正常处理，本次检测按相同规则清洗。</li>
+<li>单仓配置的 <code>spider</code> 若为相对路径，按 <code>fixContentPath()</code> 规则相对配置地址补全后再验证下载。</li>
+<li>多仓配置（<code>urls</code> 数组）在 <code>parseApiCollection()</code> 中会切换成子线路地址重新加载，因此还需抽查子线路。</li>
+<li>本次仅验证「能否获取并解析配置 + 关键资源可达」，不代表所有资源站点的实际播放效果；内容合规性与稳定性请自行判断。</li>
+<li>本机直连 GitHub 与部分境外域名会超时/TLS 重置，故同时做了直连与代理两条路径的对照。</li>
+</ul></div>
+<div class="foot">由 tools/check_tvbox_batch.py 生成 · 可重复运行复测</div></div></body></html>

@@ -1,0 +1,74 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TVBox 配置接口检测报告</title><style>
+    :root{--bg:#f6f7f9;--card:#fff;--line:#e6e8ec;--text:#1f2329;--muted:#6b7280;
+          --red:#d92d20;--red-bg:#fef3f2;--green:#067647;--green-bg:#ecfdf3;--blue:#175cd3;}
+    *{box-sizing:border-box}
+    body{margin:0;padding:32px 20px 60px;background:var(--bg);color:var(--text);
+         font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.65}
+    .wrap{max-width:920px;margin:0 auto}
+    h1{font-size:24px;margin:0 0 6px} h2{font-size:17px;margin:28px 0 12px}
+    .sub{color:var(--muted);font-size:13px;margin-bottom:22px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-bottom:16px}
+    .verdict{border-left:4px solid var(--red);background:var(--red-bg);border-radius:10px;padding:18px 20px;margin-bottom:18px}
+    .verdict.ok{border-left-color:var(--green);background:var(--green-bg)}
+    .verdict .big{font-size:19px;font-weight:700;color:var(--red)}
+    .verdict.ok .big{color:var(--green)}
+    .verdict p{margin:6px 0 0;font-size:14px}
+    table{width:100%;border-collapse:collapse;font-size:13.5px}
+    th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+    th{color:var(--muted);font-weight:600;background:#fafbfc}
+    td.mono,code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px}
+    code{background:#f3f4f6;padding:1px 5px;border-radius:4px;word-break:break-all}
+    pre{background:#f8f9fb;border:1px solid var(--line);border-radius:8px;padding:14px;overflow:auto;
+        font-size:12.5px;line-height:1.5;margin:0}
+    .tag{display:inline-block;padding:2px 9px;border-radius:20px;font-size:12px;font-weight:600}
+    .t-fail{background:var(--red-bg);color:var(--red)} .t-pass{background:var(--green-bg);color:var(--green)}
+    .t-info{background:#eff8ff;color:var(--blue)}
+    .kv{display:grid;grid-template-columns:130px 1fr;gap:8px 14px;font-size:13.5px}
+    .kv div:nth-child(odd){color:var(--muted)}
+    ul{margin:8px 0 0;padding-left:20px;font-size:14px} li{margin:6px 0}
+    .foot{color:var(--muted);font-size:12px;text-align:center;margin-top:26px}
+    </style></head><body><div class="wrap">
+<h1>TVBox 配置接口检测报告</h1>
+<div class="sub">依据 TVBoxOS 源码 ApiConfig.loadConfig() 的实际加载流程进行等效验证 · 生成时间 2026-11-15 02:40:18</div>
+<div class="verdict "><div class="big">结论：接口不可用，无法作为 TVBox 配置地址</div>
+<p>服务端把该域名下所有请求 302 跳转到 KStore 官网首页，跟随跳转后拿到的是 HTML 页面而非 JSON 配置。</p></div><div class="card"><h2 style="margin-top:0">测试对象</h2><div class="kv">
+<div>配置地址</div><div class="mono">https://d.kstore.dev/wex.json?i=114.249.158.163&amp;token=wex&amp;secret=wex</div>
+<div>项目</div><div>q215613905/TVBoxOS（Android TVBox 客户端源码）</div>
+<div>判定依据</div><div class="mono">app/src/main/java/com/github/tvbox/osc/api/ApiConfig.java : 190-255, 740+</div>
+<div>网络路径</div><div>经本地代理 socks5h://127.0.0.1:10808（本机直连该域名 TLS 被重置）</div>
+</div></div><div class="card"><h2 style="margin-top:0">按客户端加载流程逐项检查</h2>
+<table><thead><tr><th style="width:32%">检查项</th><th style="width:70px">结果</th>
+<th style="width:70px">级别</th><th>实测详情</th></tr></thead><tbody><tr><td>原始响应返回 2xx</td><td><span class="tag t-fail">失败</span></td><td><span class="tag t-fail">关键</span></td><td>实际 HTTP 302</td></tr><tr><td>配置地址未发生跨域跳转</td><td><span class="tag t-fail">失败</span></td><td><span class="tag t-fail">关键</span></td><td>302 -&gt; https://kstore.cc/</td></tr><tr><td>响应体可被解析为 JSON 对象</td><td><span class="tag t-fail">失败</span></td><td><span class="tag t-fail">关键</span></td><td>JSONDecodeError: Expecting value: line 1 column 1 (char 0)</td></tr><tr><td>包含 TVBox 必需字段（spider / sites）</td><td><span class="tag t-fail">失败</span></td><td><span class="tag t-fail">关键</span></td><td>实测字段: 无</td></tr><tr><td>最终响应 Content-Type 为 JSON</td><td><span class="tag t-fail">失败</span></td><td><span class="tag t-info">参考</span></td><td>实际: text/html</td></tr><tr><td>解析器自检（README 示例）</td><td><span class="tag t-pass">通过</span></td><td><span class="tag t-info">参考</span></td><td>示例 JSON 解析正常，说明检测逻辑本身无误</td></tr></tbody></table></div><div class="card"><h2 style="margin-top:0">原始响应（不跟随跳转）</h2><pre>HTTP/2 302 
+server: nginx
+date: Sat, 14 Nov 2026 18:40:12 GMT
+content-length: 0
+access-control-allow-origin: *
+access-control-allow-methods: POST, GET, PUT, OPTIONS, DELETE
+access-control-allow-headers: Origin, X-Requested-With, Content-Type, Accept, authorization, x-csrf-token
+location: https://kstore.cc
+cache-control: no-cache
+accept-ranges: bytes</pre>
+<h2>跟随跳转后的响应体开头</h2><pre>最终 URL: https://kstore.cc/
+Content-Type: text/html
+大小: 1802 字节
+--- body ---
+&amp;lt;!DOCTYPE html&gt;&amp;lt;html lang=&quot;en&quot;&gt;&amp;lt;head&gt;&amp;lt;meta charset=&quot;utf-8&quot;&gt;&amp;lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;&amp;lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1,user-scalable=yes&quot;&gt;&amp;lt;meta name=&quot;keywords&quot; content=&quot;&quot;&gt;&amp;lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;&amp;lt;link rel=&quot;icon&quot; href=&quot;/favicon.ic</pre></div><div class="card"><h2 style="margin-top:0">对照实验（排除参数 / IP / UA / 网络因素）</h2>
+<table><thead><tr><th style="width:32%">请求</th><th style="width:110px">状态码</th>
+<th style="width:190px">Location</th><th>路径</th></tr></thead><tbody><tr><td>原地址（带完整参数）</td><td class='mono'>302</td><td class='mono'>https://kstore.cc/</td><td class='mono'>代理</td></tr><tr><td>同域名根路径</td><td class='mono'>302</td><td class='mono'>https://kstore.cc/</td><td class='mono'>代理</td></tr><tr><td>同域名随机不存在的文件</td><td class='mono'>302</td><td class='mono'>https://kstore.cc/</td><td class='mono'>代理</td></tr><tr><td>去掉全部查询参数</td><td class='mono'>302</td><td class='mono'>https://kstore.cc/</td><td class='mono'>代理</td></tr><tr><td>HTTP 明文 + 直连（不走代理）</td><td class='mono'>302</td><td class='mono'>https://kstore.cc/</td><td class='mono'>直连</td></tr><tr><td>HTTPS 直连（不走代理）</td><td class='mono'>连接失败: curl: (35) OpenSSL SSL_connect: 连接被对方重设 in connection to d.kstore.dev:443</td><td class='mono'>-</td><td class='mono'>直连</td></tr></tbody></table>
+<p style="font-size:13px;color:var(--muted);margin:12px 0 0">同域名根路径、随机文件名、去掉参数、明文直连均返回同样的 302，
+说明问题出在域名/空间绑定层面，而不是 wex.json 这个文件、查询参数或客户端 UA。</p></div><div class="card"><h2 style="margin-top:0">在 TVBox 客户端里会发生什么</h2>
+<ul>
+<li>客户端 <code>loadConfig()</code> 发起 GET，OkHttp 默认跟随重定向，最终拿到 <code>kstore.cc</code> 的首页 HTML（1802 字节）。</li>
+<li>成功回调里调用 <code>parseJson()</code> → <code>gson.fromJson(jsonStr, JsonObject.class)</code>，HTML 无法作为 JSON 对象解析，抛出异常。</li>
+<li>界面提示「配置解析失败」；若客户端不跟随跳转，则提示「拉取配置失败」。两种情况都不会加载出任何站点。</li>
+</ul></div>
+<div class="card"><h2 style="margin-top:0">建议</h2><ul>
+<li>该域名解析到 <code>custom.kstore.dev</code>，属于 KStore 自定义直链域名；整域 302 到官网通常表示<strong>域名未绑定、绑定过期或直链服务已停用</strong>，请联系接口提供方重新生成配置地址。</li>
+<li>若空间是你自己的：登录 kstore.cc 检查 <code>wex.json</code> 是否存在、直链是否开启、自定义域名绑定是否有效。</li>
+<li>在盒子上先换一个已知可用的配置地址验证 App 本身是否正常，再把新地址填入「配置地址」。</li>
+<li>本机直连 <code>d.kstore.dev:443</code> 会出现 TLS 连接被重置，测试时需走代理；盒子端若在国内网络也可能受此影响。</li>
+</ul></div>
+<div class="foot">由 tools/check_tvbox_api.py 生成 · 可重复运行以复测接口状态</div>
+</div></body></html>
