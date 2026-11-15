@@ -49,14 +49,26 @@ jobs:
           distribution: temurin
           java-version: '11'
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
-
-      # compileSdkVersion 33，且 pyramid 声明 buildToolsVersion 30.0.3。
-      - name: Install required SDK packages
+      # 不用 setup-android@v3：它会强制安装旧版 cmdline-tools(16.0)，
+      # 与 ubuntu-latest 预装的 20.0 冲突，且 20.0 要求 JDK 17，
+      # 在 AGP 7.2.2 需要的 JDK 11 下执行 --licenses 会直接失败。
+      # 这里直接用镜像自带的 SDK，仅运行 sdkmanager 时临时切到 JDK 17。
+      - name: Prepare Android SDK
         run: |
-          yes | sdkmanager --licenses > /dev/null || true
-          sdkmanager --install "platforms;android-33" "build-tools;33.0.0" "build-tools;33.0.2" "build-tools;30.0.3" "platform-tools"
+          SDK_ROOT="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}}"
+          echo "SDK_ROOT=$SDK_ROOT"
+          echo "ANDROID_HOME=$SDK_ROOT" >> "$GITHUB_ENV"
+          echo "ANDROID_SDK_ROOT=$SDK_ROOT" >> "$GITHUB_ENV"
+          SDKMGR="$SDK_ROOT/cmdline-tools/latest/bin/sdkmanager"
+          test -x "$SDKMGR" || { echo "sdkmanager 不存在"; ls -la "$SDK_ROOT/cmdline-tools"; exit 1; }
+          JDK_FOR_SDKMGR="${JAVA_HOME_17_X64:-${JAVA_HOME_21_X64:-$JAVA_HOME}}"
+          echo "sdkmanager 使用 JDK: $JDK_FOR_SDKMGR"
+          export JAVA_HOME="$JDK_FOR_SDKMGR"
+          yes | "$SDKMGR" --licenses > /dev/null || true
+          # compileSdkVersion 33；AGP 7.2.2 默认 30.0.3，pyramid 也声明过 30.0.3，故一并安装。
+          "$SDKMGR" --install "platforms;android-33" "build-tools;33.0.0" "build-tools;33.0.2" "build-tools;30.0.3" "platform-tools"
+          echo "--- 已安装的 SDK 包 ---"
+          "$SDKMGR" --list_installed 2>/dev/null | head -30 || true
 
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
