@@ -1,8 +1,28 @@
 {
   "urls": [
     {
-      "name": "橘汁短剧",
+      "name": "① 橘汁短剧",
       "url": "clan://localhost/builtin/configs/juzi.json"
+    },
+    {
+      "name": "② 精选推荐",
+      "url": "clan://localhost/builtin/configs/fused.json"
+    },
+    {
+      "name": "③ 纯CMS极速",
+      "url": "clan://localhost/builtin/configs/cms.json"
+    },
+    {
+      "name": "④ 爬虫一区",
+      "url": "clan://localhost/builtin/configs/spider_a.json"
+    },
+    {
+      "name": "⑤ 爬虫二区",
+      "url": "clan://localhost/builtin/configs/spider_b.json"
+    },
+    {
+      "name": "⑥ 全部源",
+      "url": "clan://localhost/builtin/configs/all.json"
     }
   ]
 }

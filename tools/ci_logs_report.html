@@ -1,0 +1,29 @@
+<meta charset='utf-8'><style>body{font-family:system-ui;margin:28px;background:#fafafa;color:#222}h1{margin-bottom:4px}h2{font-size:17px;margin-top:24px}.muted{color:#777}table{border-collapse:collapse;background:#fff}td,th{border:1px solid #ddd;padding:6px 12px;text-align:left}pre{background:#fff;border:1px solid #ddd;padding:12px;white-space:pre-wrap;font-size:12px;line-height:1.6}code{background:#eee;padding:1px 5px}.ok{color:#0a7a32;font-weight:700}.warn{color:#b26a00}</style>
+<h1>云编译运行日志（run 43677837064）</h1>
+<p class='muted'>提交 <code>a776b35</code> ｜ 日志源文件 <code>tools/ci_logs/0_build.txt</code>（共 1223 行）</p>
+<table><tr><th>结论</th><th>说明</th></tr>
+<tr><td class='ok'>构建成功</td><td>BUILD SUCCESSFUL in 53s，产物 TVBox_debug-java.apk 99.60 MB</td></tr>
+<tr><td class='ok'>版本号递增生效</td><td>versionCode=1005 / versionName=1.0.1005（基线 1000 + run #5）</td></tr>
+<tr><td class='ok'>固定签名生效</td><td>debug 构建也注入了 TVBoxOSC.jks，证书 SHA256 已记录</td></tr>
+<tr><td class='warn'>Post 缓存清理警告</td><td>系统 Gradle 9.9.1 要求 JDK 17，与 AGP 7.2.2 的 JDK 11 冲突；日志明确 Will continue，不影响构建</td></tr></table>
+<h2>版本计算</h2>
+<pre>echo &quot;本次构建: versionCode=$CODE, versionName=1.0.$CODE (基线 $BASE + run #$GITHUB_RUN_NUMBER)&quot;
+本次构建: versionCode=1005, versionName=1.0.1005 (基线 1000 + run #5)</pre>
+<h2>签名注入</h2>
+<pre>签名配置注入完成：app/build.gradle + app/TVBoxOSC.jks + gradle.properties</pre>
+<h2>Gradle 读取版本</h2>
+<pre>[TVBox] versionCode=1005, versionName=1.0.1005</pre>
+<h2>构建任务</h2>
+<pre>&gt; Task :app:assembleJavaDebug</pre>
+<h2>构建结论</h2>
+<pre>BUILD SUCCESSFUL in 53s</pre>
+<h2>产物版本文件</h2>
+<pre>versionCode=1005
+versionName=1.0.1005
+commit=a776b3501ee7bcb27b3f05b3c3c87605a0da73f8
+run=5
+signing=TVBoxOSC.jks</pre>
+<h2>Post 阶段警告</h2>
+<pre>Gradle requires JVM 17 or later to run. Your build is currently configured to use JVM 11.
+##[warning]Cache cleanup failed. Will continue. Error: The process &#x27;/usr/bin/gradle&#x27; failed with exit code 1</pre>
+<p class='muted'>完整原始日志：<code>tools/ci_logs/0_build.txt</code>；设备侧 logcat：<code>tools/device_logs/tvbox_logcat_full.txt</code> 与 <code>tools/tvbox_logs_report.html</code>。</p>

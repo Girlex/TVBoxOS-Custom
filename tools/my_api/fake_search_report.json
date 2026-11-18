@@ -1,0 +1,357 @@
+{
+  "word_a": "灵魂摆渡",
+  "word_b": "zzzzqqqq不存在987654321",
+  "fake_idx": [
+    0,
+    1,
+    2
+  ],
+  "fake_names": [
+    "影视 | 建安",
+    "最大资源",
+    "最大｜采集"
+  ],
+  "results": [
+    {
+      "idx": 0,
+      "name": "影视 | 建安",
+      "api": "http://154.219.117.232:9981/jacloudapi.php/provide/vod",
+      "fake": true,
+      "reason": "乱码词也返回20条且重合20条",
+      "a_n": 20,
+      "b_n": 20,
+      "overlap": 20,
+      "via": "直连"
+    },
+    {
+      "idx": 1,
+      "name": "最大资源",
+      "api": "https://api.zuidapi.com/api.php/provide/vod/?ac=list",
+      "fake": true,
+      "reason": "乱码词也返回20条且重合20条",
+      "a_n": 20,
+      "b_n": 20,
+      "overlap": 20,
+      "via": "直连"
+    },
+    {
+      "idx": 2,
+      "name": "最大｜采集",
+      "api": "https://zuida.xyz/api.php/provide/vod/",
+      "fake": true,
+      "reason": "乱码词也返回20条且重合20条",
+      "a_n": 20,
+      "b_n": 20,
+      "overlap": 20,
+      "via": "直连"
+    },
+    {
+      "idx": 3,
+      "name": "影视 | 非凡[直连]",
+      "api": "http://ffzy.tv/api.php/provide/vod/",
+      "fake": false,
+      "reason": "OK",
+      "a_n": 10,
+      "b_n": 0,
+      "overlap": 0,
+      "via": "直连"
+    },
+    {
+      "idx": 4,
+      "name": "非凡影视",
+      "api": "http://ffzy5.tv/api.php/provide/vod/?ac=list",
+      "fake": false,
+      "reason": "OK",
+      "a_n": 10,
+      "b_n": 0,
+      "overlap": 0,
+      "via": "直连"
+    },
+    {
+      "idx": 5,
+      "name": "创享 | 采集",
+      "api": "https://ys.cxkjg.cn/api/provide/vod/",
+      "fake": false,
+      "reason": "OK",
+      "a_n": 8,
+      "b_n": 0,
+      "overlap": 0,
+      "via": "直连"
+    },
+    {
+      "idx": 6,
+      "name": "金鹰 | 采集",
+      "api": "https://jyzyapi.com/api.php/provide/vod/",
+      "fake": false,
+      "reason": "OK",
+      "a_n": 8,
+      "b_n": 0,
+      "overlap": 0,
+      "via": "直连"
+    },
+    {
+      "idx": 7,
+      "name": "艾旦 | 采集",
+      "api": "https://www.lovedan.net/api.php/provide/vod/",
+      "fake": false,
+      "reason": "OK",
+      "a_n": 13,
+      "b_n": 0,
+      "overlap": 0,
+      "via": "直连"
+    },
+    {
+      "idx": 8,
+      "name": "极速｜采集",
+      "api": "https://jszyapi.com/api.php/provide/vod/",
+      "fake": false,
+      "reason": "OK",
+      "a_n": 8,
+      "b_n": 0,
+      "overlap": 0,
+      "via": "直连"
+    },
+    {
+      "idx": 9,
+      "name": "豪华资源",
+      "api": "https://hhzyapi.com/api.php/provide/vod",
+      "fake": false,
+      "reason": "OK",
+      "a_n": 8,
+      "b_n": 0,
+      "overlap": 0,
+      "via": "直连"
+    },
+    {
+      "idx": 10,
+      "name": "❤光速资源",
+      "api": "https://api.guangsuapi.com/api.php/provide/vod/from/gsm3u8/",
+      "fake": false,
+      "reason": "OK",
+      "a_n": 8,
+      "b_n": 0,
+      "overlap": 0,
+      "via": "直连"
+    },
+    {
+      "idx": 11,
+      "name": "虎牙资源",
+      "api": "https://www.huyaapi.com/api.php/provide/vod/?ac=list",
+      "fake": false,
+      "reason": "OK",
+      "a_n": 8,
+      "b_n": 0,
+      "overlap": 0,
+      "via": "直连"
+    },
+    {
+      "idx": 12,
+      "name": "极速资源",
+      "api": "https://jszyapi.com/api.php/provide/vod/?ac=list",
+      "fake": false,
+      "reason": "OK",
+      "a_n": 8,
+      "b_n": 0,
+      "overlap": 0,
+      "via": "直连"
+    },
+    {
+      "idx": 13,
+      "name": "光速资源(切)",
+      "api": "https://api.guangsuapi.com/api.php/provide/vod/",
+      "fake": false,
+      "reason": "OK",
+      "a_n": 8,
+      "b_n": 0,
+      "overlap": 0,
+      "via": "直连"
+    },
+    {
+      "idx": 14,
+      "name": "豪华｜采集",
+      "api": "https://hhzyapi.com/api.php/provide/vod/",
+      "fake": false,
+      "reason": "OK",
+      "a_n": 8,
+      "b_n": 0,
+      "overlap": 0,
+      "via": "直连"
+    },
+    {
+      "idx": 15,
+      "name": "火狐资源",
+      "api": "https://hhzyapi.com/api.php/provide/vod/?ac=list",
+      "fake": false,
+      "reason": "OK",
+      "a_n": 8,
+      "b_n": 0,
+      "overlap": 0,
+      "via": "直连"
+    },
+    {
+      "idx": 16,
+      "name": "红牛资源(切)",
+      "api": "https://www.hongniuzy2.com/api.php/provide/vod/",
+      "fake": false,
+      "reason": "OK",
+      "a_n": 8,
+      "b_n": 0,
+      "overlap": 0,
+      "via": "直连"
+    },
+    {
+      "idx": 17,
+      "name": "❤红牛资源",
+      "api": "https://www.hongniuzy2.com/api.php/provide/vod/",
+      "fake": false,
+      "reason": "OK",
+      "a_n": 8,
+      "b_n": 0,
+      "overlap": 0,
+      "via": "直连"
+    },
+    {
+      "idx": 18,
+      "name": "影视 | 极速[直连]",
+      "api": "https://jszyapi.com/api.php/provide/vod/?ac=list",
+      "fake": false,
+      "reason": "OK",
+      "a_n": 8,
+      "b_n": 0,
+      "overlap": 0,
+      "via": "直连"
+    },
+    {
+      "idx": 19,
+      "name": "樱花资源",
+      "api": "https://api.ukuapi88.com/api.php/provide/vod/?ac=list",
+      "fake": false,
+      "reason": "OK",
+      "a_n": 8,
+      "b_n": 0,
+      "overlap": 0,
+      "via": "直连"
+    },
+    {
+      "idx": 20,
+      "name": "360｜采集",
+      "api": "https://360zy.com/api.php/provide/vod/",
+      "fake": false,
+      "reason": "OK",
+      "a_n": 7,
+      "b_n": 0,
+      "overlap": 0,
+      "via": "直连"
+    },
+    {
+      "idx": 21,
+      "name": "优质 | 采集",
+      "api": "https://api.yyzy-tv.vip/inc/apijson.php",
+      "fake": false,
+      "reason": "词A 无结果（源本身可能已失效）",
+      "a_n": 0,
+      "b_n": 0,
+      "overlap": 0,
+      "via": ""
+    },
+    {
+      "idx": 22,
+      "name": "360 | 采集",
+      "api": "https://360zy.com/api.php/provide/vod/",
+      "fake": false,
+      "reason": "OK",
+      "a_n": 7,
+      "b_n": 0,
+      "overlap": 0,
+      "via": "直连"
+    },
+    {
+      "idx": 23,
+      "name": "360资源",
+      "api": "https://360zy.com/api.php/provide/vod/?ac=list",
+      "fake": false,
+      "reason": "OK",
+      "a_n": 7,
+      "b_n": 0,
+      "overlap": 0,
+      "via": "直连"
+    },
+    {
+      "idx": 24,
+      "name": "❤淘片资源",
+      "api": "https://taopianapi.com/cjapi/mc/vod/json.html",
+      "fake": false,
+      "reason": "OK",
+      "a_n": 8,
+      "b_n": 0,
+      "overlap": 0,
+      "via": "直连"
+    },
+    {
+      "idx": 25,
+      "name": "❤百度",
+      "api": "https://api.apibdzy.com/api.php/provide/vod/?ac=list",
+      "fake": false,
+      "reason": "OK",
+      "a_n": 6,
+      "b_n": 0,
+      "overlap": 0,
+      "via": "直连"
+    },
+    {
+      "idx": 26,
+      "name": "百度",
+      "api": "https://api.apibdzy.com/api.php/provide/vod?ac=list",
+      "fake": false,
+      "reason": "OK",
+      "a_n": 6,
+      "b_n": 0,
+      "overlap": 0,
+      "via": "直连"
+    },
+    {
+      "idx": 27,
+      "name": "百度资源",
+      "api": "https://api.apibdzy.com/api.php/provide/vod/?ac=list",
+      "fake": false,
+      "reason": "OK",
+      "a_n": 6,
+      "b_n": 0,
+      "overlap": 0,
+      "via": "直连"
+    },
+    {
+      "idx": 28,
+      "name": "iQIYI｜采集",
+      "api": "https://www.iqiyizyapi.com/api.php/provide/vod/?ac=list",
+      "fake": false,
+      "reason": "OK",
+      "a_n": 6,
+      "b_n": 0,
+      "overlap": 0,
+      "via": "直连"
+    },
+    {
+      "idx": 29,
+      "name": "魔都资源",
+      "api": "https://www.mdzyapi.com/api.php/provide/vod/?ac=list",
+      "fake": false,
+      "reason": "词A 无结果（源本身可能已失效）",
+      "a_n": 0,
+      "b_n": 0,
+      "overlap": 0,
+      "via": ""
+    },
+    {
+      "idx": 30,
+      "name": "魔都｜采集",
+      "api": "https://caiji.moduapi.cc/api.php/provide/vod/?ac=list",
+      "fake": false,
+      "reason": "词A 无结果（源本身可能已失效）",
+      "a_n": 0,
+      "b_n": 0,
+      "overlap": 0,
+      "via": ""
+    }
+  ]
+}

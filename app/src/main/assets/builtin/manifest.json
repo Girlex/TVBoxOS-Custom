@@ -8,34 +8,40 @@
   "sites": 129,
   "tiers": [
     {
+      "file": "configs/juzi.json",
+      "name": "① 橘汁短剧",
+      "sites": 1,
+      "desc": "内置橘汁短剧（TV版API gdsaj），默认线路"
+    },
+    {
       "file": "configs/fused.json",
-      "name": "① 精选·推荐(快)",
-      "sites": 42,
-      "desc": "45 站：全部实测CMS + 20头部爬虫，搜得准又快"
+      "name": "② 精选推荐(快)",
+      "sites": 43,
+      "desc": "全部实测CMS + 头部爬虫，搜得准又快"
     },
     {
       "file": "configs/cms.json",
-      "name": "② 纯CMS·极速",
-      "sites": 22,
-      "desc": "25 站：仅实测能搜到片的CMS，最快最干净"
+      "name": "③ 纯CMS·极速",
+      "sites": 23,
+      "desc": "仅实测能搜到片的CMS，最快最干净"
     },
     {
-      "file": "configs/spider.json",
-      "name": "③ 爬虫·资源全",
-      "sites": 107,
-      "desc": "106 站：全部爬虫源，片源最全"
+      "file": "configs/spider_a.json",
+      "name": "④ 爬虫一区",
+      "sites": 54,
+      "desc": "爬虫源前半（按测速排序），片源较全"
+    },
+    {
+      "file": "configs/spider_b.json",
+      "name": "⑤ 爬虫二区",
+      "sites": 53,
+      "desc": "爬虫源后半，含玩偶/4K等大站"
     },
     {
       "file": "configs/all.json",
-      "name": "④ 全部源",
+      "name": "⑥ 全部源",
       "sites": 129,
-      "desc": "131 站：本地化后的完整源"
-    },
-    {
-      "file": "configs/juzi.json",
-      "name": "橘汁短剧",
-      "sites": 1,
-      "desc": "内置橘汁短剧（collection 入口唯一线路）"
+      "desc": "全部站点合集（站点多，搜索慢，兜底用）"
     }
   ],
   "jars": 8,

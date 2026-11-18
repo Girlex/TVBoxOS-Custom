@@ -40,5 +40,15 @@
     "size_mb": 53.48,
     "zip_ok": true,
     "checked_at": "2026-11-18T20:28:05"
+  },
+  {
+    "package": "com.huzige.tv",
+    "versionCode": 1012,
+    "versionName": "1.0.1012",
+    "cert_sha256": "4b9421de6d46778f6280b180179413fa6973845f0a0132c00f6800c06464e051",
+    "cert_algo": "cert-der-sha256",
+    "size_mb": 53.56,
+    "zip_ok": true,
+    "checked_at": "2026-11-18T21:12:39"
   }
 ]

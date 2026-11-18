@@ -1,0 +1,82 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>本地源加载失败 · 诊断与修复报告</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#f5f7fa;color:#1f2937;line-height:1.65}
+.wrap{max-width:960px;margin:0 auto;padding:32px 24px 60px}
+h1{font-size:26px;margin:0 0 6px;color:#111827}.sub{color:#6b7280;font-size:14px;margin-bottom:28px}
+.card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:22px 26px;margin-bottom:18px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+h2{font-size:18px;margin:0 0 14px;color:#111827;display:flex;align-items:center;gap:9px}
+.badge{font-size:12px;padding:2px 10px;border-radius:20px;font-weight:600}
+.b-red{background:#fee2e2;color:#b91c1c}.b-green{background:#dcfce7;color:#15803d}.b-blue{background:#dbeafe;color:#1d4ed8}
+code{background:#f3f4f6;padding:2px 6px;border-radius:5px;font-size:12.5px;color:#b91c1c;font-family:ui-monospace,Menlo,monospace}
+.err{background:#fef2f2;border-left:3px solid #ef4444;padding:12px 16px;border-radius:6px;margin:10px 0;font-family:ui-monospace,Menlo,monospace;font-size:12px;color:#7f1d1d;overflow-x:auto;white-space:pre-wrap;word-break:break-all}
+.ok{background:#f0fdf4;border-left:3px solid #22c55e;padding:12px 16px;border-radius:6px;margin:10px 0;font-size:13.5px;color:#166534}
+table{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:6px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid #eef2f7;vertical-align:top}
+th{background:#f9fafb;color:#374151;font-weight:600}
+.num{font-variant-numeric:tabular-nums;font-weight:600}
+ul{margin:8px 0;padding-left:22px}li{margin:6px 0}
+.step{display:flex;gap:12px;align-items:flex-start;margin:12px 0}
+.step .n{flex:none;width:26px;height:26px;border-radius:50%;background:#1d4ed8;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+.step p{margin:2px 0}
+.hl{background:#fef9c3;padding:1px 5px;border-radius:4px}
+</style></head><body><div class="wrap">
+<h1>本地源「加载不出来 / 搜索对不上」诊断与修复</h1>
+<div class="sub">设备 ZTE S2002（Android 7.1 / API 25）· 抓日志时间 2026-11-18 19:26 · 修复版本 v1008</div>
+
+<div class="card"><h2>一、现象 <span class="badge b-red">你反馈的问题</span></h2>
+<ul>
+<li>装上内置本地源的 APK 后，长时间卡在启动转圈，进不了主界面。</li>
+<li>勉强进去后，站点列表能看到名字，但「搜索的内容和显示的不同，找不到我要的」。</li>
+</ul></div>
+
+<div class="card"><h2>二、抓日志定位到的根因 <span class="badge b-blue">logcat 实锤</span></h2>
+<p>冷启动抓 logcat（<code>tools/device_logs/tvbox_app_log.txt</code>）发现两条致命错误：</p>
+<div class="err">ClassNotFoundException: Didn't find class "com.github.catvod.spider.http://127.0.0.1:9978/file/builtin/scripts/813ab0b864s.txt"
+No original dex files found for dex location .../cache/jar/d7e3517dc9cff9c72c989b881dfc2d61.jar</div>
+<table>
+<tr><th>#</th><th>根因</th><th>后果</th></tr>
+<tr><td>1</td><td><b>82 个脚本文件名后缀全是 <code>.txt</code></b>。而客户端按 api 后缀分流（<code>.js</code>→JS加载器 / <code>.py</code>→Python / 其余→jar加载器），<code>.txt</code> 被误当成 Java 类名去加载</td><td>脚本类站点全部加载失败 —— 这就是「显示有、搜不到」的直接原因：近一半站点是点开就报错的<b>假站点</b></td></tr>
+<tr><td>2</td><td><b>3 个 jar 损坏</b>（开头虽是 PK 但 zip 中央目录坏，读不出 classes.dex），却被打包了进去</td><td><code>No original dex</code>，依赖它们的站点同样加载失败</td></tr>
+<tr><td>3</td><td>编译的是 <b>java 版 APK，不含 Python 环境</b>，却有 25 个 Python 爬虫站点</td><td>日志 <code>Python is not supported</code>，这 25 站永远搜不出结果</td></tr>
+</table>
+<p class="sub" style="margin-top:12px">附：首次冷启动那次转圈是系统在后台做 dex2oat 首次编译（190 个 spider 类，约 1~2 分钟），属于老设备正常开销，不是崩溃。</p>
+</div>
+
+<div class="card"><h2>三、为什么会出现 <span class="badge b-red">流程疏漏</span></h2>
+<p>生成脚本 <code>build_local_good.py</code> 里「保留 <code>.js/.py</code> 后缀」的逻辑<b>其实早就改对了</b>，但上一次重跑时被环境的中途中断拦在写文件之前，assets 里一直是旧版全 <code>.txt</code> 的产物。也就是说：<span class="hl">代码修了，但从没真正完整重跑生成过</span> —— 打包进去的还是坏数据。</p></div>
+
+<div class="card"><h2>四、修复措施 <span class="badge b-green">已完成</span></h2>
+<div class="step"><div class="n">1</div><p><b>脚本后缀强制跟随真实类型</b>：统一用 <code>script_ext_of()</code>，本地脚本保留 <code>.js/.py/.json</code>，绝不写成 <code>.txt</code>。</p></div>
+<div class="step"><div class="n">2</div><p><b>jar 加强校验</b>：<code>valid_jar()</code> 用 zipfile 实际读出 classes.dex，假 jar 自动删缓存重下，仍坏则剔除（连带剔除依赖它的 12 个站点）。</p></div>
+<div class="step"><div class="n">3</div><p><b>剔除 25 个 Python 站点</b>：java 版 APK 不支持；ext 里被 drpy.js 引擎调用的 .py 不受影响，保留。</p></div>
+<div class="step"><div class="n">4</div><p><b>清理无引用残留</b>：脚本目录 114 个旧文件清掉，assets 从 105 个文件瘦身到 66 个。</p></div>
+<div class="step"><div class="n">5</div><p><b>重新生成 + 云编译 + 覆盖安装</b>：commit <code>a325e8f</code>，run <code>#44296957357</code> 成功，APK v1008。</p></div>
+</div>
+
+<div class="card"><h2>五、修复前后对比</h2>
+<table>
+<tr><th>指标</th><th>修复前</th><th>修复后</th></tr>
+<tr><td>站点数</td><td>187（近半是假站点）</td><td class="num">150（都能正常加载）</td></tr>
+<tr><td>脚本后缀</td><td>82 个全是 <code>.txt</code>（错）</td><td class="num">50 个 <code>.js/.json</code>（对）</td></tr>
+<tr><td>jar</td><td>12 个，其中 3 个损坏</td><td class="num">10 个，全部校验通过</td></tr>
+<tr><td>Python 站点</td><td>25 个（java 版用不了）</td><td class="num">0</td></tr>
+<tr><td>致命日志</td><td>满屏 ClassNotFoundException</td><td class="num">0</td></tr>
+</table></div>
+
+<div class="card"><h2>六、设备实测结果 <span class="badge b-green">已通过</span></h2>
+<div class="ok">✓ 覆盖安装 v1008 成功（固定签名，可直接覆盖）<br>
+✓ 热启动 25 秒进入主界面；主界面完整显示站点名、分类栏、功能按钮、带海报的影片数据<br>
+✓ 最新 logcat：<b>零</b> ClassNotFoundException / <b>零</b> No original dex / <b>零</b> ANR / <b>零</b> FATAL<br>
+✓ APK 内 66 个内置文件与本地逐字节一致</div>
+<p class="sub" style="margin-top:14px">说明：老设备首次冷启动需 1~2 分钟做 jar 的 dex 编译（一次性的），之后就快了。你现在装上后如果第一遍转圈久，等一下即可，这是正常的。</p>
+</div>
+
+<div class="card"><h2>七、给你的建议</h2>
+<ul>
+<li>把当前 APK（<code>apk/TVBox_debug-java.apk</code>，v1008）装到电视，<b>首次开机耐心等 1~2 分钟</b>让它把爬虫编译好。</li>
+<li>之后搜索就能正常出结果了——之前「搜不到」的那些站点已经从源头剔除，不再占位。</li>
+<li>以后站点有更新：重跑 <code>python3 tools/build_local_good.py</code>（完整跑，别中断），再云编译即可。</li>
+</ul></div>
+
+</div></body></html>
