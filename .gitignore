@@ -112,3 +112,17 @@ tools/ci_logs/
 tools/tvbox_logs_report.html
 tools/ci_logs_report.html
 tools/apk_installability_report.html
+
+# 个人专属接口产物（含第三方站点清单，每次重跑都会变，不入仓库）
+tools/my_api/personal.json
+tools/my_api/collection.json
+tools/my_api/sources.json
+tools/my_api/report.html
+tools/my_api/kept_urls.txt
+tools/my_api/good.json
+tools/my_api/good_report.html
+tools/my_api/local_builtin/
+tools/my_api/local_good_report.json
+tools/my_api/jar_cache/
+# 本地源构建缓存（下载中的 jar，不打包进 APK）
+app/src/main/assets/builtin/jars/cached_*.jar

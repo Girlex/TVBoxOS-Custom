@@ -1,7 +1,7 @@
 {
   "urls": [
     {
-      "name": "本地·自建融合源",
+      "name": "本地·好用精简源",
       "url": "clan://localhost/builtin/configs/fused.json"
     }
   ]

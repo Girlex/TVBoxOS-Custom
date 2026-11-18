@@ -1,0 +1,49 @@
+<meta charset="utf-8">
+<style>
+body{font-family:system-ui,-apple-system,sans-serif;margin:30px;background:#fafafa;color:#222;line-height:1.65}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin-top:28px;border-bottom:1px solid #ddd;padding-bottom:6px}
+.muted{color:#777;font-size:13px}
+table{border-collapse:collapse;background:#fff;width:100%;font-size:13px}
+th,td{border:1px solid #ddd;padding:8px 11px;text-align:left;vertical-align:top}
+th{background:#f0f0f0;font-weight:500}
+code,pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px}
+code{background:#eee;padding:1px 5px;border-radius:3px}
+pre{background:#fff;border:1px solid #ddd;padding:12px;white-space:pre-wrap;line-height:1.55}
+.ok{color:#0f6e56;font-weight:500}.warn{color:#854f0b;font-weight:500}.bad{color:#a32d2d;font-weight:500}
+</style>
+<h1>TVBox 卡死修复报告</h1>
+<p class="muted">2026-11-15 · commit <code>8b27102</code>（修复） / <code>a13128b</code>（校验工具修正，skip ci） · run <code>43678993794</code> · 产物 <code>apk/TVBox_debug-java.apk</code></p>
+
+<h2>修复思路</h2>
+<p>保留你要的<strong>单一自建融合源与 1400 个站点完全不动</strong>（不丢内容、不去重结果不变、全部走本地），只从运行时代码侧消除崩溃与阻塞。诊断依据见 <code>tools/tvbox_freeze_analysis.html</code>。</p>
+
+<table>
+<tr><th>#</th><th>问题</th><th>修复</th><th>代码位置</th></tr>
+<tr><td>1</td><td class="bad">ART 并发类校验竞态 → <code>StatusVerifying</code> native abort，进程被杀</td><td>新增 <code>DEX_CLASS_LOCK</code> 静态全局锁，<code>new DexClassLoader</code>、核心类预热、<code>loadClass/newInstance</code>、解析器类与 Proxy 注入全部串行化；只锁微秒级类加载动作，绝不含联网逻辑</td><td><code>JarLoader.java</code></td></tr>
+<tr><td>2</td><td class="warn">一次搜索遍历 1400 站点，ANR / 长时间转圈</td><td>按融合源的测速顺序<strong>只取前 120 个站点</strong>；并发 6→3（上限 12→4）、单站点超时 15→8 秒</td><td><code>FastSearchActivity.java</code></td></tr>
+<tr><td>3</td><td class="warn">jar 的 <code>Init.init()</code> 同步联网拉 so（12 次 404）阻塞 7.5 秒</td><td>改为 <code>FutureTask</code> 最多等 3 秒，超时后台线程继续跑完、调用方立即前进；后台执行抛异常时回退调用线程重试保证兼容；加密 jar 绑定保持同步原语义</td><td><code>JarLoader.java</code></td></tr>
+<tr><td>4</td><td class="ok">校验脚本把「签名不一致」误报</td><td>原实现哈希整个 <code>META-INF/CERT.RSA</code>，其中含 <code>signingTime</code>，同一密钥每次构建都不同。改为用 openssl 从 PKCS#7 取 X.509 证书 DER 算 SHA256，并以仓库 <code>TVBoxOSC.jks</code> 为权威基准；<code>--record</code> 改为校验全通过才写基线</td><td><code>check_apk_installability.py</code></td></tr>
+</table>
+
+<h2>验证结果</h2>
+<pre>源码静态校验        28/28 通过（tools/verify_offline_assets.py，新增 6 项修复回归检查）
+APK 覆盖安装校验    16/16 通过（tools/check_apk_installability.py）
+aapt                com.github.tvbox.osc.jun  versionCode=1006  versionName=1.0.1006
+CI 日志             本次构建: versionCode=1006 (基线 1000 + run #6)
+                    签名配置注入完成 / [TVBox] versionCode=1006 / BUILD SUCCESSFUL in 43s
+证书                APK 证书 DER 与仓库 TVBoxOSC.jks 逐字节一致 4b9421de6d46778f…
+jarsigner           jar 已验证
+assets/builtin      44 个文件与本地逐字节一致；聚合线路 1 条且全部本地；online=0；1400 站点
+DEX 命中            DEX_CLASS_LOCK / runInitWithTimeout / preloadClass / jar-init
+                    / INIT_WAIT_SECONDS / requestStorageThenLoad / 本地默认地址</pre>
+<p>APK 99.60 MB，v1 签名有效，版本号从 1005 递增到 1006，证书与上一版相同，<strong>可以直接覆盖安装</strong>。设备上若仍是更早的随机签名包（<code>versionCode=1</code>），需卸载一次：</p>
+<pre>adb uninstall com.github.tvbox.osc.jun
+adb install -r apk/TVBox_debug-java.apk</pre>
+
+<h2>尚未覆盖 / 已知限制</h2>
+<ul>
+<li><strong>jar 内部写死的在线 so 下载</strong>无法从配置层阻断（URL 在 spider jar 里，本地化只覆盖配置入口与 jar 文件）。现已通过 3 秒超时 detachment + 搜索限流把体感阻塞压到最低，后台仍会发起那些 404 请求。</li>
+<li><code>DownloadProxyServer</code> 端口 10079 占用重试同样在 jar 内部，未改动；重启后残留 socket 仍可能白等约 10 秒。</li>
+<li><code>ClassNotFoundException: android.net.ConnectivitySettingsManager</code> 属于 jar 引用高于设备 API 25 的系统类，未做逐站点过滤。</li>
+<li>以上均为<strong>静态与产物级验证</strong>，尚未在设备上冷启动实测。建议装新版后跑 <code>python3 tools/capture_tvbox_logs.py --follow 25</code> 复核是否还有 ART abort 与 ANR。</li>
+</ul>
