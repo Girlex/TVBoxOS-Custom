@@ -1,5 +1,5 @@
 <meta charset='utf-8'><style>body{font-family:system-ui;margin:32px;background:#fafafa;color:#222}table{border-collapse:collapse;background:#fff;width:100%}td,th{border:1px solid #ddd;padding:8px;text-align:left}.ok{color:#0a7a32;font-weight:700}.fail{color:#c62828;font-weight:700}code{background:#f2f2f2;padding:2px 5px}</style>
-<h1>APK 可覆盖安装校验</h1><p>生成时间：2026-11-15 13:10:00</p>
+<h1>APK 可覆盖安装校验</h1><p>生成时间：2026-11-18 19:19:21</p>
 <table><tr><th>检查项</th><th>结果</th><th>说明</th></tr>
 <tr><td>版本基线文件存在且合法</td><td class='ok'>通过</td><td>VERSION_CODE=1000</td></tr>
 <tr><td>build.gradle 使用动态 versionCode</td><td class='ok'>通过</td><td></td></tr>
@@ -12,11 +12,5 @@
 <tr><td>权限未返回时有加载兜底</td><td class='ok'>通过</td><td></td></tr>
 <tr><td>配置加载不会重复触发</td><td class='ok'>通过</td><td></td></tr>
 <tr><td>签名注入覆盖 debug 与 release</td><td class='ok'>通过</td><td></td></tr>
-<tr><td>APK ZIP 完整</td><td class='ok'>通过</td><td>99.60 MB</td></tr>
-<tr><td>复核基线中的同一版本</td><td class='ok'>通过</td><td>versionCode=1006 已记录，跳过递增检查</td></tr>
-<tr><td>与上一版证书一致</td><td class='ok'>通过</td><td>4b9421de6d46778f…</td></tr>
-<tr><td>包名一致</td><td class='ok'>通过</td><td>com.github.tvbox.osc.jun</td></tr>
-<tr><td>APK 证书与仓库 jks 一致</td><td class='ok'>通过</td><td>4b9421de6d46778f…</td></tr>
 </table>
-<h2>本次 APK</h2><ul><li>包名：<code>com.github.tvbox.osc.jun</code></li><li>versionCode：<code>1006</code>，versionName：<code>1.0.1006</code></li><li>签名证书 SHA256：<code>4b9421de6d46778f6280b180179413fa6973845f0a0132c00f6800c06464e051</code></li><li>大小：99.60 MB</li></ul>
 <p>校验口径：versionCode 必须严格递增、签名证书（X.509 DER 的 SHA256）必须与仓库 <code>TVBoxOSC.jks</code> 及上一版一致、包名不变，三者同时满足才能覆盖安装。早期版本曾把含 <code>signingTime</code> 的整个 v1 签名块当成证书哈希，会导致同密钥不同构建的假警报，已废弃该算法。</p>

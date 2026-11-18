@@ -1,13 +1,13 @@
 {
   "version": 4,
-  "generated": "2026-11-18 11:05:48",
+  "generated": "2026-11-18 11:37:42",
   "default": "clan://localhost/builtin.json",
   "default_live": "clan://localhost/builtin/live/l1.txt",
   "name": "本地·好用精简源",
   "source": "tools/my_api/good.json",
-  "sites": 187,
-  "jars": 12,
-  "scripts": 82,
+  "sites": 150,
+  "jars": 10,
+  "scripts": 50,
   "live": [
     {
       "name": "awesome-zhuiju-free/READ",
@@ -37,7 +37,12 @@
   "online": [],
   "dropped": {
     "CMS去图片jar保留": 6,
-    "图片jar剔除": 26
+    "jar下载失败剔除": 12,
+    "图片jar剔除": 26,
+    "py脚本站点剔除(java版不支持Python)": 25
   },
-  "failed_jars": {}
+  "failed_jars": {
+    "https://raw.liucn.cc/box/fty.jar": "无效jar（259809 字节，dex不可读）",
+    "https://raw.liucn.cc/box/libs/jar/P4.jar": "无效jar（249114 字节，dex不可读）"
+  }
 }

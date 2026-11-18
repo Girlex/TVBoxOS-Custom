@@ -118,41 +118,6 @@
    "jar": "clan://localhost/builtin/jars/j2.jar;md5;5400486b7884dd01de5a306e34724c3c"
   },
   {
-   "key": "火狐",
-   "name": "🦊火狐采集",
-   "type": 1,
-   "api": "https://hhzyapi.com/api.php/provide/vod/",
-   "searchable": 1,
-   "quickSearch": 0,
-   "filterable": 1,
-   "categories": [
-    "内地剧",
-    "动作片",
-    "科幻片",
-    "战争片",
-    "喜剧片",
-    "爱情片",
-    "恐怖片",
-    "犯罪片",
-    "剧情片",
-    "冒险片",
-    "记录片",
-    "韩剧",
-    "香港剧",
-    "台湾剧",
-    "欧美剧",
-    "日剧",
-    "马泰剧",
-    "体育赛事",
-    "综艺",
-    "动画片",
-    "中国动漫",
-    "日本动漫",
-    "欧美动漫"
-   ],
-   "jar": "clan://localhost/builtin/jars/j8.jar;md5;833d4e448438fc3bf0aba92ec050e137"
-  },
-  {
    "key": "极速采集资源",
    "name": "极速｜采集",
    "type": 1,
@@ -469,47 +434,6 @@
    "jar": "clan://localhost/builtin/jars/j4.jar;md5;6fb0aaec35994b1978b5f33646b344dd"
   },
   {
-   "key": "taopian",
-   "name": "🕹️淘片┃采集",
-   "type": 1,
-   "api": "https://taopianapi.com/cjapi/mc/vod/json.html",
-   "searchable": 1,
-   "filterable": 0,
-   "categories": [
-    "动漫/国产动漫",
-    "动漫/日本动漫",
-    "动漫/欧美动漫",
-    "动漫/海外动漫",
-    "综艺/大陆综艺",
-    "综艺/港台综艺",
-    "综艺/日韩综艺",
-    "综艺/欧美综艺",
-    "综艺/海外综艺",
-    "电视剧/国产剧",
-    "电视剧/香港剧",
-    "电视剧/欧美剧",
-    "电视剧/海外剧",
-    "电视剧/韩国剧",
-    "电视剧/日本剧",
-    "电视剧/泰国剧",
-    "电视剧/台湾剧",
-    "电影/战争片",
-    "电影/科幻片",
-    "电影/奇幻片",
-    "电影/冒险片",
-    "电影/动画片",
-    "电影/喜剧片",
-    "电影/动作片",
-    "电影/爱情片",
-    "电影/恐怖片",
-    "电影/惊悚片",
-    "电影/剧情片",
-    "电影/悬疑片",
-    "电影/纪录片"
-   ],
-   "jar": "clan://localhost/builtin/jars/j8.jar;md5;833d4e448438fc3bf0aba92ec050e137"
-  },
-  {
    "key": "百度",
    "name": "百度",
    "type": 1,
@@ -606,56 +530,56 @@
    "key": "drpy_js_低端",
    "name": "影视 | 低端[js]",
    "type": 3,
-   "api": "clan://localhost/builtin/scripts/813ab0b864s.txt",
-   "ext": "clan://localhost/builtin/scripts/186989cf3bs.txt",
-   "jar": "clan://localhost/builtin/jars/j3.jar;md5;7fd612014a8a2122de4b427608e8ae10"
+   "api": "clan://localhost/builtin/scripts/813ab0b864.js",
+   "ext": "clan://localhost/builtin/scripts/186989cf3b.js",
+   "jar": "clan://localhost/builtin/jars/j3.jar;md5;dffec63fb83a2b31b8606bd4bf6bead9"
   },
   {
    "key": "drpy_js_吼吼[V2]",
    "name": "影视 | 吼吼[V2]",
    "type": 3,
-   "api": "clan://localhost/builtin/scripts/813ab0b864s.txt",
-   "ext": "clan://localhost/builtin/scripts/412147c173s.txt",
-   "jar": "clan://localhost/builtin/jars/j3.jar;md5;7fd612014a8a2122de4b427608e8ae10"
+   "api": "clan://localhost/builtin/scripts/813ab0b864.js",
+   "ext": "clan://localhost/builtin/scripts/412147c173.js",
+   "jar": "clan://localhost/builtin/jars/j3.jar;md5;dffec63fb83a2b31b8606bd4bf6bead9"
   },
   {
    "key": "drpy_js_咕噜[V2]",
    "name": "影视 | 咕噜[V2]",
    "type": 3,
-   "api": "clan://localhost/builtin/scripts/813ab0b864s.txt",
-   "ext": "clan://localhost/builtin/scripts/3fd83a0618s.txt",
-   "jar": "clan://localhost/builtin/jars/j3.jar;md5;7fd612014a8a2122de4b427608e8ae10"
+   "api": "clan://localhost/builtin/scripts/813ab0b864.js",
+   "ext": "clan://localhost/builtin/scripts/3fd83a0618.js",
+   "jar": "clan://localhost/builtin/jars/j3.jar;md5;dffec63fb83a2b31b8606bd4bf6bead9"
   },
   {
    "key": "drpy_js_宝片[V2]",
    "name": "影视 | 宝片[V2]",
    "type": 3,
-   "api": "clan://localhost/builtin/scripts/813ab0b864s.txt",
-   "ext": "clan://localhost/builtin/scripts/a1c315b36as.txt",
-   "jar": "clan://localhost/builtin/jars/j3.jar;md5;7fd612014a8a2122de4b427608e8ae10"
+   "api": "clan://localhost/builtin/scripts/813ab0b864.js",
+   "ext": "clan://localhost/builtin/scripts/a1c315b36a.js",
+   "jar": "clan://localhost/builtin/jars/j3.jar;md5;dffec63fb83a2b31b8606bd4bf6bead9"
   },
   {
    "key": "drpy_js_影探[V2]",
    "name": "影视 | 影探[V2]",
    "type": 3,
-   "api": "clan://localhost/builtin/scripts/813ab0b864s.txt",
-   "ext": "clan://localhost/builtin/scripts/2a8ea9b5f0s.txt",
-   "jar": "clan://localhost/builtin/jars/j3.jar;md5;7fd612014a8a2122de4b427608e8ae10"
+   "api": "clan://localhost/builtin/scripts/813ab0b864.js",
+   "ext": "clan://localhost/builtin/scripts/2a8ea9b5f0.js",
+   "jar": "clan://localhost/builtin/jars/j3.jar;md5;dffec63fb83a2b31b8606bd4bf6bead9"
   },
   {
    "key": "drpy_js_思古影视",
    "name": "影视 | 思古影视",
    "type": 3,
-   "api": "clan://localhost/builtin/scripts/813ab0b864s.txt",
-   "ext": "clan://localhost/builtin/scripts/537f922292s.txt",
-   "jar": "clan://localhost/builtin/jars/j3.jar;md5;7fd612014a8a2122de4b427608e8ae10"
+   "api": "clan://localhost/builtin/scripts/813ab0b864.js",
+   "ext": "clan://localhost/builtin/scripts/537f922292.js",
+   "jar": "clan://localhost/builtin/jars/j3.jar;md5;dffec63fb83a2b31b8606bd4bf6bead9"
   },
   {
    "key": "一帆影视",
    "name": "一帆影视",
    "type": 3,
    "api": "csp_XBPQ",
-   "ext": "clan://localhost/builtin/scripts/951e04d304n.txt",
+   "ext": "clan://localhost/builtin/scripts/951e04d304.json",
    "jar": "clan://localhost/builtin/jars/j2.jar;md5;5400486b7884dd01de5a306e34724c3c"
   },
   {
@@ -663,7 +587,7 @@
    "name": "人人影视",
    "type": 3,
    "api": "csp_XBPQ",
-   "ext": "clan://localhost/builtin/scripts/730ffa39bfn.txt",
+   "ext": "clan://localhost/builtin/scripts/730ffa39bf.json",
    "jar": "clan://localhost/builtin/jars/j2.jar;md5;5400486b7884dd01de5a306e34724c3c"
   },
   {
@@ -671,7 +595,7 @@
    "name": "农民影视",
    "type": 3,
    "api": "csp_XBPQ",
-   "ext": "clan://localhost/builtin/scripts/6008b263ban.txt",
+   "ext": "clan://localhost/builtin/scripts/6008b263ba.json",
    "jar": "clan://localhost/builtin/jars/j2.jar;md5;5400486b7884dd01de5a306e34724c3c"
   },
   {
@@ -679,7 +603,7 @@
    "name": "喝茶影视",
    "type": 3,
    "api": "csp_XBPQ",
-   "ext": "clan://localhost/builtin/scripts/6df45d207dn.txt",
+   "ext": "clan://localhost/builtin/scripts/6df45d207d.json",
    "jar": "clan://localhost/builtin/jars/j2.jar;md5;5400486b7884dd01de5a306e34724c3c"
   },
   {
@@ -687,7 +611,7 @@
    "name": "奇迹影视",
    "type": 3,
    "api": "csp_XBPQ",
-   "ext": "clan://localhost/builtin/scripts/4cd11caa02n.txt",
+   "ext": "clan://localhost/builtin/scripts/4cd11caa02.json",
    "jar": "clan://localhost/builtin/jars/j2.jar;md5;5400486b7884dd01de5a306e34724c3c"
   },
   {
@@ -695,77 +619,15 @@
    "name": "小镇影视",
    "type": 3,
    "api": "csp_XBPQ",
-   "ext": "clan://localhost/builtin/scripts/4c62e58f98n.txt",
+   "ext": "clan://localhost/builtin/scripts/4c62e58f98.json",
    "jar": "clan://localhost/builtin/jars/j2.jar;md5;5400486b7884dd01de5a306e34724c3c"
-  },
-  {
-   "key": "爱看影视",
-   "name": "❤┃爱看┃蓝光",
-   "type": 3,
-   "playerType": "2",
-   "api": "clan://localhost/builtin/scripts/aebee210d7s.txt",
-   "ext": "clan://localhost/builtin/scripts/4c2c68bfcfs.txt",
-   "jar": "clan://localhost/builtin/jars/j8.jar;md5;833d4e448438fc3bf0aba92ec050e137"
-  },
-  {
-   "key": "js_bzys",
-   "name": "🌋┃B站┃影视",
-   "type": 3,
-   "api": "clan://localhost/builtin/scripts/aebee210d7s.txt",
-   "searchable": 1,
-   "quickSearch": 1,
-   "filterable": 1,
-   "ext": "clan://localhost/builtin/scripts/0e0ea4fdf6s.txt",
-   "jar": "clan://localhost/builtin/jars/j8.jar;md5;833d4e448438fc3bf0aba92ec050e137"
-  },
-  {
-   "key": "js_555",
-   "name": "🌟┃三五┃影视",
-   "type": 3,
-   "api": "clan://localhost/builtin/scripts/aebee210d7s.txt",
-   "searchable": 1,
-   "quickSearch": 1,
-   "filterable": 1,
-   "ext": "clan://localhost/builtin/scripts/d194b9067as.txt",
-   "jar": "clan://localhost/builtin/jars/j8.jar;md5;833d4e448438fc3bf0aba92ec050e137"
-  },
-  {
-   "key": "nangua",
-   "name": "🎃┃南瓜┃影视",
-   "type": 3,
-   "playerType": "2",
-   "api": "clan://localhost/builtin/scripts/aebee210d7s.txt",
-   "ext": "clan://localhost/builtin/scripts/0d4797c147s.txt",
-   "jar": "clan://localhost/builtin/jars/j8.jar;md5;833d4e448438fc3bf0aba92ec050e137"
-  },
-  {
-   "key": "js_Xinsj",
-   "name": "🐠┃视觉┃影院",
-   "type": 3,
-   "api": "clan://localhost/builtin/scripts/aebee210d7s.txt",
-   "searchable": 1,
-   "quickSearch": 1,
-   "filterable": 1,
-   "ext": "clan://localhost/builtin/scripts/e07418144es.txt",
-   "jar": "clan://localhost/builtin/jars/j8.jar;md5;833d4e448438fc3bf0aba92ec050e137"
-  },
-  {
-   "key": "js_大师兄",
-   "name": "🐵┃师兄┃影视",
-   "type": 3,
-   "api": "clan://localhost/builtin/scripts/aebee210d7s.txt",
-   "searchable": 1,
-   "quickSearch": 1,
-   "filterable": 1,
-   "ext": "clan://localhost/builtin/scripts/8fd7705edes.txt",
-   "jar": "clan://localhost/builtin/jars/j8.jar;md5;833d4e448438fc3bf0aba92ec050e137"
   },
   {
    "key": "七七影视",
    "name": "七七｜影视",
    "type": 3,
    "api": "csp_HBPQ",
-   "ext": "clan://localhost/builtin/scripts/bc1c1325edn.txt",
+   "ext": "clan://localhost/builtin/scripts/bc1c1325ed.json",
    "jar": "clan://localhost/builtin/jars/j6.jar;md5;91eb942e44d1154447df4f91ed714488"
   },
   {
@@ -773,7 +635,7 @@
    "name": "可可｜影视",
    "type": 3,
    "api": "csp_HBPQ",
-   "ext": "clan://localhost/builtin/scripts/49010b795en.txt",
+   "ext": "clan://localhost/builtin/scripts/49010b795e.json",
    "jar": "clan://localhost/builtin/jars/j6.jar;md5;91eb942e44d1154447df4f91ed714488"
   },
   {
@@ -784,7 +646,7 @@
    "searchable": 1,
    "quickSearch": 1,
    "filterable": 1,
-   "ext": "clan://localhost/builtin/scripts/b81d2ec74dn.txt",
+   "ext": "clan://localhost/builtin/scripts/b81d2ec74d.json",
    "jar": "clan://localhost/builtin/jars/j6.jar;md5;91eb942e44d1154447df4f91ed714488"
   },
   {
@@ -792,7 +654,7 @@
    "name": "巴蜀｜影视",
    "type": 3,
    "api": "csp_HBPQ",
-   "ext": "clan://localhost/builtin/scripts/34749aa7c6n.txt",
+   "ext": "clan://localhost/builtin/scripts/34749aa7c6.json",
    "jar": "clan://localhost/builtin/jars/j6.jar;md5;91eb942e44d1154447df4f91ed714488"
   },
   {
@@ -803,7 +665,7 @@
    "searchable": 1,
    "quickSearch": 1,
    "filterable": 1,
-   "ext": "clan://localhost/builtin/scripts/404cc96ad2n.txt",
+   "ext": "clan://localhost/builtin/scripts/404cc96ad2.json",
    "jar": "clan://localhost/builtin/jars/j6.jar;md5;91eb942e44d1154447df4f91ed714488"
   },
   {
@@ -811,7 +673,7 @@
    "name": "星空｜影视",
    "type": 3,
    "api": "csp_HBPQ",
-   "ext": "clan://localhost/builtin/scripts/cd50c7d54dn.txt",
+   "ext": "clan://localhost/builtin/scripts/cd50c7d54d.json",
    "jar": "clan://localhost/builtin/jars/j6.jar;md5;91eb942e44d1154447df4f91ed714488"
   },
   {
@@ -819,7 +681,7 @@
    "name": "星辰｜影视",
    "type": 3,
    "api": "csp_HBPQ",
-   "ext": "clan://localhost/builtin/scripts/f971a7d986n.txt",
+   "ext": "clan://localhost/builtin/scripts/f971a7d986.json",
    "jar": "clan://localhost/builtin/jars/j6.jar;md5;91eb942e44d1154447df4f91ed714488"
   },
   {
@@ -830,7 +692,7 @@
    "searchable": 1,
    "quickSearch": 1,
    "filterable": 1,
-   "ext": "clan://localhost/builtin/scripts/0c7791f9e8n.txt",
+   "ext": "clan://localhost/builtin/scripts/0c7791f9e8.json",
    "jar": "clan://localhost/builtin/jars/j6.jar;md5;91eb942e44d1154447df4f91ed714488"
   },
   {
@@ -838,7 +700,7 @@
    "name": "歪片｜影视",
    "type": 3,
    "api": "csp_HBPQ",
-   "ext": "clan://localhost/builtin/scripts/de4530fa3an.txt",
+   "ext": "clan://localhost/builtin/scripts/de4530fa3a.json",
    "jar": "clan://localhost/builtin/jars/j6.jar;md5;91eb942e44d1154447df4f91ed714488"
   },
   {
@@ -874,32 +736,32 @@
    "key": "采集之王",
    "name": "采集｜合集",
    "type": 3,
-   "api": "clan://localhost/builtin/scripts/a569b76a00s.txt",
-   "ext": "clan://localhost/builtin/scripts/507ca9e5c3s.txt",
+   "api": "clan://localhost/builtin/scripts/a569b76a00.js",
+   "ext": "clan://localhost/builtin/scripts/507ca9e5c3.js",
    "jar": "clan://localhost/builtin/jars/j6.jar;md5;91eb942e44d1154447df4f91ed714488"
   },
   {
    "key": "drpy_js_南柯电影",
    "name": " 南柯电影 ",
    "type": 3,
-   "api": "clan://localhost/builtin/scripts/76cd687be4s.txt",
-   "ext": "clan://localhost/builtin/scripts/55972972d1s.txt",
+   "api": "clan://localhost/builtin/scripts/76cd687be4.js",
+   "ext": "clan://localhost/builtin/scripts/55972972d1.js",
    "jar": "clan://localhost/builtin/jars/j4.jar;md5;6fb0aaec35994b1978b5f33646b344dd"
   },
   {
    "key": "drpy_js_007影视",
    "name": "007影视 ",
    "type": 3,
-   "api": "clan://localhost/builtin/scripts/76cd687be4s.txt",
-   "ext": "clan://localhost/builtin/scripts/81c45fa532s.txt",
+   "api": "clan://localhost/builtin/scripts/76cd687be4.js",
+   "ext": "clan://localhost/builtin/scripts/81c45fa532.js",
    "jar": "clan://localhost/builtin/jars/j4.jar;md5;6fb0aaec35994b1978b5f33646b344dd"
   },
   {
    "key": "drpy_js_9U电影",
    "name": "9U电影 ",
    "type": 3,
-   "api": "clan://localhost/builtin/scripts/76cd687be4s.txt",
-   "ext": "clan://localhost/builtin/scripts/eaaa08f659s.txt",
+   "api": "clan://localhost/builtin/scripts/76cd687be4.js",
+   "ext": "clan://localhost/builtin/scripts/eaaa08f659.js",
    "jar": "clan://localhost/builtin/jars/j4.jar;md5;6fb0aaec35994b1978b5f33646b344dd"
   },
   {
@@ -910,15 +772,15 @@
    "searchable": 1,
    "quickSearch": 1,
    "filterable": 1,
-   "jar": "clan://localhost/builtin/jars/j11.jar;md5;a21ea6f5dd3b5f922b3a7f54d3bd0f16",
-   "ext": "clan://localhost/builtin/scripts/c9516d15d4n.txt"
+   "jar": "clan://localhost/builtin/jars/j9.jar;md5;a21ea6f5dd3b5f922b3a7f54d3bd0f16",
+   "ext": "clan://localhost/builtin/scripts/c9516d15d4.json"
   },
   {
    "key": "drpy_js_云播影院",
    "name": "云播影院 ",
    "type": 3,
-   "api": "clan://localhost/builtin/scripts/76cd687be4s.txt",
-   "ext": "clan://localhost/builtin/scripts/a54f7a87c9s.txt",
+   "api": "clan://localhost/builtin/scripts/76cd687be4.js",
+   "ext": "clan://localhost/builtin/scripts/a54f7a87c9.js",
    "jar": "clan://localhost/builtin/jars/j4.jar;md5;6fb0aaec35994b1978b5f33646b344dd"
   },
   {
@@ -929,7 +791,7 @@
    "searchable": 1,
    "quickSearch": 1,
    "filterable": 1,
-   "ext": "clan://localhost/builtin/scripts/0b8c48e280n.txt",
+   "ext": "clan://localhost/builtin/scripts/0b8c48e280.json",
    "jar": "clan://localhost/builtin/jars/j6.jar;md5;91eb942e44d1154447df4f91ed714488"
   },
   {
@@ -940,7 +802,7 @@
    "searchable": 1,
    "quickSearch": 1,
    "filterable": 1,
-   "ext": "clan://localhost/builtin/scripts/cfccc99453n.txt",
+   "ext": "clan://localhost/builtin/scripts/cfccc99453.json",
    "jar": "clan://localhost/builtin/jars/j6.jar;md5;91eb942e44d1154447df4f91ed714488"
   },
   {
@@ -951,7 +813,7 @@
    "searchable": 1,
    "quickSearch": 1,
    "filterable": 1,
-   "ext": "clan://localhost/builtin/scripts/8e0118ebd1n.txt",
+   "ext": "clan://localhost/builtin/scripts/8e0118ebd1.json",
    "jar": "clan://localhost/builtin/jars/j6.jar;md5;91eb942e44d1154447df4f91ed714488"
   },
   {
@@ -962,7 +824,7 @@
    "searchable": 1,
    "quickSearch": 1,
    "filterable": 1,
-   "ext": "clan://localhost/builtin/scripts/947e47d047n.txt",
+   "ext": "clan://localhost/builtin/scripts/947e47d047.json",
    "jar": "clan://localhost/builtin/jars/j6.jar;md5;91eb942e44d1154447df4f91ed714488"
   },
   {
@@ -973,8 +835,8 @@
    "searchable": 1,
    "quickSearch": 1,
    "filterable": 1,
-   "jar": "clan://localhost/builtin/jars/j11.jar;md5;a21ea6f5dd3b5f922b3a7f54d3bd0f16",
-   "ext": "clan://localhost/builtin/scripts/4e939b9a95n.txt"
+   "jar": "clan://localhost/builtin/jars/j9.jar;md5;a21ea6f5dd3b5f922b3a7f54d3bd0f16",
+   "ext": "clan://localhost/builtin/scripts/4e939b9a95.json"
   },
   {
    "key": "csp_XYQ电影牛",
@@ -984,8 +846,8 @@
    "searchable": 1,
    "quickSearch": 1,
    "filterable": 1,
-   "jar": "clan://localhost/builtin/jars/j11.jar;md5;a21ea6f5dd3b5f922b3a7f54d3bd0f16",
-   "ext": "clan://localhost/builtin/scripts/cec19358a7n.txt"
+   "jar": "clan://localhost/builtin/jars/j9.jar;md5;a21ea6f5dd3b5f922b3a7f54d3bd0f16",
+   "ext": "clan://localhost/builtin/scripts/cec19358a7.json"
   },
   {
    "key": "csp_XYQHiker_VSYY",
@@ -995,71 +857,71 @@
    "searchable": 1,
    "quickSearch": 1,
    "filterable": 1,
-   "jar": "clan://localhost/builtin/jars/j11.jar;md5;a21ea6f5dd3b5f922b3a7f54d3bd0f16",
-   "ext": "clan://localhost/builtin/scripts/db6ff9df9bn.txt"
+   "jar": "clan://localhost/builtin/jars/j9.jar;md5;a21ea6f5dd3b5f922b3a7f54d3bd0f16",
+   "ext": "clan://localhost/builtin/scripts/db6ff9df9b.json"
   },
   {
    "key": "恰娃子",
    "name": "娃娃｜影视",
    "type": 3,
-   "api": "clan://localhost/builtin/scripts/d7d768f998s.txt",
-   "ext": "clan://localhost/builtin/scripts/4e52514cf3s.txt",
+   "api": "clan://localhost/builtin/scripts/d7d768f998.js",
+   "ext": "clan://localhost/builtin/scripts/4e52514cf3.js",
    "jar": "clan://localhost/builtin/jars/j6.jar;md5;91eb942e44d1154447df4f91ed714488"
   },
   {
    "key": "布雷影视",
    "name": "布雷｜影视",
    "type": 3,
-   "api": "clan://localhost/builtin/scripts/d7d768f998s.txt",
+   "api": "clan://localhost/builtin/scripts/d7d768f998.js",
    "searchable": 1,
    "quickSearch": 1,
    "filterable": 1,
    "order_num": 0,
-   "ext": "clan://localhost/builtin/scripts/02c28b38bds.txt",
+   "ext": "clan://localhost/builtin/scripts/02c28b38bd.js",
    "jar": "clan://localhost/builtin/jars/j6.jar;md5;91eb942e44d1154447df4f91ed714488"
   },
   {
    "key": "电影网影视",
    "name": "影网｜影视",
    "type": 3,
-   "api": "clan://localhost/builtin/scripts/d7d768f998s.txt",
+   "api": "clan://localhost/builtin/scripts/d7d768f998.js",
    "searchable": 1,
    "quickSearch": 1,
    "filterable": 1,
    "order_num": 0,
-   "ext": "clan://localhost/builtin/scripts/51f04932c1s.txt",
+   "ext": "clan://localhost/builtin/scripts/51f04932c1.js",
    "jar": "clan://localhost/builtin/jars/j6.jar;md5;91eb942e44d1154447df4f91ed714488"
   },
   {
    "key": "恰瓜子",
    "name": "恰恰｜影视",
    "type": 3,
-   "api": "clan://localhost/builtin/scripts/d7d768f998s.txt",
-   "ext": "clan://localhost/builtin/scripts/6395dd4ae0s.txt",
+   "api": "clan://localhost/builtin/scripts/d7d768f998.js",
+   "ext": "clan://localhost/builtin/scripts/6395dd4ae0.js",
    "jar": "clan://localhost/builtin/jars/j6.jar;md5;91eb942e44d1154447df4f91ed714488"
   },
   {
    "key": "片吧影院",
    "name": "片吧｜影视",
    "type": 3,
-   "api": "clan://localhost/builtin/scripts/d7d768f998s.txt",
+   "api": "clan://localhost/builtin/scripts/d7d768f998.js",
    "searchable": 1,
    "quickSearch": 1,
    "filterable": 1,
    "order_num": 0,
-   "ext": "clan://localhost/builtin/scripts/b5c5901b79s.txt",
+   "ext": "clan://localhost/builtin/scripts/b5c5901b79.js",
    "jar": "clan://localhost/builtin/jars/j6.jar;md5;91eb942e44d1154447df4f91ed714488"
   },
   {
    "key": "豆瓣影院",
    "name": "豆瓣｜影视",
    "type": 3,
-   "api": "clan://localhost/builtin/scripts/d7d768f998s.txt",
+   "api": "clan://localhost/builtin/scripts/d7d768f998.js",
    "searchable": 1,
    "quickSearch": 1,
    "filterable": 1,
    "order_num": 0,
-   "ext": "clan://localhost/builtin/scripts/baaae9be6fs.txt",
+   "ext": "clan://localhost/builtin/scripts/baaae9be6f.js",
    "jar": "clan://localhost/builtin/jars/j6.jar;md5;91eb942e44d1154447df4f91ed714488"
   },
   {
@@ -1252,24 +1114,24 @@
    "key": "人人电影",
    "name": "👰人人┃电影",
    "type": 3,
-   "api": "clan://localhost/builtin/scripts/fdd4ad8156s.txt",
-   "ext": "clan://localhost/builtin/scripts/f39517ca5fs.txt",
+   "api": "clan://localhost/builtin/scripts/fdd4ad8156.js",
+   "ext": "clan://localhost/builtin/scripts/f39517ca5f.js",
    "jar": "clan://localhost/builtin/jars/j1.jar;md5;a94b59e118b0c15945abe22c7a9e34bf"
   },
   {
    "key": "努努影院",
    "name": "💋努努┃影院",
    "type": 3,
-   "api": "clan://localhost/builtin/scripts/fdd4ad8156s.txt",
-   "ext": "clan://localhost/builtin/scripts/aa18ed9686s.txt",
+   "api": "clan://localhost/builtin/scripts/fdd4ad8156.js",
+   "ext": "clan://localhost/builtin/scripts/aa18ed9686.js",
    "jar": "clan://localhost/builtin/jars/j1.jar;md5;a94b59e118b0c15945abe22c7a9e34bf"
   },
   {
    "key": "夸克影视",
    "name": "💕夸克┃影视",
    "type": 3,
-   "api": "clan://localhost/builtin/scripts/fdd4ad8156s.txt",
-   "ext": "clan://localhost/builtin/scripts/336c9348b9s.txt",
+   "api": "clan://localhost/builtin/scripts/fdd4ad8156.js",
+   "ext": "clan://localhost/builtin/scripts/336c9348b9.js",
    "jar": "clan://localhost/builtin/jars/j1.jar;md5;a94b59e118b0c15945abe22c7a9e34bf"
   },
   {
@@ -1347,8 +1209,8 @@
    "changeable": 1,
    "filterable": 0,
    "timeout": 60,
-   "ext": "clan://localhost/builtin/scripts/99931e0c32n.txt$$$./json/alishare.txt$$$db$$$1",
-   "jar": "clan://localhost/builtin/jars/j3.jar;md5;7fd612014a8a2122de4b427608e8ae10"
+   "ext": "clan://localhost/builtin/scripts/99931e0c32.json$$$./json/alishare.txt$$$db$$$1",
+   "jar": "clan://localhost/builtin/jars/j3.jar;md5;dffec63fb83a2b31b8606bd4bf6bead9"
   },
   {
    "key": "追剧",
@@ -1357,7 +1219,7 @@
    "api": "csp_TTian",
    "playerType": 1,
    "ext": "http://app.kzjtv.com$$$null$$$1",
-   "jar": "clan://localhost/builtin/jars/j3.jar;md5;7fd612014a8a2122de4b427608e8ae10"
+   "jar": "clan://localhost/builtin/jars/j3.jar;md5;dffec63fb83a2b31b8606bd4bf6bead9"
   },
   {
    "key": "Gaoqing",
@@ -1368,8 +1230,8 @@
    "changeable": 1,
    "filterable": 1,
    "timeout": 60,
-   "ext": "clan://localhost/builtin/scripts/99931e0c32n.txt$$$https:/gaoqing.la/$$$proxy$$$1",
-   "jar": "clan://localhost/builtin/jars/j3.jar;md5;7fd612014a8a2122de4b427608e8ae10"
+   "ext": "clan://localhost/builtin/scripts/99931e0c32.json$$$https:/gaoqing.la/$$$proxy$$$1",
+   "jar": "clan://localhost/builtin/jars/j3.jar;md5;dffec63fb83a2b31b8606bd4bf6bead9"
   },
   {
    "key": "爱看机器人",
@@ -1413,21 +1275,7 @@
    "type": 3,
    "api": "csp_KmeiJu",
    "playerType": 2,
-   "jar": "clan://localhost/builtin/jars/j10.jar;md5;32ee35e7d7ef9daf057aa30231897d2a"
-  },
-  {
-   "key": "Lib",
-   "name": "🌟┃Lib┃秒播",
-   "type": 3,
-   "api": "csp_Libvio",
-   "searchable": 1,
-   "quickSearch": 1,
-   "changeable": 1,
-   "ext": {
-    "Cloud-drive": "tvfan/Cloud-drive.txt",
-    "from": "4k|auto"
-   },
-   "jar": "clan://localhost/builtin/jars/j8.jar;md5;833d4e448438fc3bf0aba92ec050e137"
+   "jar": "clan://localhost/builtin/jars/j8.jar;md5;888a64f65aab54892980ded5c6da9a6e"
   },
   {
    "key": "Guazi",
@@ -1442,7 +1290,7 @@
    "name": "🏳️┃素白┃影视",
    "type": 3,
    "api": "csp_SuBaiBai",
-   "jar": "clan://localhost/builtin/jars/j10.jar;md5;32ee35e7d7ef9daf057aa30231897d2a"
+   "jar": "clan://localhost/builtin/jars/j8.jar;md5;888a64f65aab54892980ded5c6da9a6e"
   },
   {
    "key": "Libvio",
@@ -1470,7 +1318,7 @@
    "quickSearch": 1,
    "changeable": 0,
    "ext": "rfOIzPkSUkANv6AT2prC8en3+TzKx9TnlT8vaY37HhtYfAQe6C5xqrVuJPhQwYV6r3eRdMBGm3Qm6Th+BushR86B6KqJGXDsHazHw7alBG/7zUxkN1tK/NypRxnpBNoeUtpw4jcCGhytI75yO4g4zG6SOPA0RSwhksM0IF2friAkrHCWoW3v+0mdw6sjz4t4XB1Df7yL/R5cfaA/5LQYq3I8OkvMrJMU9Q1P7JXwx7NSF2zTyH/ANVmZ4u5m567DW1KVG7OuQjXPjZiOXTYk0+wjpfBRTf19yIq6q/C76k2Fs80joAMPw0ueDR+QHxtuDcTom2rmHkI1Fonkzi6BotbpUcbSi4PiIgmfdbvVwhG6Z+i4nvt+IYa48l5aLA7PLgDiERpuOs31aHaXlgFswT87XyTb8QaF4CuzKWJuXptwNTjvXAS9KHdxH49Ay+hfBAB2bCvUf4CMoldF2wZUv0mI2qY966erFpOFg+FOc7t88EUH8j8ACXQtHJiKC9RQ+SaLIF0=",
-   "jar": "clan://localhost/builtin/jars/j12.jar;md5;097bfd1388b83204958633f23eb6e4cb"
+   "jar": "clan://localhost/builtin/jars/j10.jar;md5;097bfd1388b83204958633f23eb6e4cb"
   },
   {
    "key": "AppZy_qiushui",
@@ -1490,7 +1338,7 @@
    "playerType": "2",
    "api": "csp_AppRZ",
    "ext": "http://rzys.xyz/",
-   "jar": "clan://localhost/builtin/jars/j10.jar;md5;32ee35e7d7ef9daf057aa30231897d2a"
+   "jar": "clan://localhost/builtin/jars/j8.jar;md5;888a64f65aab54892980ded5c6da9a6e"
   },
   {
    "key": "1905",
@@ -1501,16 +1349,6 @@
    "quickSearch": 0,
    "filterable": 0,
    "jar": "clan://localhost/builtin/jars/j6.jar;md5;91eb942e44d1154447df4f91ed714488"
-  },
-  {
-   "key": "py_4KAV",
-   "name": "4KAV[py]",
-   "type": 3,
-   "api": "clan://localhost/builtin/scripts/7d36d020e7y.txt",
-   "quickSearch": 1,
-   "searchable": 1,
-   "filterable": 1,
-   "jar": "clan://localhost/builtin/jars/j2.jar;md5;5400486b7884dd01de5a306e34724c3c"
   },
   {
    "key": "Mp4电影",
@@ -1546,27 +1384,7 @@
    "type": 3,
    "playerType": "2",
    "api": "csp_Juqq",
-   "jar": "clan://localhost/builtin/jars/j10.jar;md5;32ee35e7d7ef9daf057aa30231897d2a"
-  },
-  {
-   "key": "py_云端",
-   "name": "云端影视[py]",
-   "type": 3,
-   "api": "clan://localhost/builtin/scripts/1ea23ce925y.txt",
-   "quickSearch": 1,
-   "filterable": 1,
-   "playerType": 2,
-   "jar": "clan://localhost/builtin/jars/j2.jar;md5;5400486b7884dd01de5a306e34724c3c"
-  },
-  {
-   "key": "py_云速",
-   "name": "云速影视[py]",
-   "type": 3,
-   "api": "clan://localhost/builtin/scripts/3f34e3a263y.txt",
-   "quickSearch": 1,
-   "filterable": 1,
-   "playerType": 2,
-   "jar": "clan://localhost/builtin/jars/j2.jar;md5;5400486b7884dd01de5a306e34724c3c"
+   "jar": "clan://localhost/builtin/jars/j8.jar;md5;888a64f65aab54892980ded5c6da9a6e"
   },
   {
    "key": "全网影视",
@@ -1575,16 +1393,6 @@
    "api": "csp_Quanwk",
    "ext": "https://www.91qkw.com",
    "jar": "clan://localhost/builtin/jars/j6.jar;md5;91eb942e44d1154447df4f91ed714488"
-  },
-  {
-   "key": "py_农牧",
-   "name": "农牧影视[py]",
-   "type": 3,
-   "api": "clan://localhost/builtin/scripts/106490af92y.txt",
-   "quickSearch": 1,
-   "filterable": 1,
-   "playerType": 2,
-   "jar": "clan://localhost/builtin/jars/j2.jar;md5;5400486b7884dd01de5a306e34724c3c"
   },
   {
    "key": "厂长影视",
@@ -1599,46 +1407,6 @@
    "jar": "clan://localhost/builtin/jars/j6.jar;md5;91eb942e44d1154447df4f91ed714488"
   },
   {
-   "key": "py_kkys",
-   "name": "可可追剧[py]",
-   "type": 3,
-   "api": "clan://localhost/builtin/scripts/aec3afc282y.txt",
-   "searchable": 1,
-   "quickSearch": 1,
-   "filterable": 1,
-   "jar": "clan://localhost/builtin/jars/j2.jar;md5;5400486b7884dd01de5a306e34724c3c"
-  },
-  {
-   "key": "py_嗨皮",
-   "name": "嗨皮影视[py]",
-   "type": 3,
-   "api": "clan://localhost/builtin/scripts/9b1645cbc3y.txt",
-   "quickSearch": 1,
-   "filterable": 1,
-   "playerType": 2,
-   "jar": "clan://localhost/builtin/jars/j2.jar;md5;5400486b7884dd01de5a306e34724c3c"
-  },
-  {
-   "key": "py_duoduo",
-   "name": "多多影视[py]",
-   "type": 3,
-   "api": "clan://localhost/builtin/scripts/cdb58fc267y.txt",
-   "searchable": 1,
-   "quickSearch": 1,
-   "changeable": 1,
-   "jar": "clan://localhost/builtin/jars/j2.jar;md5;5400486b7884dd01de5a306e34724c3c"
-  },
-  {
-   "key": "py_qiyoudy",
-   "name": "奇优影视[py]",
-   "type": 3,
-   "api": "clan://localhost/builtin/scripts/2f96df7bc2y.txt",
-   "searchable": 1,
-   "quickSearch": 0,
-   "filterable": 1,
-   "jar": "clan://localhost/builtin/jars/j2.jar;md5;5400486b7884dd01de5a306e34724c3c"
-  },
-  {
    "key": "奇优影视",
    "name": "奇优｜影视",
    "type": 3,
@@ -1646,36 +1414,15 @@
    "jar": "clan://localhost/builtin/jars/j6.jar;md5;91eb942e44d1154447df4f91ed714488"
   },
   {
-   "key": "py_shanzha",
-   "name": "山楂影视[py]",
-   "type": 3,
-   "api": "clan://localhost/builtin/scripts/e5ee7dd88by.txt",
-   "searchable": 1,
-   "quickSearch": 1,
-   "filterable": 1,
-   "ext": {},
-   "jar": "clan://localhost/builtin/jars/j2.jar;md5;5400486b7884dd01de5a306e34724c3c"
-  },
-  {
-   "key": "py_bubuzhuiju",
-   "name": "布布追剧[py]",
-   "type": 3,
-   "api": "clan://localhost/builtin/scripts/6423191b23y.txt",
-   "searchable": 1,
-   "quickSearch": 1,
-   "filterable": 1,
-   "jar": "clan://localhost/builtin/jars/j2.jar;md5;5400486b7884dd01de5a306e34724c3c"
-  },
-  {
    "key": "4KHDR",
    "name": "弹幕 | 4KHDR[jar]",
    "type": 3,
    "api": "csp_FourKHDR",
-   "ext": "clan://localhost/builtin/scripts/99931e0c32n.txt$$$http:/127.0.0.1:9978/file/TV/4khdr.txt",
+   "ext": "clan://localhost/builtin/scripts/99931e0c32.json$$$http:/127.0.0.1:9978/file/TV/4khdr.txt",
    "quickSearch": 1,
    "changeable": 1,
    "timeout": 60,
-   "jar": "clan://localhost/builtin/jars/j3.jar;md5;7fd612014a8a2122de4b427608e8ae10"
+   "jar": "clan://localhost/builtin/jars/j3.jar;md5;dffec63fb83a2b31b8606bd4bf6bead9"
   },
   {
    "key": "Wo4k",
@@ -1686,8 +1433,8 @@
    "changeable": 1,
    "filterable": 1,
    "timeout": 60,
-   "ext": "clan://localhost/builtin/scripts/99931e0c32n.txt$$$https:/www.wo4k.com/$$$proxy$$$1$$$./wogg.json",
-   "jar": "clan://localhost/builtin/jars/j3.jar;md5;7fd612014a8a2122de4b427608e8ae10"
+   "ext": "clan://localhost/builtin/scripts/99931e0c32.json$$$https:/www.wo4k.com/$$$proxy$$$1$$$./wogg.json",
+   "jar": "clan://localhost/builtin/jars/j3.jar;md5;dffec63fb83a2b31b8606bd4bf6bead9"
   },
   {
    "key": "PushShare",
@@ -1699,61 +1446,11 @@
    "changeable": 1,
    "filterable": 0,
    "timeout": 60,
-   "ext": "clan://localhost/builtin/scripts/99931e0c32n.txt$$$./json/pushshare.txt$$$db$$$1",
+   "ext": "clan://localhost/builtin/scripts/99931e0c32.json$$$./json/pushshare.txt$$$db$$$1",
    "style": {
     "type": "list"
    },
-   "jar": "clan://localhost/builtin/jars/j3.jar;md5;7fd612014a8a2122de4b427608e8ae10"
-  },
-  {
-   "key": "py_ysttv",
-   "name": "影视天堂[py]",
-   "type": 3,
-   "api": "clan://localhost/builtin/scripts/3316b8fa18y.txt",
-   "searchable": 1,
-   "quickSearch": 0,
-   "filterable": 1,
-   "ext": {
-    "host": "https://ysttv.com",
-    "pageFmt": "",
-    "searchFmt": ""
-   },
-   "jar": "clan://localhost/builtin/jars/j2.jar;md5;5400486b7884dd01de5a306e34724c3c"
-  },
-  {
-   "key": "py_文才",
-   "name": "文才影视[py]",
-   "type": 3,
-   "api": "clan://localhost/builtin/scripts/28f97c1ee0y.txt",
-   "searchable": 1,
-   "quickSearch": 1,
-   "filterable": 1,
-   "ext": {
-    "site": "https://www.hkybqufgh.com,https://www.sizhengxt.com,https://0996zp.com,https://9zhoukj.com/,https://www.sizhengxt.com,https://www.tjrongze.com,https://www.jiabaide.cn,https://cqzuoer.com"
-   },
-   "jar": "clan://localhost/builtin/jars/j2.jar;md5;5400486b7884dd01de5a306e34724c3c"
-  },
-  {
-   "key": "py_oule",
-   "name": "欧乐影院[py]",
-   "type": 3,
-   "api": "clan://localhost/builtin/scripts/b5d963477ay.txt",
-   "searchable": 1,
-   "quickSearch": 1,
-   "changeable": 1,
-   "jar": "clan://localhost/builtin/jars/j2.jar;md5;5400486b7884dd01de5a306e34724c3c"
-  },
-  {
-   "key": "猎手影视",
-   "name": "猎手｜影视",
-   "type": 3,
-   "api": "clan://localhost/builtin/scripts/3b8f90c9d9y.txt",
-   "searchable": 1,
-   "changeable": 1,
-   "quickSearch": 1,
-   "filterable": 1,
-   "playerType": 2,
-   "jar": "clan://localhost/builtin/jars/j6.jar;md5;91eb942e44d1154447df4f91ed714488"
+   "jar": "clan://localhost/builtin/jars/j3.jar;md5;dffec63fb83a2b31b8606bd4bf6bead9"
   },
   {
    "key": "瓜子影视",
@@ -1766,69 +1463,12 @@
    "jar": "clan://localhost/builtin/jars/j6.jar;md5;91eb942e44d1154447df4f91ed714488"
   },
   {
-   "key": "py_jieyingshi",
-   "name": "界影视[py]",
-   "type": 3,
-   "api": "clan://localhost/builtin/scripts/b1e26569c7y.txt",
-   "searchable": 1,
-   "quickSearch": 0,
-   "filterable": 0,
-   "changeable": 0,
-   "jar": "clan://localhost/builtin/jars/j2.jar;md5;5400486b7884dd01de5a306e34724c3c"
-  },
-  {
    "key": "移动",
    "name": "移动｜影视",
    "type": 3,
    "api": "csp_YD",
    "searchable": 1,
    "quickSearch": 1,
-   "jar": "clan://localhost/builtin/jars/j6.jar;md5;91eb942e44d1154447df4f91ed714488"
-  },
-  {
-   "key": "py_dantatv",
-   "name": "蛋挞影视[py]",
-   "type": 3,
-   "api": "clan://localhost/builtin/scripts/77cd965c32y.txt",
-   "searchable": 1,
-   "quickSearch": 0,
-   "jar": "clan://localhost/builtin/jars/j2.jar;md5;5400486b7884dd01de5a306e34724c3c"
-  },
-  {
-   "key": "py_dsystv",
-   "name": "袋鼠影视[py]",
-   "type": 3,
-   "api": "clan://localhost/builtin/scripts/c30714979fy.txt",
-   "searchable": 1,
-   "quickSearch": 1,
-   "filterable": 1,
-   "ext": {
-    "host": "https://dsystv.com"
-   },
-   "jar": "clan://localhost/builtin/jars/j2.jar;md5;5400486b7884dd01de5a306e34724c3c"
-  },
-  {
-   "key": "边缘影视",
-   "name": "边缘｜影视",
-   "type": 3,
-   "api": "clan://localhost/builtin/scripts/d8e5d56b26y.txt",
-   "searchable": 1,
-   "changeable": 1,
-   "quickSearch": 1,
-   "filterable": 1,
-   "playerType": 2,
-   "jar": "clan://localhost/builtin/jars/j6.jar;md5;91eb942e44d1154447df4f91ed714488"
-  },
-  {
-   "key": "追星影视",
-   "name": "追星｜影视",
-   "type": 3,
-   "api": "clan://localhost/builtin/scripts/99fddb8087y.txt",
-   "searchable": 1,
-   "changeable": 1,
-   "quickSearch": 1,
-   "filterable": 1,
-   "playerType": 2,
    "jar": "clan://localhost/builtin/jars/j6.jar;md5;91eb942e44d1154447df4f91ed714488"
   },
   {
@@ -1842,73 +1482,6 @@
    "jar": "clan://localhost/builtin/jars/j6.jar;md5;91eb942e44d1154447df4f91ed714488"
   },
   {
-   "key": "py_金牌影院",
-   "name": "金牌影院[py]",
-   "type": 3,
-   "searchable": 1,
-   "quickSearch": 1,
-   "filterable": 1,
-   "api": "clan://localhost/builtin/scripts/117d82bd2ay.txt",
-   "order_num": 5,
-   "ext": "",
-   "jar": "clan://localhost/builtin/jars/j2.jar;md5;5400486b7884dd01de5a306e34724c3c"
-  },
-  {
-   "key": "金牌影视",
-   "name": "金牌｜影视",
-   "type": 3,
-   "api": "clan://localhost/builtin/scripts/8984191af0y.txt",
-   "searchable": 1,
-   "quickSearch": 1,
-   "filterable": 1,
-   "playerType": 2,
-   "ext": {
-    "site": "https://m.hkybqufgh.com,https://m.sizhengxt.com,https://m.9zhoukj.com,https://m.sizhengxt.com,https://m.jiabaide.cn"
-   },
-   "jar": "clan://localhost/builtin/jars/j6.jar;md5;91eb942e44d1154447df4f91ed714488"
-  },
-  {
-   "key": "py_yangguang",
-   "name": "阳光影视[py]",
-   "type": 3,
-   "api": "clan://localhost/builtin/scripts/6956674faby.txt",
-   "searchable": 0,
-   "quickSearch": 0,
-   "jar": "clan://localhost/builtin/jars/j2.jar;md5;5400486b7884dd01de5a306e34724c3c"
-  },
-  {
-   "key": "py_xlys",
-   "name": "雪落影视[py]",
-   "type": 3,
-   "api": "clan://localhost/builtin/scripts/1016bac710y.txt",
-   "searchable": 1,
-   "quickSearch": 1,
-   "filterable": 1,
-   "ext": {
-    "host": "https://v.xl.in.ua",
-    "pageFmt": ""
-   },
-   "jar": "clan://localhost/builtin/jars/j2.jar;md5;5400486b7884dd01de5a306e34724c3c"
-  },
-  {
-   "key": "py_saohuo",
-   "name": "骚火影视[py]",
-   "type": 3,
-   "api": "clan://localhost/builtin/scripts/88eeca6c25y.txt",
-   "searchable": 1,
-   "quickSearch": 1,
-   "changeable": 1,
-   "filterable": 1,
-   "jar": "clan://localhost/builtin/jars/j2.jar;md5;5400486b7884dd01de5a306e34724c3c"
-  },
-  {
-   "key": "py_高清电影",
-   "name": "高清电影[py]",
-   "type": 3,
-   "api": "clan://localhost/builtin/scripts/423e8ffe18y.txt",
-   "jar": "clan://localhost/builtin/jars/j2.jar;md5;5400486b7884dd01de5a306e34724c3c"
-  },
-  {
    "key": "FreeOK",
    "name": "️️👌┃Fre┃影视",
    "type": 3,
@@ -1916,18 +1489,7 @@
    "searchable": 1,
    "quickSearch": 1,
    "filterable": 1,
-   "jar": "clan://localhost/builtin/jars/j10.jar;md5;32ee35e7d7ef9daf057aa30231897d2a"
-  },
-  {
-   "key": "P4_哔嘀",
-   "name": "️️💦┃哔嘀┃影视",
-   "type": 3,
-   "api": "csp_Bdys",
-   "playerType": "1",
-   "searchable": 1,
-   "quickSearch": 1,
-   "filterable": 1,
-   "jar": "clan://localhost/builtin/jars/j9.jar;md5;888a64f65aab54892980ded5c6da9a6e"
+   "jar": "clan://localhost/builtin/jars/j8.jar;md5;888a64f65aab54892980ded5c6da9a6e"
   },
   {
    "key": "Qiwei",
@@ -2031,7 +1593,7 @@
    "searchable": 1,
    "quickSearch": 1,
    "changeable": 1,
-   "jar": "clan://localhost/builtin/jars/j12.jar;md5;097bfd1388b83204958633f23eb6e4cb"
+   "jar": "clan://localhost/builtin/jars/j10.jar;md5;097bfd1388b83204958633f23eb6e4cb"
   },
   {
    "key": "Wwys",
@@ -2088,7 +1650,7 @@
    "searchable": 1,
    "quickSearch": 1,
    "filterable": 1,
-   "jar": "clan://localhost/builtin/jars/j10.jar;md5;32ee35e7d7ef9daf057aa30231897d2a"
+   "jar": "clan://localhost/builtin/jars/j8.jar;md5;888a64f65aab54892980ded5c6da9a6e"
   },
   {
    "key": "CZ",
@@ -2121,7 +1683,7 @@
    "searchable": 1,
    "quickSearch": 1,
    "filterable": 1,
-   "jar": "clan://localhost/builtin/jars/j10.jar;md5;32ee35e7d7ef9daf057aa30231897d2a"
+   "jar": "clan://localhost/builtin/jars/j8.jar;md5;888a64f65aab54892980ded5c6da9a6e"
   },
   {
    "key": "WoNiu",
@@ -2141,7 +1703,7 @@
    "type": 3,
    "api": "csp_FengGo",
    "playerType": 2,
-   "jar": "clan://localhost/builtin/jars/j10.jar;md5;32ee35e7d7ef9daf057aa30231897d2a"
+   "jar": "clan://localhost/builtin/jars/j8.jar;md5;888a64f65aab54892980ded5c6da9a6e"
   },
   {
    "key": "csp_Wofox",
@@ -2156,31 +1718,6 @@
     "proxy": "proxy"
    },
    "jar": "clan://localhost/builtin/jars/j1.jar;md5;a94b59e118b0c15945abe22c7a9e34bf"
-  },
-  {
-   "key": "P4_绿豆",
-   "name": "🐼┃绿豆┃影视",
-   "type": 3,
-   "api": "csp_Lvdou",
-   "searchable": 1,
-   "quickSearch": 0,
-   "changeable": 0,
-   "playerType": "1",
-   "ext": {
-    "server": "http://s.weixine.net/api.php/app/",
-    "mackey": "6JLF1OWhgEnMexAs|6CrRdTxr2qXj9258"
-   },
-   "jar": "clan://localhost/builtin/jars/j8.jar;md5;833d4e448438fc3bf0aba92ec050e137"
-  },
-  {
-   "key": "P4_Kuaikan",
-   "name": "👀┃快看┃影视",
-   "type": 3,
-   "api": "csp_Kuaikan",
-   "searchable": 1,
-   "quickSearch": 1,
-   "filterable": 1,
-   "jar": "clan://localhost/builtin/jars/j9.jar;md5;888a64f65aab54892980ded5c6da9a6e"
   },
   {
    "key": "gying",
@@ -2226,7 +1763,7 @@
    "ext": {
     "Cloud-drive": "tvfan/Cloud-drive.txt"
    },
-   "jar": "clan://localhost/builtin/jars/j12.jar;md5;097bfd1388b83204958633f23eb6e4cb"
+   "jar": "clan://localhost/builtin/jars/j10.jar;md5;097bfd1388b83204958633f23eb6e4cb"
   },
   {
    "key": "Wogg",
@@ -2243,7 +1780,7 @@
      "https://www.wogg.live",
      "http://woggpan.xxooo.cf"
     ],
-    "filter": "clan://localhost/builtin/scripts/8dea584101n.txt"
+    "filter": "clan://localhost/builtin/scripts/8dea584101.json"
    },
    "jar": "clan://localhost/builtin/jars/j7.jar;md5;53b51f8c239b727ce4cd18dc2c3b7a99"
   },
@@ -2264,7 +1801,7 @@
    "playerType": 2,
    "filterable": 1,
    "ext": "",
-   "jar": "clan://localhost/builtin/jars/j10.jar;md5;32ee35e7d7ef9daf057aa30231897d2a"
+   "jar": "clan://localhost/builtin/jars/j8.jar;md5;888a64f65aab54892980ded5c6da9a6e"
   }
  ],
  "lives": [

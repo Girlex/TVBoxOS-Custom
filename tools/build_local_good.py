@@ -25,7 +25,9 @@ import hashlib
 import html
 import json
 import pathlib
+import re
 import subprocess
+import zipfile
 from collections import Counter
 from datetime import datetime, timezone
 from encodings import idna
@@ -52,6 +54,28 @@ def esc(s):
 
 def norm(s):
     return str(s or "").strip()
+
+
+def valid_jar(body):
+    """jar 必须是能读出 classes.dex 的有效 zip（有些下载回来的 PK 开头但中央目录损坏）。"""
+    if not body or body[:2] != b"PK":
+        return False
+    try:
+        import io
+        z = zipfile.ZipFile(io.BytesIO(body))
+        names = z.namelist()
+        return any(n.endswith(".dex") for n in names) or any(n.endswith(".class") for n in names)
+    except Exception:
+        return False
+
+
+def script_ext_of(url):
+    """返回脚本 URL 的真实后缀 .js/.py/.json，非脚本返回空串。"""
+    head = url.split("$$$")[0].split("?")[0].lower()
+    for e in (".json", ".js", ".py"):
+        if head.endswith(e):
+            return e
+    return ""
 
 
 def normalize(url):
@@ -136,6 +160,10 @@ def main():
     for i, url in enumerate(sorted(jar_urls), 1):
         md5_name = hashlib.md5(url.encode()).hexdigest()[:8]
         cached = jar_cache / ("cached_%s.jar" % md5_name)
+        # 缓存命中也要校验内容有效性；坏缓存删除后强制重下
+        if cached.exists() and not valid_jar(cached.read_bytes()):
+            print("  [%2d/%d] 坏缓存删除 %s" % (i, len(jar_urls), cached.name), flush=True)
+            cached.unlink()
         if args.no_download and cached.exists():
             body = cached.read_bytes()
             code = 200
@@ -149,9 +177,9 @@ def main():
             failed[url] = "HTTP %s" % code
             print("  [%2d/%d] FAIL HTTP %-4s %s" % (i, len(jar_urls), code, url[:70]), flush=True)
             continue
-        if body[:2] != b"PK":
-            failed[url] = "非 PK（%d 字节）" % len(body)
-            print("  [%2d/%d] FAIL 非jar %-7d %s" % (i, len(jar_urls), len(body), url[:70]), flush=True)
+        if not valid_jar(body):
+            failed[url] = "无效jar（%d 字节，dex不可读）" % len(body)
+            print("  [%2d/%d] FAIL 坏jar %-7d %s" % (i, len(jar_urls), len(body), url[:70]), flush=True)
             continue
         if len(body) > max_bytes:
             failed[url] = "过大 %.1fMB" % (len(body) / 1048576)
@@ -191,9 +219,9 @@ def main():
     script_local = {}   # 原 URL -> 本地文件名（含扩展名）
     script_failed = set()
     for i, url in enumerate(sorted(script_urls), 1):
-        path = urlsplit(url).path
-        # 取完整扩展名（.js/.py/.json），没有则归因到 .txt
-        ext = next((e for e in (".json", ".js", ".py") if path.lower().endswith(e)), ".txt")
+        # 后缀必须与源 URL 一致，否则 getCSP 按后缀分流会选错 loader
+        # （.js→jsLoader / .py→pyLoader / .json→其它）；绝不改成 .txt
+        ext = script_ext_of(url) or ".txt"
         name = hashlib.md5(url.encode()).hexdigest()[:10] + ext
         cached = scripts_dir / name
         if args.no_download and cached.exists():
@@ -238,6 +266,11 @@ def main():
         # api：在线脚本 URL → 本地 clan 地址
         api_val = norm(site.get("api"))
         api_head = api_val.split("?")[0]
+        # java flavor APK 不含 Python 运行环境：api 是 .py 的爬虫站点必然加载失败，直接剔除
+        # （ext 里的 .py 由 drpy.js 引擎解释，不经过 pyLoader，不受此限制）
+        if api_val.startswith("http") and script_ext_of(api_val) == ".py":
+            drop["py脚本站点剔除(java版不支持Python)"] += 1
+            continue
         if api_head in script_local:
             site["api"] = LOCAL_PREFIX + "scripts/" + script_local[api_head] + (
                 "?" + api_val.split("?", 1)[1] if "?" in api_val else "")
@@ -304,18 +337,35 @@ def main():
         return 0
 
     # 写文件：assets + adb 覆盖副本（内容一致）
+    all_used_scripts = set()
     for base in (assets, copy):
         (base / "configs").mkdir(parents=True, exist_ok=True)
         (base / "jars").mkdir(parents=True, exist_ok=True)
         (base / "live").mkdir(parents=True, exist_ok=True)
-        # 只覆盖写本轮脚本；不批量删除旧残留（避免触发环境批量删除保护，旧文件不被引用、无害）
         sd = base / "scripts"
         sd.mkdir(parents=True, exist_ok=True)
-        # 复制本地化脚本
-        for name in script_local.values():
+        # 复制本轮实际被配置引用的脚本（只写 local_sites 用到的，避免下载了但站点被剔除的脚本占空间）
+        used = set()
+        for site in local_sites:
+            def collect(v):
+                if isinstance(v, str):
+                    for m in re.finditer(r"clan://localhost/builtin/scripts/([A-Za-z0-9_.\-]+)", v):
+                        used.add(m.group(1))
+                elif isinstance(v, dict):
+                    for vv in v.values():
+                        collect(vv)
+            collect(site.get("api"))
+            collect(site.get("ext"))
+        if base == assets:
+            all_used_scripts = set(used)
+        for name in used:
             src_f = scripts_dir / name
             if src_f.exists():
                 (base / "scripts" / name).write_bytes(src_f.read_bytes())
+        # 清理本目录里本轮未引用的残留（旧后缀 .txt / 站点被剔的脚本）；逐个删，不整目录清空
+        for old in list(sd.iterdir()):
+            if old.is_file() and old.name not in used:
+                old.unlink()
         (base / "configs" / "fused.json").write_text(
             json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
         (base / "collection.json").write_text(json.dumps({
@@ -345,7 +395,7 @@ def main():
         "source": str(src.relative_to(ROOT)),
         "sites": len(local_sites),
         "jars": len(jar_by_md5),
-        "scripts": len(script_local),
+        "scripts": len(all_used_scripts),
         "live": lives_meta,
         "online": [],
         "dropped": dict(drop),
@@ -364,7 +414,7 @@ def main():
     report = {
         "generated": manifest["generated"], "input_sites": len(sites),
         "output_sites": len(local_sites), "jars": len(jar_by_md5),
-        "scripts": len(script_local), "scripts_failed": sorted(script_failed),
+        "scripts": len(all_used_scripts), "scripts_failed": sorted(script_failed),
         "live": len(lives_meta), "dropped": dict(drop), "failed_jars": failed,
         "top_spider": top_jar,
     }
