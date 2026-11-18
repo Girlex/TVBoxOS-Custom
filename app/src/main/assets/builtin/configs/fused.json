@@ -1802,6 +1802,17 @@
    "filterable": 1,
    "ext": "",
    "jar": "clan://localhost/builtin/jars/j8.jar;md5;888a64f65aab54892980ded5c6da9a6e"
+  },
+  {
+   "key": "csp_Juzi",
+   "name": "橘汁短剧",
+   "type": 3,
+   "api": "csp_Juzi",
+   "searchable": 1,
+   "quickSearch": 1,
+   "filterable": 0,
+   "changeable": 0,
+   "playerType": 2
   }
  ],
  "lives": [

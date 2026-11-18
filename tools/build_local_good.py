@@ -309,6 +309,13 @@ def main():
            if k in cfg}
     out["spider"] = top_jar
     out["sites"] = local_sites
+    # 内置橘汁短剧：csp 类编译进 APK（app/.../catvod/spider/Juzi.java），无需外部 jar。
+    # 密钥/备用域名机制全部内置，重跑本脚本不会丢失该站点。
+    out["sites"].append({
+        "key": "csp_Juzi", "name": "橘汁短剧", "type": 3, "api": "csp_Juzi",
+        "searchable": 1, "quickSearch": 1, "filterable": 0, "changeable": 0,
+        "playerType": 2,
+    })
     for k in ("parses", "flags"):
         if k in cfg:
             out[k] = cfg[k]

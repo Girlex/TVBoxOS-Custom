@@ -33,6 +33,9 @@ OUT = ROOT / "tools" / "my_api"
 PROXY = "socks5h://127.0.0.1:10808"
 UA = "okhttp/3.15"
 TEST_WORD = "庆余年"
+# 假搜索校验词：绝不可能存在的乱码。正常 CMS 搜它应返回空；
+# 若某站点用它仍返回与真实词相同的一批结果 → 该站忽略 wd，是"假搜索"站，必须剔除。
+FAKE_PROBE_WORD = "zzzzqqqq不存在987654321"
 
 # ---------- 分类规则 ----------
 # 名称里出现这些 → 非影视 / 低质 / 工具站，剔除
@@ -87,19 +90,22 @@ def curl(url, timeout=10, proxy=None):
     return code, body, ttfb, total
 
 
+def build_search_url(api, word):
+    """构造 CMS 搜索 URL：保留原路径，强制 ac=videolist&wd=<词>。"""
+    sp = urlsplit(api)
+    q = dict(parse_qsl(sp.query, keep_blank_values=True))
+    q.pop("ac", None)
+    q["ac"] = "videolist"
+    q["wd"] = word
+    return urlunsplit((sp.scheme, sp.netloc, sp.path, urlencode(q), ""))
+
+
 def test_cms(site, word=TEST_WORD, timeout=10):
     """实测一个 CMS 站点的搜索能力。返回 dict。"""
     api = str(site.get("api", "")).strip()
     if not api.startswith("http"):
         return {"ok": False, "why": "api 非 URL"}
-    # 构造搜索 URL：保留原路径，强制 ac=videolist&wd=<词>
-    sp = urlsplit(api)
-    q = dict(parse_qsl(sp.query, keep_blank_values=True))
-    # 去掉 list 类参数，改搜索
-    q.pop("ac", None)
-    q["ac"] = "videolist"
-    q["wd"] = word
-    search_url = urlunsplit((sp.scheme, sp.netloc, sp.path, urlencode(q), ""))
+    search_url = build_search_url(api, word)
 
     # 直连和代理各测一次：电视端多为直连，直连可用才算真正好用
     direct = curl(search_url, timeout, None)
@@ -150,6 +156,31 @@ def test_cms(site, word=TEST_WORD, timeout=10):
     if with_play == 0 and total_cnt == 0:
         return {"ok": False, "why": "结果无播放源", "ttfb": ttfb, "via": via,
                 "direct_ok": direct_ok, "proxy_ok": proxy_ok}
+
+    # ---- 假搜索校验 ----
+    # 真 CMS 站用乱码词搜索应返回空；若仍返回与真实词高度重合的一批结果，
+    # 说明该站忽略 wd 参数、永远吐首页推荐流，会把无关内容混进搜索页，必须剔除。
+    titles_a = set(str(v.get("vod_name", "")).strip()
+                   for v in lst if isinstance(v, dict)) if isinstance(lst, list) else set()
+    fake_url = build_search_url(api, FAKE_PROBE_WORD)
+    fake_resp = curl(fake_url, timeout, None)
+    if not (fake_resp[0] in (200, 206) and fake_resp[1]):
+        fake_resp = curl(fake_url, timeout, PROXY)
+    if fake_resp[0] in (200, 206) and fake_resp[1]:
+        try:
+            fd = json.loads(fake_resp[1].decode("utf-8", "replace").lstrip("\ufeff").strip())
+        except Exception:
+            fd = None
+        if isinstance(fd, dict) and isinstance(fd.get("list"), list):
+            fl = fd["list"]
+            titles_b = set(str(v.get("vod_name", "")).strip()
+                           for v in fl if isinstance(v, dict))
+            overlap = len(titles_a & titles_b)
+            # 乱码词也返回 >=4 条，且与真实词重合 >=3 条 → 判定为假搜索
+            if len(fl) >= 4 and overlap >= 3:
+                return {"ok": False, "why": "假搜索(忽略wd)", "ttfb": ttfb, "via": via,
+                        "direct_ok": direct_ok, "proxy_ok": proxy_ok, "fake": True}
+
     # 打分：有播放源的结果越多越好，耗时越短越好；直连额外加 30 分（电视端多为直连）
     score = min(with_play, 20) * 4 + min(total_cnt, 500) / 10.0 - ttfb * 6
     if direct_ok:

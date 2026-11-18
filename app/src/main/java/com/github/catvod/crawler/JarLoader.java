@@ -293,6 +293,18 @@ public class JarLoader {
             cached = spiders.get(spKey);
             if (cached != null) return cached;
             try {
+                // 内置爬虫：无需外部 jar，直接实例化 APK 内实现
+                if (TextUtils.isEmpty(jar)) {
+                    Spider builtin = BuiltinSpiders.create(api);
+                    if (builtin != null) {
+                        builtin.siteKey = key;
+                        builtin.initApi(new SpiderApi());
+                        builtin.init(App.getInstance(), ext);
+                        spiders.put(spKey, builtin);
+                        Log.i(TAG, "echo-getSpider builtin key=" + spKey);
+                        return builtin;
+                    }
+                }
                 if (!MAIN_KEY.equals(jaKey)) parseJar(jaKey, jar);
                 DexClassLoader loader = loaders.get(jaKey);
                 if (loader == null) return new SpiderNull();
