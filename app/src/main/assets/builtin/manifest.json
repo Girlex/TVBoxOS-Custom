@@ -1,47 +1,59 @@
 {
-  "version": 4,
-  "generated": "2026-11-18 12:09:58",
+  "version": 5,
+  "generated": "2026-11-18 23:28:00",
   "default": "clan://localhost/builtin.json",
   "default_live": "clan://localhost/builtin/live/l1.txt",
   "name": "本地·好用精简源",
   "source": "tools/my_api/good.json",
-  "sites": 129,
+  "sites": 270,
   "tiers": [
     {
       "file": "configs/juzi.json",
       "name": "① 橘汁短剧",
       "sites": 1,
-      "desc": "内置橘汁短剧（TV版API gdsaj），默认线路"
+      "desc": "橘汁短剧独立线路（稳定版，勿动）"
     },
     {
-      "file": "configs/fused.json",
-      "name": "② 精选推荐(快)",
-      "sites": 43,
-      "desc": "全部实测CMS + 头部爬虫，搜得准又快"
+      "file": "configs/jianpian.json",
+      "name": "② 荐片短剧",
+      "sites": 1,
+      "desc": "荐片App API逆向内置线路（短剧+电影+电视剧，多线路m3u8）"
+    },
+    {
+      "file": "configs/xiaosa.json",
+      "name": "③ 潇洒聚合",
+      "sites": 115,
+      "desc": "潇洒聚合本地化（影视/4K网盘/短剧/动漫/体育/听书/教育，jar本地）"
+    },
+    {
+      "file": "configs/fty.json",
+      "name": "④ 饭太硬聚合",
+      "sites": 49,
+      "desc": "饭太硬聚合本地化（多线影视/网盘/直播/弹幕，jar+drpy本地）"
     },
     {
       "file": "configs/cms.json",
-      "name": "③ 纯CMS·极速",
-      "sites": 23,
-      "desc": "仅实测能搜到片的CMS，最快最干净"
+      "name": "⑤ CMS·极速精选",
+      "sites": 11,
+      "desc": "全部实测可播 CMS"
     },
     {
       "file": "configs/spider_a.json",
-      "name": "④ 爬虫一区",
-      "sites": 54,
-      "desc": "爬虫源前半（按测速排序），片源较全"
+      "name": "⑥ 爬虫·精选区",
+      "sites": 31,
+      "desc": "实测后端可达爬虫 1/3"
     },
     {
       "file": "configs/spider_b.json",
-      "name": "⑤ 爬虫二区",
-      "sites": 53,
-      "desc": "爬虫源后半，含玩偶/4K等大站"
+      "name": "⑦ 爬虫·资源区",
+      "sites": 31,
+      "desc": "实测后端可达爬虫 2/3"
     },
     {
-      "file": "configs/all.json",
-      "name": "⑥ 全部源",
-      "sites": 129,
-      "desc": "全部站点合集（站点多，搜索慢，兜底用）"
+      "file": "configs/spider_c.json",
+      "name": "⑧ 爬虫·备用区",
+      "sites": 31,
+      "desc": "实测后端可达爬虫 3/3"
     }
   ],
   "jars": 8,
@@ -73,12 +85,12 @@
     }
   ],
   "online": [],
-  "dropped": 3,
+  "dropped": 24,
   "failed_jars": {
     "https://raw.liucn.cc/box/fty.jar": "无效jar（442169 字节，dex不可读）",
     "https://raw.liucn.cc/box/libs/jar/P4.jar": "无效jar（678112 字节，dex不可读）",
     "https://raw.liucn.cc/box/libs/jar/Panda.jar": "无效jar（460715 字节，dex不可读）",
     "https://raw.liucn.cc/box/libs/jar/XYQH.jar": "无效jar（128166 字节，dex不可读）"
   },
-  "cleaned": "2026-11-18 12:55:27"
+  "cleaned": "2026-11-18 14:55:46"
 }

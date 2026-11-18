@@ -162,10 +162,8 @@ public final class BuiltinSources {
         ArrayList<String> lines = Hawk.get(HawkConfig.API_LINE_LIST, new ArrayList<String>());
         ArrayList<String> mergedLines = lines == null
                 ? new ArrayList<String>() : purgeLegacyOnlineLines(lines);
-        addLine(mergedLines, SOURCE_TAG + "（全部线路）", DEFAULT_API);
-        for (Source s : m.sources) {
-            addLine(mergedLines, "本地·" + s.name, s.local);
-        }
+        // 线路完全由 collection.json（每接口独立一线）在 loadConfig 时刷新，
+        // 不再注入「内置源（全部线路）」聚合行，避免线路挤在一起。
         Hawk.put(HawkConfig.API_LINE_LIST, mergedLines);
 
         String source = Hawk.get(HawkConfig.API_LINE_SOURCE, "");

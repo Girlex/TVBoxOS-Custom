@@ -17,6 +17,12 @@ public class BuiltinSpiders {
             } catch (Throwable ignored) {
             }
         }
+        if ("Jianpian".equalsIgnoreCase(name)) {
+            try {
+                return new com.github.catvod.spider.Jianpian();
+            } catch (Throwable ignored) {
+            }
+        }
         return null;
     }
 }

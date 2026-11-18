@@ -1,6 +1,5 @@
 {
  "wallpaper": "http://127.0.0.1:9978/proxy?do=wallpaper",
- "logo": "https://modelscope-resouces.oss-cn-zhangjiakou.aliyuncs.com/avatar%2Ff5309172-1af6-4c4f-a1c5-a4773a1cc718.gif",
  "spider": "clan://localhost/builtin/jars/j6.jar;md5;91eb942e44d1154447df4f91ed714488",
  "sites": [
   {
@@ -36,16 +35,6 @@
     "港台动漫",
     "海外动漫"
    ]
-  },
-  {
-   "key": "ffzy",
-   "name": "非凡影视",
-   "type": 1,
-   "api": "http://ffzy5.tv/api.php/provide/vod/?ac=list",
-   "searchable": 1,
-   "quickSearch": 1,
-   "filterable": 1,
-   "jar": "clan://localhost/builtin/jars/j5.jar;md5;f46f90ffcdb2bd26d27f0336c7fe34db"
   },
   {
    "key": "创享",
@@ -141,21 +130,6 @@
    "jar": "clan://localhost/builtin/jars/j2.jar;md5;5400486b7884dd01de5a306e34724c3c"
   },
   {
-   "key": "豪华采集",
-   "name": "豪华｜采集",
-   "type": 1,
-   "api": "https://hhzyapi.com/api.php/provide/vod/",
-   "quickSearch": 1,
-   "searchable": 1,
-   "changeable": 1,
-   "categories": [
-    "国产动漫",
-    "日韩动漫",
-    "国产剧"
-   ],
-   "jar": "clan://localhost/builtin/jars/j6.jar;md5;91eb942e44d1154447df4f91ed714488"
-  },
-  {
    "key": "csp_xml_光速",
    "name": "❤光速资源",
    "type": 1,
@@ -196,51 +170,6 @@
    "jar": "clan://localhost/builtin/jars/j4.jar;md5;6fb0aaec35994b1978b5f33646b344dd"
   },
   {
-   "key": "csp_xml_红牛",
-   "name": "❤红牛资源",
-   "type": 1,
-   "api": "https://www.hongniuzy2.com/api.php/provide/vod/",
-   "searchable": 1,
-   "quickSearch": 1,
-   "filterable": 1,
-   "playerType": 2,
-   "categories": [
-    "动作片",
-    "喜剧片",
-    "科幻片",
-    "恐怖片",
-    "爱情片",
-    "剧情片",
-    "战争片",
-    "纪录片",
-    "动漫电影",
-    "国产剧",
-    "欧美剧",
-    "犯罪片",
-    "港澳剧",
-    "韩剧",
-    "泰剧",
-    "台湾剧",
-    "日剧",
-    "海外剧",
-    "其他片",
-    "悬疑片",
-    "奇幻片",
-    "动画片",
-    "体育赛事",
-    "国产动漫",
-    "日本动漫",
-    "欧美动漫",
-    "港台动漫",
-    "海外动漫",
-    "大陆综艺",
-    "港台综艺",
-    "日韩综艺",
-    "欧美综艺"
-   ],
-   "jar": "clan://localhost/builtin/jars/j4.jar;md5;6fb0aaec35994b1978b5f33646b344dd"
-  },
-  {
    "key": "红牛资源",
    "name": "红牛资源(切)",
    "type": 1,
@@ -249,120 +178,10 @@
    "quickSearch": 1
   },
   {
-   "key": "site_mwekdvp9jrvf5",
-   "name": "豪华资源",
-   "type": 1,
-   "api": "https://hhzyapi.com/api.php/provide/vod",
-   "searchable": 1,
-   "quickSearch": 1,
-   "filterable": 1,
-   "jar": "clan://localhost/builtin/jars/j5.jar;md5;f46f90ffcdb2bd26d27f0336c7fe34db"
-  },
-  {
    "key": "yinghua",
    "name": "樱花资源",
    "type": 1,
    "api": "https://api.ukuapi88.com/api.php/provide/vod/?ac=list",
-   "searchable": 1,
-   "quickSearch": 1,
-   "filterable": 1,
-   "jar": "clan://localhost/builtin/jars/j5.jar;md5;f46f90ffcdb2bd26d27f0336c7fe34db"
-  },
-  {
-   "key": "淘片资源",
-   "name": "❤淘片资源",
-   "type": 1,
-   "api": "https://taopianapi.com/cjapi/mc/vod/json.html",
-   "searchable": 1,
-   "quickSearch": 1,
-   "jar": "clan://localhost/builtin/jars/j4.jar;md5;6fb0aaec35994b1978b5f33646b344dd"
-  },
-  {
-   "key": "site_mwek92qu36q2c",
-   "name": "百度资源",
-   "type": 1,
-   "api": "https://api.apibdzy.com/api.php/provide/vod/?ac=list",
-   "searchable": 1,
-   "quickSearch": 1,
-   "filterable": 1,
-   "jar": "clan://localhost/builtin/jars/j5.jar;md5;f46f90ffcdb2bd26d27f0336c7fe34db"
-  },
-  {
-   "key": "百度",
-   "name": "百度",
-   "type": 1,
-   "api": "https://api.apibdzy.com/api.php/provide/vod?ac=list",
-   "searchable": 1,
-   "filterable": 0,
-   "categories": [
-    "国产动漫",
-    "日韩动漫",
-    "大陆剧",
-    "欧美剧",
-    "韩剧",
-    "日剧",
-    "动作片",
-    "喜剧片",
-    "爱情片",
-    "科幻片",
-    "恐怖片",
-    "剧情片",
-    "战争片"
-   ],
-   "header": {
-    "User-Agent": "Mozilla/5.0"
-   }
-  },
-  {
-   "key": "csp_xml_百度",
-   "name": "❤百度",
-   "type": 1,
-   "api": "https://api.apibdzy.com/api.php/provide/vod/?ac=list",
-   "searchable": 1,
-   "quickSearch": 1,
-   "filterable": 1,
-   "playerType": 2,
-   "categories": [
-    "动作片",
-    "喜剧片",
-    "科幻片",
-    "恐怖片",
-    "爱情片",
-    "剧情片",
-    "战争片",
-    "纪录片",
-    "动画电影",
-    "大陆剧",
-    "欧美剧",
-    "犯罪片",
-    "港澳剧",
-    "韩剧",
-    "泰剧",
-    "台湾剧",
-    "日剧",
-    "海外剧",
-    "其他片",
-    "悬疑片",
-    "奇幻片",
-    "动画片",
-    "体育赛事",
-    "国产动漫",
-    "日韩动漫",
-    "欧美动漫",
-    "港台动漫",
-    "海外动漫",
-    "大陆综艺",
-    "港台综艺",
-    "日韩综艺",
-    "欧美综艺"
-   ],
-   "jar": "clan://localhost/builtin/jars/j4.jar;md5;6fb0aaec35994b1978b5f33646b344dd"
-  },
-  {
-   "key": "zy360",
-   "name": "360资源",
-   "type": 1,
-   "api": "https://360zy.com/api.php/provide/vod/?ac=list",
    "searchable": 1,
    "quickSearch": 1,
    "filterable": 1,
@@ -376,40 +195,6 @@
    "searchable": 1,
    "changeable": 1,
    "jar": "clan://localhost/builtin/jars/j2.jar;md5;5400486b7884dd01de5a306e34724c3c"
-  },
-  {
-   "key": "iQIYI采集网",
-   "name": "iQIYI｜采集",
-   "type": 1,
-   "api": "https://www.iqiyizyapi.com/api.php/provide/vod/?ac=list",
-   "searchable": 1,
-   "quickSearch": 1,
-   "jar": "clan://localhost/builtin/jars/j6.jar;md5;91eb942e44d1154447df4f91ed714488"
-  },
-  {
-   "key": "360采集",
-   "name": "360｜采集",
-   "type": 1,
-   "api": "https://360zy.com/api.php/provide/vod/",
-   "searchable": 1,
-   "changeable": 1,
-   "categories": [
-    "国产动漫",
-    "日韩动漫",
-    "国产剧"
-   ],
-   "jar": "clan://localhost/builtin/jars/j6.jar;md5;91eb942e44d1154447df4f91ed714488"
-  },
-  {
-   "key": "csp_Juzi",
-   "name": "橘汁短剧",
-   "type": 3,
-   "api": "csp_Juzi",
-   "searchable": 1,
-   "quickSearch": 1,
-   "filterable": 0,
-   "changeable": 0,
-   "playerType": 2
   }
  ]
 }

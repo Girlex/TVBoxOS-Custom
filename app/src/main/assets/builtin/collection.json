@@ -5,24 +5,32 @@
       "url": "clan://localhost/builtin/configs/juzi.json"
     },
     {
-      "name": "② 精选推荐",
-      "url": "clan://localhost/builtin/configs/fused.json"
+      "name": "② 荐片短剧",
+      "url": "clan://localhost/builtin/configs/jianpian.json"
     },
     {
-      "name": "③ 纯CMS极速",
+      "name": "③ 潇洒聚合",
+      "url": "clan://localhost/builtin/configs/xiaosa.json"
+    },
+    {
+      "name": "④ 饭太硬聚合",
+      "url": "clan://localhost/builtin/configs/fty.json"
+    },
+    {
+      "name": "⑤ CMS·极速精选",
       "url": "clan://localhost/builtin/configs/cms.json"
     },
     {
-      "name": "④ 爬虫一区",
+      "name": "⑥ 爬虫·精选区",
       "url": "clan://localhost/builtin/configs/spider_a.json"
     },
     {
-      "name": "⑤ 爬虫二区",
+      "name": "⑦ 爬虫·资源区",
       "url": "clan://localhost/builtin/configs/spider_b.json"
     },
     {
-      "name": "⑥ 全部源",
-      "url": "clan://localhost/builtin/configs/all.json"
+      "name": "⑧ 爬虫·备用区",
+      "url": "clan://localhost/builtin/configs/spider_c.json"
     }
   ]
 }
