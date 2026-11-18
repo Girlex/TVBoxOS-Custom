@@ -400,9 +400,12 @@ def main():
         for rel, _tname, tset, _tdesc in tiers:
             (base / rel).write_text(
                 json.dumps(make_cfg(tset), ensure_ascii=False, indent=1), encoding="utf-8")
+        # 独立橘汁线路：入口 collection 只挂这一条（用户要求）。
+        # 其余档位配置文件仍写入（保留数据、可随时恢复），但不出现在线路列表里。
+        (base / "configs" / "juzi.json").write_text(
+            json.dumps({"sites": [juzi]}, ensure_ascii=False, indent=1), encoding="utf-8")
         (base / "collection.json").write_text(json.dumps({
-            "urls": [{"name": tname, "url": "clan://localhost/builtin/" + rel}
-                     for rel, tname, _tset, _tdesc in tiers]
+            "urls": [{"name": "橘汁短剧", "url": "clan://localhost/builtin/configs/juzi.json"}]
         }, ensure_ascii=False, indent=2), encoding="utf-8")
         # jar：从 cached 复制成 jN.jar
         cache_by_md5 = {}
@@ -428,7 +431,9 @@ def main():
         "source": str(src.relative_to(ROOT)),
         "sites": len(local_sites),
         "tiers": [{"file": rel, "name": tname, "sites": len(tset), "desc": tdesc}
-                  for rel, tname, tset, tdesc in tiers],
+                  for rel, tname, tset, tdesc in tiers]
+                + [{"file": "configs/juzi.json", "name": "橘汁短剧", "sites": 1,
+                    "desc": "内置橘汁短剧（collection 入口唯一线路）"}],
         "jars": len(jar_by_md5),
         "scripts": len(all_used_scripts),
         "live": lives_meta,

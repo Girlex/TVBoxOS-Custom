@@ -30,6 +30,12 @@
       "name": "④ 全部源",
       "sites": 131,
       "desc": "131 站：本地化后的完整源"
+    },
+    {
+      "file": "configs/juzi.json",
+      "name": "橘汁短剧",
+      "sites": 1,
+      "desc": "内置橘汁短剧（collection 入口唯一线路）"
     }
   ],
   "jars": 8,
