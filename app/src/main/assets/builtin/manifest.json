@@ -1,13 +1,39 @@
 {
   "version": 4,
-  "generated": "2026-11-18 11:37:42",
+  "generated": "2026-11-18 12:09:58",
   "default": "clan://localhost/builtin.json",
   "default_live": "clan://localhost/builtin/live/l1.txt",
   "name": "本地·好用精简源",
   "source": "tools/my_api/good.json",
-  "sites": 150,
-  "jars": 10,
-  "scripts": 50,
+  "sites": 131,
+  "tiers": [
+    {
+      "file": "configs/fused.json",
+      "name": "① 精选·推荐(快)",
+      "sites": 45,
+      "desc": "45 站：全部实测CMS + 20头部爬虫，搜得准又快"
+    },
+    {
+      "file": "configs/cms.json",
+      "name": "② 纯CMS·极速",
+      "sites": 25,
+      "desc": "25 站：仅实测能搜到片的CMS，最快最干净"
+    },
+    {
+      "file": "configs/spider.json",
+      "name": "③ 爬虫·资源全",
+      "sites": 106,
+      "desc": "106 站：全部爬虫源，片源最全"
+    },
+    {
+      "file": "configs/all.json",
+      "name": "④ 全部源",
+      "sites": 131,
+      "desc": "131 站：本地化后的完整源"
+    }
+  ],
+  "jars": 8,
+  "scripts": 46,
   "live": [
     {
       "name": "awesome-zhuiju-free/READ",
@@ -30,19 +56,21 @@
       "origin": "https://ghfast.top/raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt",
       "local": "clan://localhost/builtin/live/l3.txt",
       "file": "live/l3.txt",
-      "size": 117866,
-      "md5": "82621a5351110e0b95f7d9d75b5db8aa"
+      "size": 114878,
+      "md5": "c3190b6f5e18559b4f1a9a890531b272"
     }
   ],
   "online": [],
   "dropped": {
-    "CMS去图片jar保留": 6,
-    "jar下载失败剔除": 12,
+    "CMS去图片jar保留": 5,
+    "jar下载失败剔除": 25,
     "图片jar剔除": 26,
     "py脚本站点剔除(java版不支持Python)": 25
   },
   "failed_jars": {
-    "https://raw.liucn.cc/box/fty.jar": "无效jar（259809 字节，dex不可读）",
-    "https://raw.liucn.cc/box/libs/jar/P4.jar": "无效jar（249114 字节，dex不可读）"
+    "https://raw.liucn.cc/box/fty.jar": "无效jar（442169 字节，dex不可读）",
+    "https://raw.liucn.cc/box/libs/jar/P4.jar": "无效jar（678112 字节，dex不可读）",
+    "https://raw.liucn.cc/box/libs/jar/Panda.jar": "无效jar（460715 字节，dex不可读）",
+    "https://raw.liucn.cc/box/libs/jar/XYQH.jar": "无效jar（128166 字节，dex不可读）"
   }
 }

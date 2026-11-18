@@ -304,21 +304,44 @@ def main():
         local_sites.append(site)
     print("\n站点处理：保留 %d / 剔除 %d（%s）" % (len(local_sites), sum(drop.values()), dict(drop)))
 
-    # 顶层配置：保留原元数据，spider 取本地 jar
-    out = {k: cfg[k] for k in ("wallpaper", "logo", "doh", "ads", "ijk", "proxy", "rules", "hosts")
-           if k in cfg}
-    out["spider"] = top_jar
-    out["sites"] = local_sites
     # 内置橘汁短剧：csp 类编译进 APK（app/.../catvod/spider/Juzi.java），无需外部 jar。
-    # 密钥/备用域名机制全部内置，重跑本脚本不会丢失该站点。
-    out["sites"].append({
+    # 密钥/备用域名机制全部内置，重跑本脚本不会丢失该站点。所有档位都会带上它。
+    juzi = {
         "key": "csp_Juzi", "name": "橘汁短剧", "type": 3, "api": "csp_Juzi",
         "searchable": 1, "quickSearch": 1, "filterable": 0, "changeable": 0,
         "playerType": 2,
-    })
-    for k in ("parses", "flags"):
-        if k in cfg:
-            out[k] = cfg[k]
+    }
+
+    # ---- 多档接口：不同站点子集，用户可在 TVBox 设置里切换，避免一次加载全部源 ----
+    cms_sites = [s for s in local_sites if str(s.get("type")) == "1"]
+    spider_sites = [s for s in local_sites if str(s.get("type")) == "3"]
+    other_sites = [s for s in local_sites if str(s.get("type")) not in ("1", "3")]
+    # 精选：全部实测 CMS + 前 20 个头部爬虫
+    lite_sites = cms_sites + spider_sites[:20]
+
+    # 顶层元数据（各档共享，spider 取本地 jar）
+    def make_cfg(sites_subset):
+        c = {k: cfg[k] for k in ("wallpaper", "logo", "doh", "ads", "ijk", "proxy", "rules", "hosts")
+             if k in cfg}
+        c["spider"] = top_jar
+        c["sites"] = list(sites_subset) + [juzi]
+        for k in ("parses", "flags"):
+            if k in cfg:
+                c[k] = cfg[k]
+        return c
+
+    # 档位定义：(文件名, 显示名, 站点子集, 说明)。第一档为推荐默认。
+    tiers = [
+        ("configs/fused.json", "① 精选·推荐(快)", lite_sites,
+         "%d 站：全部实测CMS + 20头部爬虫，搜得准又快" % len(lite_sites)),
+        ("configs/cms.json", "② 纯CMS·极速", cms_sites,
+         "%d 站：仅实测能搜到片的CMS，最快最干净" % len(cms_sites)),
+        ("configs/spider.json", "③ 爬虫·资源全", spider_sites,
+         "%d 站：全部爬虫源，片源最全" % len(spider_sites)),
+        ("configs/all.json", "④ 全部源", local_sites,
+         "%d 站：本地化后的完整源" % len(local_sites)),
+    ]
+    out = make_cfg(local_sites)  # 保留 out 指向全量，供 dry-run/统计沿用
 
     # 直播：下载到本地
     lives_meta = []
@@ -373,10 +396,13 @@ def main():
         for old in list(sd.iterdir()):
             if old.is_file() and old.name not in used:
                 old.unlink()
-        (base / "configs" / "fused.json").write_text(
-            json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
+        # 写多档配置
+        for rel, _tname, tset, _tdesc in tiers:
+            (base / rel).write_text(
+                json.dumps(make_cfg(tset), ensure_ascii=False, indent=1), encoding="utf-8")
         (base / "collection.json").write_text(json.dumps({
-            "urls": [{"name": "本地·好用精简源", "url": "clan://localhost/builtin/configs/fused.json"}]
+            "urls": [{"name": tname, "url": "clan://localhost/builtin/" + rel}
+                     for rel, tname, _tset, _tdesc in tiers]
         }, ensure_ascii=False, indent=2), encoding="utf-8")
         # jar：从 cached 复制成 jN.jar
         cache_by_md5 = {}
@@ -401,6 +427,8 @@ def main():
         "name": "本地·好用精简源",
         "source": str(src.relative_to(ROOT)),
         "sites": len(local_sites),
+        "tiers": [{"file": rel, "name": tname, "sites": len(tset), "desc": tdesc}
+                  for rel, tname, tset, tdesc in tiers],
         "jars": len(jar_by_md5),
         "scripts": len(all_used_scripts),
         "live": lives_meta,
