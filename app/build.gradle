@@ -39,7 +39,7 @@ android {
     compileSdkVersion 33
 
     defaultConfig {
-        applicationId 'com.github.tvbox.osc.jun'
+        applicationId 'com.huzige.tv'
         targetSdkVersion 28
         versionCode appVersionCode
         versionName appVersionName

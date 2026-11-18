@@ -491,12 +491,12 @@ public class PlayFragment extends BaseLazyFragment {
     }
 
     private String getCastTitle() {
-        if (mVodInfo == null) return "TVBox";
+        if (mVodInfo == null) return "虎子哥";
         try {
             VodInfo.VodSeries series = mVodInfo.seriesMap.get(mVodInfo.playFlag).get(mVodInfo.playIndex);
             return mVodInfo.name + " " + series.name;
         } catch (Exception e) {
-            return TextUtils.isEmpty(mVodInfo.name) ? "TVBox" : mVodInfo.name;
+            return TextUtils.isEmpty(mVodInfo.name) ? "虎子哥" : mVodInfo.name;
         }
     }
 
@@ -1462,7 +1462,7 @@ public class PlayFragment extends BaseLazyFragment {
         VodInfo.VodSeries currentSeries = getCurrentSeries(mVodInfo.playFlag, mVodInfo.playIndex);
         String episode = currentSeries == null || TextUtils.isEmpty(currentSeries.name) ? "" : currentSeries.name;
         MusicPlaybackService.update(getContext(), this,
-                TextUtils.isEmpty(mVodInfo.name) ? "TVBox" : mVodInfo.name,
+                TextUtils.isEmpty(mVodInfo.name) ? "虎子哥" : mVodInfo.name,
                 episode, mVodInfo.pic, mVideoView.getCurrentPosition(),
                 mVideoView.getDuration(), mVideoView.isPlaying());
     }

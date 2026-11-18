@@ -1,0 +1,80 @@
+# 橘汁 v3.0.8.0 APK 广告/统计 SDK 域名屏蔽清单（2026-11-18 静态审计提取）
+# 用法：加到路由器 hosts / AdGuard Home / Pi-hole；电视盒子无 root 改不了 /etc/hosts，建议在路由器层面生效
+# 注意：不要屏蔽 www.baidu.com(搜索功能) / msg.cmpassport.com、nisportal.10010.com(手机号一键登录会挂)
+
+# ===== 友盟统计(umeng) =====
+0.0.0.0 alogsus.umeng.com
+0.0.0.0 alogus.umeng.com
+0.0.0.0 aspect-upush.umeng.com
+0.0.0.0 plbslog.umeng.com
+0.0.0.0 pslog.umeng.com
+0.0.0.0 ucc.umeng.com
+0.0.0.0 ulogs.umengcloud.com
+0.0.0.0 ulogs.umeng.com
+0.0.0.0 utoken.umeng.com
+
+# ===== Bugly崩溃上报(腾讯) =====
+0.0.0.0 android.bugly.qq.com
+0.0.0.0 astat.bugly.qcloud.com
+0.0.0.0 astat.bugly.cros.wr.pvp.net
+
+# ===== 个推(getui/gepush) =====
+0.0.0.0 b-gtc.gepush.com
+0.0.0.0 b-qj.gepush.com
+0.0.0.0 c-gtc.gepush.com
+0.0.0.0 c-gtc.getui.net
+0.0.0.0 b-gtc.getui.net
+0.0.0.0 gtc.gepush.com
+0.0.0.0 gtc.getui.net
+0.0.0.0 d-gt.getui.com
+0.0.0.0 c-hzgt2.getui.com
+0.0.0.0 sdk-open-phone.getui.com
+
+# ===== 穿山甲/巨量(pangle-csj) =====
+0.0.0.0 api-access.pangolin-sdk-toutiao.com
+0.0.0.0 gromore.pangolin-sdk-toutiao.com
+0.0.0.0 www.pangle.cn
+0.0.0.0 www.csjplatform.com
+0.0.0.0 sf3-fe-tos.pglstatp-toutiao.com
+0.0.0.0 phoniex.toutiao.com
+0.0.0.0 applog.snssdk.com
+0.0.0.0 log.snssdk.com
+0.0.0.0 rtapplog.snssdk.com
+0.0.0.0 rtlog.snssdk.com
+0.0.0.0 i.snssdk.com
+0.0.0.0 success.ctobsnssdk.com
+0.0.0.0 tobapplog.ctobsnssdk.com
+0.0.0.0 toblog.ctobsnssdk.com
+0.0.0.0 cdn-tos-cn.bytedance.net
+0.0.0.0 scc.bytedance.com
+0.0.0.0 apps.oceanengine.com
+
+# ===== 快手广告(ksad) =====
+0.0.0.0 open.e.kuaishou.com
+
+# ===== 广点通/优量汇(gdt) =====
+0.0.0.0 h.trace.qq.com
+
+# ===== Sigmob =====
+0.0.0.0 adservice.sigmob.cn
+0.0.0.0 adxtool.sigmob.cn
+0.0.0.0 dc.sigmob.cn
+0.0.0.0 www.sigmob.com
+0.0.0.0 nova-api.smartroi.cn
+
+# ===== 其他广告/上报 =====
+0.0.0.0 apps.bytesfield-b.com
+0.0.0.0 apps.bytesfield.com
+0.0.0.0 sdk.1rtb.net
+0.0.0.0 sdk-demo.1rtb.net
+0.0.0.0 sdk-report.1rtb.com
+0.0.0.0 apmplus.volces.com
+0.0.0.0 c.etoolads.cn
+0.0.0.0 sf1-amtos-cdn.bytesmanager.com
+
+# ===== 百度联盟广告统计 =====
+0.0.0.0 dxp.baidu.com
+0.0.0.0 union.baidu.com
+0.0.0.0 hmma.baidu.com
+0.0.0.0 datax.baidu.com
+0.0.0.0 openrcv.baidu.com

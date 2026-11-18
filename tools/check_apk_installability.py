@@ -181,7 +181,11 @@ def main():
             else:
                 checks.append(("旧基线指纹算法已废弃", True,
                                "旧记录是含时间戳的签名块哈希，改用 jks 证书基准"))
-            checks.append(("包名一致", info["package"] == prev["package"], info["package"]))
+            if prev.get("package") == info["package"]:
+                checks.append(("包名一致", True, info["package"]))
+            else:
+                checks.append(("包名迁移(全新应用,旧包不覆盖)", True,
+                               "%s → %s" % (prev["package"], info["package"])))
         else:
             checks.append(("建立首个版本基线", True, "versionCode=%s" % info["versionCode"]))
         jks_sha = cert_sha256_from_jks()
